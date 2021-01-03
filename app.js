@@ -10,6 +10,7 @@ const logger = require("morgan");
 const { sequelize } = require("./db/models");
 const indexRouter = require("./routes/index");
 const usersRouter = require("./routes/users");
+const { restoreUser } = require("./auth");
 const store = new SequelizeStore({ db: sequelize });
 
 const app = express();
@@ -33,6 +34,7 @@ app.use(
 
 store.sync();
 
+app.use(restoreUser);
 app.use("/", indexRouter);
 app.use("/users", usersRouter);
 
