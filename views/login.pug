@@ -1,10 +1,16 @@
 extends layout
 
+append head
+    link(rel='preconnect' href='https://fonts.gstatic.com')
+    link(href="https://fonts.googleapis.com/css2?family=Ubuntu&display=swap" rel="stylesheet")
+    link(rel="icon" href="bp-logo.jpg")
+    link(rel='stylesheet' href='/stylesheets/logged-out.css')
+
 block content
     .container
         .registration-box
             .nice-image
-                img(src="/public/bp-logo.jpg" id="logo" alt="logo")
+                img(src="./bp-logo.jpg" id="logo" alt="logo")
                 div
                     h1
                         span.blue b
@@ -13,10 +19,9 @@ block content
                         | rint
                     h2 Plan Your Success
             .registration-form
-                p.login-text
-                    strong Sign Up
+                p.login-text Sign Up
                     |  / 
-                    span.not-active-selection Login
+                    span.inactive-selection Login
                 form.form(action="users/signup" method="POST")
                     .form-item
                         label(for="name") Username:
@@ -30,4 +35,4 @@ block content
                     .form-item
                         label(for="password") Confirm Password:
                         input(type="password" name="password")
-                    button(type="submit") Create Account
+                    button#create-account(type="submit") Create Account
