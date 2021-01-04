@@ -1,3 +1,120 @@
-h1 {
-    color: #555555;
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+.container {
+  display: flex;
+  height: 100vh;
+}
+
+.user-sidebar {
+  width: 20%;
+  display: flex;
+  flex-direction: column;
+}
+
+.user-corner {
+  flex-grow: 1;
+  border-bottom: 1px solid black;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.nav-area {
+  flex-grow: 4;
+}
+
+.projects-area {
+  width: 40%;
+  border-left: 1px solid black;
+  border-right: 1px solid black;
+}
+
+.search {
+  display: flex;
+}
+
+#searchbar {
+  width: calc(100% - 20px);
+  height: 30px;
+  border: 0;
+  border-bottom: 1px solid black;
+  font-size: 18px;
+  line-height: 18px;
+  padding-left: 10px;
+}
+
+#searchbar:focus {
+  outline: none;
+}
+
+#search-btn {
+  width: 20px;
+  height: 30px;
+  border: 0;
+  border-bottom: 1px solid black;
+  background-color: white;
+  float: right;
+}
+
+#search-btn:focus,
+#search-btn:active {
+  outline: none;
+}
+
+#search-btn:hover {
+  cursor: pointer;
+}
+
+.tasks-area {
+  width: 40%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+input[type="radio"] {
+  display: inline;
+}
+
+/*============================================*/
+
+.accordion-area {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.accordion:first-child {
+  margin-top: 20px;
+}
+
+.accordion {
+  background-color: #eee;
+  color: #444;
+  cursor: pointer;
+  padding: 18px;
+  margin-bottom: 20px;
+  width: 95%;
+  text-align: left;
+  border: none;
+  outline: none;
+  transition: 0.4s;
+}
+
+/* Add a background color to the button if it is clicked on (add the .active class with JS), and when you move the mouse over it (hover) */
+.active,
+.accordion:hover {
+  background-color: #ccc;
+}
+
+/* Style the accordion panel. Note: hidden by default */
+.panel {
+  display: none;
+  width: 95%;
+  overflow: hidden;
 }
