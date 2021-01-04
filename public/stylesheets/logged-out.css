@@ -1,0 +1,95 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  background-image: url("../background.jpg");
+  background-size: inherit;
+}
+
+.container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+}
+
+.registration-box {
+  background-color: rgb(255, 255, 246);
+  box-shadow: 3px 3px 3px #000;
+  width: 900px;
+  height: 600px;
+  border-radius: 10px;
+  display: flex;
+}
+
+.nice-image {
+  background-image: linear-gradient(rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.3)), url("../splash-2.jpg");
+  height: 100%;
+  width: 33%;
+  border-top-left-radius: 10px;
+  border-bottom-left-radius: 10px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+#logo {
+  width: max-content;
+  border-radius: 50%;
+  margin-bottom: 40px;
+}
+
+.nice-image h1 {
+  text-align: center;
+  font-family: "Ubuntu", sans-serif;
+  color: white;
+  font-size: 40px;
+}
+
+.blue {
+  color: #4a6de5;
+  font-size: 40px;
+}
+
+.nice-image h2 {
+  color: white;
+  font-family: "Ubuntu", sans-serif;
+  text-align: center;
+}
+
+.login-text {
+  font-size: 30px;
+  margin-bottom: 50px;
+  font-family: "Ubuntu", sans-serif;
+}
+
+.registration-form {
+  width: 66%;
+  justify-content: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  height: 100%;
+}
+
+.form {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.form-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  font-family: "Ubuntu", sans-serif;
+  margin-bottom: 10px;
+}
+
+.not-active-selection:hover {
+  border-bottom: 3px solid #4a6de5;
+}

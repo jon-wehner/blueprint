@@ -1,0 +1,33 @@
+extends layout
+
+block content
+    .container
+        .registration-box
+            .nice-image
+                img(src="/public/bp-logo.jpg" id="logo" alt="logo")
+                div
+                    h1
+                        span.blue b
+                        | lue
+                        span.blue p
+                        | rint
+                    h2 Plan Your Success
+            .registration-form
+                p.login-text
+                    strong Sign Up
+                    |  / 
+                    span.not-active-selection Login
+                form.form(action="users/signup" method="POST")
+                    .form-item
+                        label(for="name") Username:
+                        input(type="text" name="name")
+                    .form-item
+                        label(for="email") Email:
+                        input(type="email" name="email")
+                    .form-item
+                        label(for="password") Password:
+                        input(type="password" name="password")
+                    .form-item
+                        label(for="password") Confirm Password:
+                        input(type="password" name="password")
+                    button(type="submit") Create Account
