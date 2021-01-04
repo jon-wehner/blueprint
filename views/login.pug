@@ -1,0 +1,38 @@
+extends layout
+
+append head
+    link(rel='preconnect' href='https://fonts.gstatic.com')
+    link(href="https://fonts.googleapis.com/css2?family=Ubuntu&display=swap" rel="stylesheet")
+    link(rel="icon" href="bp-logo.jpg")
+    link(rel='stylesheet' href='/stylesheets/logged-out.css')
+
+block content
+    .container
+        .registration-box
+            .nice-image
+                img(src="./bp-logo.jpg" id="logo" alt="logo")
+                div
+                    h1
+                        span.blue b
+                        | lue
+                        span.blue p
+                        | rint
+                    h2 Plan Your Success
+            .registration-form
+                p.login-text Sign Up
+                    |  / 
+                    span.inactive-selection Login
+                form.form(action="users/signup" method="POST")
+                    .form-item
+                        label(for="name") Username:
+                        input(type="text" name="name")
+                    .form-item
+                        label(for="email") Email:
+                        input(type="email" name="email")
+                    .form-item
+                        label(for="password") Password:
+                        input(type="password" name="password")
+                    .form-item
+                        label(for="password") Confirm Password:
+                        input(type="password" name="password")
+                    button#create-account(type="submit") Create Account
