@@ -1,5 +1,5 @@
 const express = require("express");
-const bcrypt = require("bcrypt");
+const bcrypt = require("bcryptjs");
 const router = express.Router();
 
 const { loginUser, logoutUser } = require("../auth");
@@ -55,12 +55,19 @@ router.post(
 
     if (validatorErrors.isEmpty()) {
       savePassword(user, password);
+
+      const defaultGroup = await db.Group.create({ name: user.username });
+      const queriedUser = await db.User.findOne({ where: { email } });
+      await db.UserGroup.create({
+        userId: queriedUser.id,
+        groupId: defaultGroup.id,
+      });
+
       loginUser(req, res, user);
       req.session.save((err) => {
-          if (err) next(err);
-          res.redirect("/");
-        });
-      
+        if (err) next(err);
+        res.redirect("/");
+      });
     } else {
       const errors = validatorErrors.array().map((error) => error.msg);
       res.render("signup", {
@@ -85,9 +92,9 @@ router.get(
 );
 
 router.post(
+  "/login",
   csrfProtection,
   loginValidators,
-  "/login",
   asyncHandler(async (req, res, next) => {
     let errors = [];
     const { email, password } = req.body;
@@ -128,9 +135,9 @@ router.post(
 
     loginUser(req, res, user);
     req.session.save((err) => {
-          if (err) next(err);
-          res.redirect("/");
-        });
+      if (err) next(err);
+      res.redirect("/");
+    });
   })
 );
 
@@ -139,9 +146,9 @@ router.post(
   asyncHandler(async (req, res, next) => {
     logoutUser(req, res);
     req.session.save((err) => {
-          if (err) next(err);
-          res.redirect("/");
-        });
+      if (err) next(err);
+      res.redirect("/");
+    });
   })
 );
 
