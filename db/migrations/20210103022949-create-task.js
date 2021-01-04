@@ -17,7 +17,7 @@ module.exports = {
         allowNull: false,
       },
       importance: {
-        type: Sequelize.STRING,
+        type: Sequelize.STRING(100),
         allowNull: false,
       },
       status: {
