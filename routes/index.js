@@ -1,9 +1,13 @@
-var express = require("express");
-var router = express.Router();
+const express = require("express");
+const { asyncHandler } = require("./utils");
+const router = express.Router();
 
 /* GET home page. */
-router.get("/", function (req, res, next) {
-  res.render("index", { title: "a/A Express Skeleton Home" });
-});
+router.get(
+  "/",
+  asyncHandler((req, res, next) => {
+    res.render("index", { title: "a/A Express Skeleton Home" });
+  })
+);
 
 module.exports = router;
