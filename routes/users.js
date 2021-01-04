@@ -56,7 +56,11 @@ router.post(
     if (validatorErrors.isEmpty()) {
       savePassword(user, password);
       loginUser(req, res, user);
-      res.redirect("/");
+      req.session.save((err) => {
+          if (err) next(err);
+          res.redirect("/");
+        });
+      
     } else {
       const errors = validatorErrors.array().map((error) => error.msg);
       res.render("signup", {
@@ -96,7 +100,10 @@ router.post(
 
       if (sucessfulLogin) {
         loginUser(req, res, user);
-        res.redirect("/");
+        req.session.save((err) => {
+          if (err) next(err);
+          res.redirect("/");
+        });
       }
 
       errors.push("Login failed for the provided information");
@@ -120,7 +127,10 @@ router.post(
     const user = await db.User.findOne({ where: { email } });
 
     loginUser(req, res, user);
-    res.redirect("/");
+    req.session.save((err) => {
+          if (err) next(err);
+          res.redirect("/");
+        });
   })
 );
 
@@ -128,7 +138,10 @@ router.post(
   "/logout",
   asyncHandler(async (req, res, next) => {
     logoutUser(req, res);
-    res.redirect("/");
+    req.session.save((err) => {
+          if (err) next(err);
+          res.redirect("/");
+        });
   })
 );
 
