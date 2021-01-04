@@ -50,14 +50,18 @@ router.post(
       email,
       password,
     });
-
+    console.log("before");
     const validatorErrors = validationResult(req);
+    console.log(validatorErrors);
 
     if (validatorErrors.isEmpty()) {
+      console.log("after success");
       savePassword(user, password);
 
       const defaultGroup = await db.Group.create({ name: user.username });
-      const queriedUser = await db.User.findOne({ where: { email } });
+      const queriedUser = await db.User.findOne({
+        where: { email: user.email },
+      });
       await db.UserGroup.create({
         userId: queriedUser.id,
         groupId: defaultGroup.id,
@@ -69,6 +73,7 @@ router.post(
         res.redirect("/");
       });
     } else {
+      console.log("after fail");
       const errors = validatorErrors.array().map((error) => error.msg);
       res.render("signup", {
         title: "Sign Up",

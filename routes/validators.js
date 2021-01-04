@@ -2,7 +2,7 @@ const { check, validationResult } = require("express-validator");
 const { db } = require("./utils.js");
 
 const signupValidators = [
-  check("userName")
+  check("username")
     .exists({ checkFalsy: true })
     .withMessage("Please provide a value for User Name")
     .isLength({ max: 150 })
@@ -30,8 +30,10 @@ const signupValidators = [
     .withMessage("Password must not be more than 50 characters long")
     .isLength({ min: 8 })
     .withMessage("Password must not be less than 8 characters long")
-    .matches(/^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#$%^&*])/, 'g')
-    .withMessage('Password must contain at least 1 lowercase letter, uppercase letter, number, and special character (i.e. "!@#$%^&*")'),
+    .matches(/^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#$%^&*])/, "g")
+    .withMessage(
+      'Password must contain at least 1 lowercase letter, uppercase letter, number, and special character (i.e. "!@#$%^&*")'
+    ),
   check("confirmPassword")
     .exists({ checkFalsy: true })
     .withMessage("Please provide a value for Confirm Password")

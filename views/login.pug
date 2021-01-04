@@ -20,13 +20,13 @@ block content
                     h2 Plan Your Success
             .registration-form
                 p.login-text Sign Up
-                    |  / 
+                    |  /
                     span.inactive-selection Login
-                form.form(action="users/signup" method="POST")
-                    input(type="hidden" name="_csurf" value= token)
+                form.form(action="/users/signup" method="POST")
+                    input(type="hidden" name="_csrf" value= token)
                     .form-item
-                        label(for="name") Username:
-                        input(type="text" name="name")
+                        label(for="username") Username:
+                        input(type="text" name="username")
                     .form-item
                         label(for="email") Email:
                         input(type="email" name="email")
@@ -34,6 +34,6 @@ block content
                         label(for="password") Password:
                         input(type="password" name="password")
                     .form-item
-                        label(for="password") Confirm Password:
-                        input(type="password" name="password")
+                        label(for="confirmPassword") Confirm Password:
+                        input(type="password" name="confirmPassword")
                     button#create-account(type="submit") Create Account
