@@ -6,8 +6,4 @@ router.get("/", function (req, res, next) {
   res.render("index", { title: "a/A Express Skeleton Home" });
 });
 
-router.get("/rob", (req, res, next) => {
-  res.render("login");
-});
-
 module.exports = router;

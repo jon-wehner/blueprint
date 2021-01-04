@@ -23,6 +23,7 @@ block content
                     |  / 
                     span.inactive-selection Login
                 form.form(action="users/signup" method="POST")
+                    input(type="hidden" name="_csurf" value= token)
                     .form-item
                         label(for="name") Username:
                         input(type="text" name="name")
