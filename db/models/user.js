@@ -15,7 +15,6 @@ module.exports = (sequelize, DataTypes) => {
       through: models.UserGroup,
       otherKey: "groupId",
     };
-
     User.belongsToMany(models.Group, userGroupMap);
   };
   return User;
