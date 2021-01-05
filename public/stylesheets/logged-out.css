@@ -40,7 +40,7 @@ body {
 #logo {
   width: max-content;
   border-radius: 50%;
-  margin-bottom: 40px;
+  margin-bottom: 50px;
 }
 
 .nice-image h1 {
@@ -60,12 +60,13 @@ body {
   color: white;
   font-family: "Ubuntu", sans-serif;
   text-align: center;
+  font-size: 20px;
 }
 
-.login-text {
-  font-size: 30px;
-  margin-bottom: 50px;
+.active-selection {
+  font-size: 25px;
   font-family: "Ubuntu", sans-serif;
+  transition: 0.2s;
 }
 
 .registration-form {
@@ -76,6 +77,10 @@ body {
   align-items: center;
   height: 100%;
   color: #4a6de5;
+}
+
+.select-login-or-signup {
+  margin-bottom: 40px;
 }
 
 .form {
@@ -95,13 +100,16 @@ body {
 
 .inactive-selection {
   transition: 0.2s;
+  line-height: 25px;
+  height: 25px;
+  cursor: pointer;
 }
 
 .inactive-selection:hover {
   border-bottom: 3px solid #4a6de5;
 }
 
-#create-account {
+.submit-btn {
   border: 2px solid #4a6de5;
   background-color: transparent;
   padding: 10px;
@@ -111,7 +119,7 @@ body {
   width: fit-content;
 }
 
-#create-account:hover {
+.submit-btn:hover {
   background-color: #4a6de5;
   color: rgb(255, 255, 246);
 }

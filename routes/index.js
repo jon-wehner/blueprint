@@ -5,9 +5,13 @@ const router = express.Router();
 /* GET home page. */
 router.get(
   "/",
-  asyncHandler((req, res, next) => {
-    res.render("index", { title: "a/A Express Skeleton Home" });
-  })
+  (req, res) => {
+    if(res.locals.authenticated){
+      res.render("index", { title: "a/A Express Skeleton Home" });
+    } else {
+      res.redirect("users/login")
+    }
+  }
 );
 
 module.exports = router;
