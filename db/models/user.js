@@ -12,7 +12,7 @@ module.exports = (sequelize, DataTypes) => {
   User.associate = function (models) {
     const userGroupMap = {
       foreignKey: "userId",
-      through: models.UserGroup,
+      through: "UserGroup",
       otherKey: "groupId",
     };
     User.belongsToMany(models.Group, userGroupMap);
