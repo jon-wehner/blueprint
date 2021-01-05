@@ -1,5 +1,5 @@
 extends layout
-
+include utils.pug
 append head
   //- add page specific styles by appending to the head
   link(rel="stylesheet" href="./stylesheets/index.css")
@@ -16,38 +16,26 @@ block content
       .nav-area
         //- In the future we will loop through projects from db
         ul
-          each project in projects
-            li= project.name
-        ul
           each group in groups
             li= group.name
+            +actionButton('/home/group#{group.id}', "edit", "edit-button")
+        ul
+          each group in groups
+            each project in group.Projects
+              li= project.name
     .projects-area
       .search
         input(id="searchbar" type="text" placeholder="Search")
         button(type="submit" id="search-btn")
           i(class="fa fa-search")
       .accordion-area
-        each project in projects
-            button.accordion= project.name
-            .panel
-              ul
-                //- Eventually we will loop through through tasks here
-                each task in projects.Tasks
-                  li= task.name
-        //- button.accordion Around the House
-        //- .panel
-        //-   ul
-        //-     //- Eventually we will loop through through tasks here
-        //-     li.project-task-list-item Fix the roof
-        //-     li.project-task-list-item Change garage lightbulb
-        //-     li.project-task-list-item Clean the basement
-        //- button.accordion Work Project
-        //- .panel
-        //-   ul
-        //-     //- Eventually we will loop through through tasks here
-        //-     li.project-task-list-item Go golfing with boss
-        //-     li.project-task-list-item Let Boss win
-        //-     li.project-task-list-item Make fun of Steve in Accounting
+        each group in groups
+          each project in group.Projects
+              button.accordion= project.name
+              .panel
+                ul
+                  each task in project.Tasks
+                    li.project-task-list-item= task.name
     .tasks-area
       p Select a task to edit.
       
