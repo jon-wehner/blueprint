@@ -6,6 +6,7 @@ const router = express.Router();
 
 router.get(
   "/",
+  csrfProtection,
   asyncHandler(async (req, res, next) => {
     const userId = await parseInt(req.session.auth.userId);
     const userGroupsQuery = await db.User.findByPk(userId, {
@@ -43,7 +44,7 @@ router.get(
 
     const groups = userGroupsQuery.Groups;
 
-    res.render("index", { groups });
+    res.render("index", { groups, token: req.csrfToken() });
   })
 );
 
@@ -64,9 +65,12 @@ router.post(
   "/groups/:id(\\d+)/name",
   csrfProtection,
   asyncHandler(async (req, res) => {
-    const groupId = req.params.id;
+    const groupId = await parseInt(req.params.id);
     const { name } = req.body;
-    await db.Group.update(name, { where: { id: groupId } });
+    console.log("name   ", name, groupId)
+    const groupToUpdate = await db.Group.findByPk(groupId);
+    groupToUpdate.name = name
+    await groupToUpdate.save();
 
     res.redirect("/home");
   })

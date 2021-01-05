@@ -18,9 +18,9 @@ block content
         ul
           each group in groups
             li= group.name
-            //- form(action="/home/groups/#{group.id}" method="post")
-            //-   input(type="hidden" name="_csrf" value=token)
-            button(type="button", value=group.name, class="edit-button", data-id=group.id) Edit
+            form(action="/home/groups/#{group.id}" method="post")
+              input(type="hidden" name="_csrf" value=token)
+            button(type="button", value=group.name, class="edit-button", id=group.id data-token=token) Edit
         ul
           each group in groups
             each project in group.Projects
