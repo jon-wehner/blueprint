@@ -12,27 +12,27 @@ router.get(
       include: [
         {
           model: db.Group,
-          attributes: ["name"],
+          attributes: ["id", "name"],
           through: { attributes: [] },
           include: [
             {
               model: db.Project,
-              attributes: ["name", "description", "deadline"],
+              attributes: ["id", "name", "description", "deadline"],
               include: [
                 {
                   model: db.Task,
-                  attributes: ["name", "deadline", "importance", "isComplete"],
+                  attributes: ["id", "name", "deadline", "importance", "isComplete"],
                   include: [
                     {
                       model: db.Tag,
-                      attributes: ["name"],
+                      attributes: ["id", "name"],
                       through: { attributes: [] },
                     },
                   ],
                 },
                 {
                   model: db.Category,
-                  attributes: ["name"],
+                  attributes: ["id", "name"],
                 },
               ],
             },
@@ -74,7 +74,7 @@ router.post(
 // router.post("/groups/:id(\\d+)/user"); -- If we get to implement multiuser groups
 
 router.post(
-  "/groups/:id(\\d+)/deelete",
+  "/groups/:id(\\d+)/delete",
   csrfProtection,
   asyncHandler(async (req, res) => {
     const groupId = req.params.id;
