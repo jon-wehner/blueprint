@@ -73,7 +73,7 @@ router.post(
 // router.post("/groups/:id(\\d+)/user"); -- If we get to implement multiuser groups
 
 router.post(
-  "/groups/:id(\\d+)",
+  "/groups/:id(\\d+)/deelete",
   csrfProtection,
   asyncHandler(async (req, res) => {
     const groupId = req.params.id;
@@ -98,7 +98,7 @@ router.post(
 );
 // -- Update
 router.post(
-  "/projects/:id(\\d+)",
+  "/projects/:id(\\d+)/edit",
   csrfProtection,
   asyncHandler(async (req, res) => {
     const projectId = req.params.id;
@@ -116,7 +116,7 @@ router.post(
 );
 // -- Delete
 router.post(
-  "/projects/:id(\\d+)",
+  "/projects/:id(\\d+)/delete",
   csrfProtection,
   asyncHandler(async (req, res) => {
     const projectId = req.params.id;
