@@ -41,7 +41,7 @@ router.get(
     });
 
     const groups = userGroupsQuery.Groups;
-    res.json(groups);
+    res.render("index", { groups });
   })
 );
 
