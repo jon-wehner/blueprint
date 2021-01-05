@@ -50,12 +50,9 @@ router.post(
       email,
       password,
     });
-    console.log("before");
     const validatorErrors = validationResult(req);
-    console.log(validatorErrors);
 
     if (validatorErrors.isEmpty()) {
-      console.log("after success");
       savePassword(user, password);
 
       const defaultGroup = await db.Group.create({ name: user.username });
@@ -73,9 +70,8 @@ router.post(
         res.redirect("/");
       });
     } else {
-      console.log("after fail");
       const errors = validatorErrors.array().map((error) => error.msg);
-      res.render("signup", {
+      res.render("login", {
         title: "Sign Up",
         user,
         errors,
@@ -108,14 +104,13 @@ router.post(
 
     if (validatorErrors.isEmpty()) {
       const user = await db.User.findOne({ where: { email } });
-      const sucessfulLogin = validatePassword(user, password);
+      const sucessfulLogin = await validatePassword(user, password);
 
       if (sucessfulLogin) {
-        loginUser(req, res, next, user);
-        req.session.user = user
+        console.log("logging in")
+        loginUser(req, res, user);
         req.session.save(err => {
-          // console.log(err)
-          if (err) next(err);
+          if (err) next(err)
           return res.redirect("/");
         });
       } else {
@@ -124,7 +119,6 @@ router.post(
     } else {
       errors = validatorErrors.array().map((error) => error.msg);
     }
-
     res.render("login", {
       title: "Login",
       email,
@@ -147,8 +141,8 @@ router.post(
     });
   })
 );
-
-router.post(
+//Set this to get while to test logging out while we await a logout button
+router.get(
   "/logout",
   asyncHandler(async (req, res, next) => {
     logoutUser(req, res);

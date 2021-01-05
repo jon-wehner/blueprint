@@ -5,9 +5,9 @@ const router = express.Router();
 /* GET home page. */
 router.get(
   "/",
-  asyncHandler((req, res, next) => {
+  (req, res) => {
     res.render("index", { title: "a/A Express Skeleton Home" });
-  })
+  }
 );
 
 module.exports = router;
