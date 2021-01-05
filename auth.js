@@ -4,8 +4,6 @@ const loginUser = (req, res, user) => {
   req.session.auth = {
     userId: user.id,
   };
-  //Does this function need to set res.locals.authenticated to true?
-  res.locals.authenticated = true
 };
 
 const logoutUser = (req, res) => {

@@ -65,9 +65,9 @@ router.post(
       });
 
       loginUser(req, res, user);
-      req.session.save((err) => {
+      return req.session.save((err) => {
         if (err) next(err);
-        res.redirect("/");
+        return res.redirect("/");
       });
     } else {
       const errors = validatorErrors.array().map((error) => error.msg);
@@ -108,12 +108,12 @@ router.post(
 
       if (sucessfulLogin) {
         loginUser(req, res, user);
-        return req.session.save(err => {
-          if (err) next(err)
+        return req.session.save((err) => {
+          if (err) next(err);
           return res.redirect("/home");
         });
       } else {
-      errors.push("Login failed for the provided information");
+        errors.push("Login failed for the provided information");
       }
     } else {
       errors = validatorErrors.array().map((error) => error.msg);
@@ -140,6 +140,7 @@ router.get(
     });
   })
 );
+
 //Set this to get while to test logging out while we await a logout button
 router.get(
   "/logout",
