@@ -6,7 +6,11 @@ const router = express.Router();
 router.get(
   "/",
   (req, res) => {
-    res.render("index", { title: "a/A Express Skeleton Home" });
+    if(res.locals.authenticated){
+      res.render("index", { title: "a/A Express Skeleton Home" });
+    } else {
+      res.render("login")
+    }
   }
 );
 
