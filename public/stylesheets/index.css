@@ -2,11 +2,13 @@
   box-sizing: border-box;
   margin: 0;
   padding: 0;
+  font-family: 'Roboto', sans-serif;
 }
 
 .container {
   display: flex;
   height: 100vh;
+
 }
 
 .user-sidebar {
@@ -17,32 +19,47 @@
 
 .user-corner {
   flex-grow: 1;
-  border-bottom: 1px solid black;
+  border-bottom: 2px solid darkgray;
+  border-radius: 8px;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
+  background-color:  #4a6de5;
+  color: white;
+  padding: 5px
 }
-
+.page-area-blue {
+  background-color: #4a6de5;
+  color:white
+}
 .nav-area {
   flex-grow: 4;
+  padding: 10px;
 }
+
+.nav-area ul {
+  margin: 10px 10px 10px 20px;
+  list-style-type: none;
+}
+
 
 .projects-area {
   width: 40%;
-  border-left: 1px solid black;
-  border-right: 1px solid black;
+  border-left: 1px solid darkgray;
+  border-right: 1px solid darkgray;
 }
 
 .search {
   display: flex;
+  border-bottom: 2px solid darkgray;
 }
 
 #searchbar {
   width: calc(100% - 20px);
   height: 30px;
   border: 0;
-  border-bottom: 1px solid black;
+
   font-size: 18px;
   line-height: 18px;
   padding-left: 10px;
@@ -56,7 +73,7 @@
   width: 20px;
   height: 30px;
   border: 0;
-  border-bottom: 1px solid black;
+  /* border-bottom: 1px solid darkgray; */
   background-color: white;
   float: right;
 }

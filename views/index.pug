@@ -3,13 +3,15 @@ extends layout
 append head
   //- add page specific styles by appending to the head
   link(rel="stylesheet" href="./stylesheets/index.css")
+  <link rel="preconnect" href="https://fonts.gstatic.com">
+  <link href="https://fonts.googleapis.com/css2?family=Roboto&display=swap" rel="stylesheet">
   //- add page specific js
   script(src="./javascripts/task.js" type="module" defer)
   script(src="./javascripts/accordion.js" type="module" defer)
 
 block content
   .container
-    .user-sidebar
+    .user-sidebar.page-area-blue
       .user-corner
         h2 BluePrint
         p Welcome, Rob
@@ -50,7 +52,7 @@ block content
             li.project-task-list-item Go golfing with boss
             li.project-task-list-item Let Boss win
             li.project-task-list-item Make fun of Steve in Accounting
-    .tasks-area
+    .tasks-area.page-area-blue
       p Select a task to edit.
 
 
