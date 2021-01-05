@@ -11,8 +11,8 @@ loginSelect.addEventListener("click", function () {
   signupSelect.classList.remove("active-selection");
   formContainer.innerHTML = `
   <div class="form-item">
-  <label for="username"> Username:</label>
-  <input type="text" name="username" />
+  <label for="email"> Email:</label>
+  <input type="text" name="email" />
 </div>
 <div class="form-item">
   <label for="password"> Password:</label>
@@ -21,6 +21,7 @@ loginSelect.addEventListener("click", function () {
   `;
   submitButton.innerText = "Log In";
   form.setAttribute("action", "/users/login");
+  form.setAttribute("method", "POST")
 });
 
 signupSelect.addEventListener("click", function () {

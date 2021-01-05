@@ -111,14 +111,16 @@ router.post(
       const sucessfulLogin = validatePassword(user, password);
 
       if (sucessfulLogin) {
-        loginUser(req, res, user);
-        req.session.save((err) => {
+        loginUser(req, res, next, user);
+        req.session.user = user
+        req.session.save(err => {
+          // console.log(err)
           if (err) next(err);
-          res.redirect("/");
+          return res.redirect("/");
         });
-      }
-
+      } else {
       errors.push("Login failed for the provided information");
+      }
     } else {
       errors = validatorErrors.array().map((error) => error.msg);
     }
