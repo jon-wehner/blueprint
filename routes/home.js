@@ -80,13 +80,51 @@ router.post(
     await db.Group.destroy({ where: { id: groupId } });
     //When Implementing Multiple-User Groups revisit this deletion method
     await db.UserGroup.destroy({ where: { groupId } });
+    res.redirect("/home");
   })
 );
 
 // Projects
 // -- Create
+router.post(
+  "/projects",
+  csrfProtection,
+  asyncHandler(async (req, res) => {
+    const { groupId, name, description, deadline, categoryId } = req.body;
+
+    await db.Project.create({ groupId, name, description, deadline, categoryId });
+    res.redirect("/home");
+  })
+);
 // -- Update
+router.post(
+  "/projects/:id(\\d+)",
+  csrfProtection,
+  asyncHandler(async (req, res) => {
+    const projectId = req.params.id;
+    const { name, description, deadline, categoryId } = req.body;
+    let newProperties = {};
+
+    if (name) newProperties[name] = name;
+    if (description) newProperties[description] = description;
+    if (deadline) newProperties[deadline] = deadline;
+    if (categoryId) newProperties[categoryId] = categoryId;
+
+    await db.Project.update(newProperties, { where: { id: projectId } });
+    res.redirect("/home");
+  })
+);
 // -- Delete
+router.post(
+  "/projects/:id(\\d+)",
+  csrfProtection,
+  asyncHandler(async (req, res) => {
+    const projectId = req.params.id;
+    await db.Project.destroy({ where: { id: projectId } });
+
+    res.redirect("/home");
+  })
+);
 
 // Tasks (API's)
 // -- Create
