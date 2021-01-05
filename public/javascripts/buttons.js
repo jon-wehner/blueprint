@@ -1,11 +1,19 @@
-const editButton = document.getElementsByClassName('edit-button');
-editButton.addEventListener('click', () => {
-  tasksArea.innerHTML = `<form>
+const editButtons = document.querySelectorAll('.edit-button');
+const taskArea = document.querySelector(".tasks-area")
+
+editButtons.forEach( button=> button.addEventListener('click', (e) => {
+  // e.preventDefault();
+  const groupId = e.target.id
+  const groupName = e.target.value
+  console.log(groupId)
+  taskArea.innerHTML = `
+  <form action="/home/groups/${groupId}/name" method="POST">
     <h3>Edit Group</h3>
     <div>
       <label>Group Name:</label>
-      <input name="name" type="text" id="edited-task-name" />
+      <input name="name" type="text" value="${groupName}" />
     </div>
-    <button>Update Group</button>
+    <input type="submit" value="Update Group">
   </form>`;
-})
+
+}))

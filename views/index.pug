@@ -6,6 +6,7 @@ append head
   //- add page specific js
   script(src="./javascripts/task.js" type="module" defer)
   script(src="./javascripts/accordion.js" type="module" defer)
+  script(src="./javascripts/buttons.js" type="module" defer)
 
 block content
   .container
@@ -14,11 +15,12 @@ block content
         h2 BluePrint
         p Welcome, #{user.username}
       .nav-area
-        //- In the future we will loop through projects from db
         ul
           each group in groups
             li= group.name
-            +actionButton('/home/group#{group.id}', "edit", "edit-button")
+            //- form(action="/home/groups/#{group.id}" method="post")
+            //-   input(type="hidden" name="_csrf" value=token)
+            button(type="button", value=group.name, class="edit-button", id=group.id) Edit
         ul
           each group in groups
             each project in group.Projects
@@ -38,7 +40,7 @@ block content
                     li.project-task-list-item= task.name
     .tasks-area
       p Select a task to edit.
-      
+
 
 
 
