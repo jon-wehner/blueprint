@@ -10,7 +10,7 @@ module.exports = (sequelize, DataTypes) => {
   Tag.associate = function (models) {
     const tagTaskMap = {
       foreignKey: "tagId",
-      through: models.TaskTag,
+      through: "TaskTag",
       otherKey: "taskId",
     };
     Tag.belongsToMany(models.Task, tagTaskMap);
