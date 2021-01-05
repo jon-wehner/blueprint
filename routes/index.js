@@ -9,7 +9,7 @@ router.get(
     if(res.locals.authenticated){
       res.render("index", { title: "a/A Express Skeleton Home" });
     } else {
-      res.render("login")
+      res.redirect("users/login")
     }
   }
 );
