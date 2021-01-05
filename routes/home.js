@@ -6,33 +6,34 @@ const router = express.Router();
 
 router.get(
   "/",
+  csrfProtection,
   asyncHandler(async (req, res, next) => {
     const userId = await parseInt(req.session.auth.userId);
     const userGroupsQuery = await db.User.findByPk(userId, {
       include: [
         {
           model: db.Group,
-          attributes: ["name"],
+          attributes: ["id", "name"],
           through: { attributes: [] },
           include: [
             {
               model: db.Project,
-              attributes: ["name", "description", "deadline"],
+              attributes: ["id", "name", "description", "deadline"],
               include: [
                 {
                   model: db.Task,
-                  attributes: ["name", "deadline", "importance", "isComplete"],
+                  attributes: ["id", "name", "deadline", "importance", "isComplete"],
                   include: [
                     {
                       model: db.Tag,
-                      attributes: ["name"],
+                      attributes: ["id", "name"],
                       through: { attributes: [] },
                     },
                   ],
                 },
                 {
                   model: db.Category,
-                  attributes: ["name"],
+                  attributes: ["id", "name"],
                 },
               ],
             },
@@ -42,7 +43,8 @@ router.get(
     });
 
     const groups = userGroupsQuery.Groups;
-    res.json(groups); //add-csurf-protection-token
+
+    res.render("index", { groups, token: req.csrfToken() });
   })
 );
 
@@ -63,9 +65,12 @@ router.post(
   "/groups/:id(\\d+)/name",
   csrfProtection,
   asyncHandler(async (req, res) => {
-    const groupId = req.params.id;
+    const groupId = await parseInt(req.params.id);
     const { name } = req.body;
-    await db.Group.update(name, { where: { id: groupId } });
+    console.log("name   ", name, groupId)
+    const groupToUpdate = await db.Group.findByPk(groupId);
+    groupToUpdate.name = name
+    await groupToUpdate.save();
 
     res.redirect("/home");
   })
@@ -73,7 +78,7 @@ router.post(
 // router.post("/groups/:id(\\d+)/user"); -- If we get to implement multiuser groups
 
 router.post(
-  "/groups/:id(\\d+)/deelete",
+  "/groups/:id(\\d+)/delete",
   csrfProtection,
   asyncHandler(async (req, res) => {
     const groupId = req.params.id;
