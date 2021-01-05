@@ -108,12 +108,10 @@ router.post(
 
       if (sucessfulLogin) {
         loginUser(req, res, user);
-        return res.redirect("/");
-        //Removing the req.session.save() seems to have resolved the issue, after going through the error stack
-        //it was pretty obvious that this method was being called twice
-        // req.session.save(err => {
-        //   if (err) next(err)
-        // });
+        return req.session.save(err => {
+          if (err) next(err)
+          return res.redirect("/");
+        });
       } else {
       errors.push("Login failed for the provided information");
       }
