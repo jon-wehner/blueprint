@@ -24,7 +24,7 @@ block content
                     span.active-selection /
                     span.inactive-selection.login-text Login
                 if errors
-                    div
+                    .error-display
                         each error in errors
                             li= error
                 form.form(id="form" action="/users/signup" method="POST")
