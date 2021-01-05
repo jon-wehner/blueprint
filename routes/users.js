@@ -108,12 +108,10 @@ router.post(
 
       if (sucessfulLogin) {
         loginUser(req, res, user);
-        return res.redirect("/");
-        //Removing the req.session.save() seems to have resolved the issue, after going through the error stack
-        //it was pretty obvious that this method was being called twice
-        // req.session.save(err => {
-        //   if (err) next(err)
-        // });
+        return req.session.save(err => {
+          if (err) next(err)
+          return res.redirect("/home");
+        });
       } else {
       errors.push("Login failed for the provided information");
       }
@@ -129,16 +127,16 @@ router.post(
   })
 );
 
-router.post(
+router.get(
   "/demo",
   asyncHandler(async (req, res, next) => {
     const email = "demo@demo.com";
     const user = await db.User.findOne({ where: { email } });
 
     loginUser(req, res, user);
-    req.session.save((err) => {
+    return req.session.save((err) => {
       if (err) next(err);
-      res.redirect("/");
+      return res.redirect("/home");
     });
   })
 );

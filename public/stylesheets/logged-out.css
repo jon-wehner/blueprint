@@ -123,3 +123,18 @@ body {
   background-color: #4a6de5;
   color: rgb(255, 255, 246);
 }
+
+.error-display {
+  border: 1px solid red;
+  background-color: rgb(243, 193, 193);
+  color: red;
+  border-radius: 5px;
+  width: 80%;
+  padding: 15px;
+  margin-top: -20px;
+  margin-bottom: 20px;
+}
+
+.error-list {
+  margin-top: 8px;
+}
