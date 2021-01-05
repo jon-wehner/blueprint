@@ -25,6 +25,9 @@ block content
                     span.inactive-selection.login-text Login
                 if errors
                     .error-display
+                        p
+                            strong#err-text Please review the following errors:
+                        ul.error-list
                         each error in errors
                             li= error
                 form.form(id="form" action="/users/signup" method="POST")
