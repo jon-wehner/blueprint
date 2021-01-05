@@ -3,14 +3,14 @@ extends layout
 append head
     link(rel='preconnect' href='https://fonts.gstatic.com')
     link(href="https://fonts.googleapis.com/css2?family=Ubuntu&display=swap" rel="stylesheet")
-    link(rel="icon" href="bp-logo.jpg")
+    link(rel="icon" href="/images/bp-logo.jpg")
     link(rel='stylesheet' href='/stylesheets/logged-out.css')
 
 block content
     .container
         .registration-box
             .nice-image
-                img(src="./bp-logo.jpg" id="logo" alt="logo")
+                img(src="/images/bp-logo.jpg" id="logo" alt="logo")
                 div
                     h1
                         span.blue b
@@ -19,21 +19,24 @@ block content
                         | rint
                     h2 Plan Your Success
             .registration-form
-                p.login-text Sign Up
-                    |  /
-                    span.inactive-selection Login
-                form.form(action="/users/signup" method="POST")
+                p.select-login-or-signup
+                    span.active-selection.signup-text Sign Up
+                    span.active-selection /
+                    span.inactive-selection.login-text Login
+                form.form(id="form" action="/users/signup" method="POST")
                     input(type="hidden" name="_csrf" value= token)
-                    .form-item
-                        label(for="username") Username:
-                        input(type="text" name="username")
-                    .form-item
-                        label(for="email") Email:
-                        input(type="email" name="email")
-                    .form-item
-                        label(for="password") Password:
-                        input(type="password" name="password")
-                    .form-item
-                        label(for="confirmPassword") Confirm Password:
-                        input(type="password" name="confirmPassword")
-                    button#create-account(type="submit") Create Account
+                    .form-container
+                        .form-item
+                            label(for="username") Username:
+                            input(type="text" name="username")
+                        .form-item
+                            label(for="email") Email:
+                            input(type="email" name="email")
+                        .form-item
+                            label(for="password") Password:
+                            input(type="password" name="password")
+                        .form-item
+                            label(for="confirmPassword") Confirm Password:
+                            input(type="password" name="confirmPassword")
+                    button.submit-btn(type="submit") Create Account
+    script(src="/javascripts/login.js")
