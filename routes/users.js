@@ -107,7 +107,6 @@ router.post(
       const sucessfulLogin = await validatePassword(user, password);
 
       if (sucessfulLogin) {
-        console.log("logging in")
         loginUser(req, res, user);
         return res.redirect("/");
         //Removing the req.session.save() seems to have resolved the issue, after going through the error stack
