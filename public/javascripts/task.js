@@ -2,8 +2,8 @@ const taskListItems = document.querySelectorAll(".project-task-list-item");
 const tasksArea = document.querySelector(".tasks-area");
 const taskItemsArray = Array.from(taskListItems);
 
-taskItemsArray.forEach(task => {
-  task.addEventListener("click", e => {
+taskItemsArray.forEach((task) => {
+  task.addEventListener("click", (e) => {
     tasksArea.innerHTML = `<form>
     <h3>Edit Task</h3>
     <div>
@@ -37,6 +37,5 @@ taskItemsArray.forEach(task => {
     </div>
     <button>Update Task</button>
   </form>`;
-    console.log(tasksArea);
   });
 });

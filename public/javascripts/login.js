@@ -14,10 +14,10 @@ loginSelect.addEventListener("click", () => {
 
   signupSelect.classList.add("inactive-selection");
   signupSelect.classList.remove("active-selection");
-
+  
   loginForm.classList.remove("hidden");
   signupForm.classList.add("hidden");
-});
+
 
 signupSelect.addEventListener("click", () => {
   signupSelect.classList.add("active-selection");
