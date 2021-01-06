@@ -5,6 +5,7 @@ append head
     link(href="https://fonts.googleapis.com/css2?family=Ubuntu&display=swap" rel="stylesheet")
     link(rel="icon" href="/images/bp-logo.jpg")
     link(rel='stylesheet' href='/stylesheets/logged-out.css')
+    script(src="/javascripts/login.js" defer)
 
 block content
     .container
@@ -30,22 +31,4 @@ block content
                         ul.error-list
                         each error in errors
                             li= error
-                form.form(id="form" action="/users/signup" method="POST")
-                    input(type="hidden" name="_csrf" value= token)
-                    .form-container
-                        .form-item
-                            label(for="username") Username:
-                            input(type="text" name="username")
-                        .form-item
-                            label(for="email") Email:
-                            input(type="email" name="email")
-                        .form-item
-                            label(for="password") Password:
-                            input(type="password" name="password")
-                        .form-item
-                            label(for="confirmPassword") Confirm Password:
-                            input(type="password" name="confirmPassword")
-                    button.submit-btn(type="submit") Create Account
-                    #demo-btn.hidden
-                        a(href="/users/demo") Demo User
-    script(src="/javascripts/login.js")
+                include ./auth-forms.pug
