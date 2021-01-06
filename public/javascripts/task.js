@@ -1,9 +1,7 @@
 const tasksArea = document.querySelector(".tasks-area");
 const taskListItems = document.querySelectorAll(".project-task-list-item");
-const taskEditButtons = document.querySelectorAll(".task-edit-btn");
 const taskDeleteButtons = document.querySelectorAll(".task-delete-btn");
 const taskItemsArray = Array.from(taskListItems);
-const editButtonsArray = Array.from(taskEditButtons);
 const deleteButtonsArray = Array.from(taskDeleteButtons);
 
 deleteButtonsArray.forEach(btn => {
