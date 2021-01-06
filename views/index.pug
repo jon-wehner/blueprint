@@ -8,7 +8,7 @@ append head
 
 block content
   .container
-    .user-sidebar
+    .user-sidebar.page-area-blue
       .user-corner
         h2 BluePrint
         p Welcome, #{user.username}
@@ -30,6 +30,6 @@ block content
                 ul
                   each task in project.Tasks
                     li.project-task-list-item= task.name
-              button(type="button" class="project-edit-button" id=project.id data-token=token data-categories=categories) Edit
+              button(type="button" class="project-edit-button" id=project.id value=project.name) Edit
     .tasks-area
-      include group-form.pug
+      include forms.pug

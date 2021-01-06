@@ -37,6 +37,7 @@
 .search {
   display: flex;
 }
+
 .hidden-form {
   display: none;
 }
