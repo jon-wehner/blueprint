@@ -69,7 +69,6 @@ router.post(
   asyncHandler(async (req, res) => {
     const groupId = await parseInt(req.params.id);
     const { name } = req.body;
-    console.log("name   ", name, groupId);
     const groupToUpdate = await db.Group.findByPk(groupId);
     groupToUpdate.name = name;
     await groupToUpdate.save();
