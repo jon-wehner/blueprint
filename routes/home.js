@@ -76,7 +76,6 @@ router.post(
   asyncHandler(async (req, res) => {
     const groupId = await parseInt(req.params.id, 10);
     const { name } = req.body;
-    console.log("name   ", name, groupId);
     const groupToUpdate = await db.Group.findByPk(groupId);
     groupToUpdate.name = name;
     await groupToUpdate.save();
@@ -123,7 +122,6 @@ router.post(
   asyncHandler(async (req, res) => {
     const projectId = await parseInt(req.params.id, 10);
     const { name, description, deadline, categoryId } = req.body;
-    console.log(req.body);
     const updateProject = await db.Project.findByPk(projectId);
 
     if (name !== "") updateProject.name = name;
