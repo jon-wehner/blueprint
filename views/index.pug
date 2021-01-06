@@ -1,9 +1,7 @@
 extends layout
 include utils.pug
 append head
-  //- add page specific styles by appending to the head
   link(rel="stylesheet" href="./stylesheets/index.css")
-  //- add page specific js
   script(src="./javascripts/task.js" type="module" defer)
   script(src="./javascripts/accordion.js" type="module" defer)
   script(src="./javascripts/buttons.js" type="module" defer)
@@ -18,13 +16,7 @@ block content
         ul
           each group in groups
             li= group.name
-            form(action="/home/groups/#{group.id}" method="post")
-              input(type="hidden" name="_csrf" value=token)
-            button(type="button", value=group.name, class="edit-button", id=group.id data-token=token) Edit
-        ul
-          each group in groups
-            each project in group.Projects
-              li= project.name
+            button(type="button", value=group.name, class="group-edit-button", id=group.id data-token=token) Edit
     .projects-area
       .search
         input(id="searchbar" type="text" placeholder="Search")
@@ -38,9 +30,6 @@ block content
                 ul
                   each task in project.Tasks
                     li.project-task-list-item= task.name
+              button(type="button" value=project.name class="project-edit-button" id=project.id data-token=token) Edit
     .tasks-area
       p Select a task to edit.
-
-
-
-
