@@ -4,7 +4,7 @@ const formContainer = document.querySelector(".form-container");
 const submitButton = document.querySelector(".submit-btn");
 const form = document.querySelector(".form");
 
-loginSelect.addEventListener("click", () => {
+loginSelect.addEventListener("click", function () {
   this.classList.add("active-selection");
   this.classList.remove("inactive-selection");
   signupSelect.classList.add("inactive-selection");
@@ -26,7 +26,7 @@ loginSelect.addEventListener("click", () => {
   form.setAttribute("method", "POST");
 });
 
-signupSelect.addEventListener("click", () => {
+signupSelect.addEventListener("click", function () {
   this.classList.add("active-selection");
   this.classList.remove("inactive-selection");
   loginSelect.classList.add("inactive-selection");
@@ -50,7 +50,6 @@ signupSelect.addEventListener("click", () => {
   <input type="password" name="confirmPassword" />
 </div>
   `;
-
   submitButton.innerText = "Create Account";
   form.setAttribute("action", "/users/signup");
 });
