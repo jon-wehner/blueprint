@@ -138,3 +138,23 @@ body {
 .error-list {
   margin-top: 8px;
 }
+
+#demo-btn {
+  border: 2px solid #4a6de5;
+  background-color: transparent;
+  padding: 10px;
+  border-radius: 5px;
+  color: #4a6de5;
+  transition: 0.2s;
+  margin-top: 10px;
+}
+
+#demo-btn a {
+  font-size: 14px;
+  text-decoration: none;
+}
+
+#demo-btn:hover {
+  background-color: #4a6de5;
+  color: rgb(255, 255, 246);
+}
