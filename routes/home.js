@@ -7,8 +7,11 @@ const router = express.Router();
 router.get(
   "/",
   csrfProtection,
-  asyncHandler(async (req, res, next) => {
-    const userId = await parseInt(req.session.auth.userId);
+  asyncHandler(async (req, res) => {
+    const userId = await parseInt(req.session.auth.userId, 10);
+    const categories = await db.Category.findAll();
+    const tags = await db.Tag.findAll();
+
     const userGroupsQuery = await db.User.findByPk(userId, {
       include: [
         {
@@ -22,7 +25,13 @@ router.get(
               include: [
                 {
                   model: db.Task,
-                  attributes: ["id", "name", "deadline", "importance", "isComplete"],
+                  attributes: [
+                    "id",
+                    "name",
+                    "deadline",
+                    "importance",
+                    "isComplete",
+                  ],
                   include: [
                     {
                       model: db.Tag,
@@ -44,15 +53,16 @@ router.get(
 
     const groups = userGroupsQuery.Groups;
 
-    res.render("index", { groups, token: req.csrfToken() });
+    res.render("index", { groups, categories, tags, token: req.csrfToken() });
   })
 );
 
+//create new group
 router.post(
   "/groups",
   csrfProtection,
   asyncHandler(async (req, res) => {
-    const userId = await parseInt(req.session.auth.userId);
+    const userId = await parseInt(req.session.auth.userId, 10);
     const { name } = req.body;
 
     const newGroup = await db.Group.create({ name });
@@ -61,15 +71,15 @@ router.post(
   })
 );
 
+//edit group
 router.post(
   "/groups/:id(\\d+)/name",
   csrfProtection,
   asyncHandler(async (req, res) => {
-    const groupId = await parseInt(req.params.id);
+    const groupId = await parseInt(req.params.id, 10);
     const { name } = req.body;
-    console.log("name   ", name, groupId)
     const groupToUpdate = await db.Group.findByPk(groupId);
-    groupToUpdate.name = name
+    groupToUpdate.name = name;
     await groupToUpdate.save();
 
     res.redirect("/home");
@@ -81,7 +91,7 @@ router.post(
   "/groups/:id(\\d+)/delete",
   csrfProtection,
   asyncHandler(async (req, res) => {
-    const groupId = req.params.id;
+    const groupId = await parseInt(req.params.id, 10);
     await db.Group.destroy({ where: { id: groupId } });
     //When Implementing Multiple-User Groups revisit this deletion method
     await db.UserGroup.destroy({ where: { groupId } });
@@ -97,7 +107,13 @@ router.post(
   asyncHandler(async (req, res) => {
     const { groupId, name, description, deadline, categoryId } = req.body;
 
-    await db.Project.create({ groupId, name, description, deadline, categoryId });
+    await db.Project.create({
+      groupId,
+      name,
+      description,
+      deadline,
+      categoryId,
+    });
     res.redirect("/home");
   })
 );
@@ -106,16 +122,17 @@ router.post(
   "/projects/:id(\\d+)/edit",
   csrfProtection,
   asyncHandler(async (req, res) => {
-    const projectId = req.params.id;
+    const projectId = await parseInt(req.params.id, 10);
     const { name, description, deadline, categoryId } = req.body;
-    let newProperties = {};
+    const updateProject = await db.Project.findByPk(projectId);
 
-    if (name) newProperties[name] = name;
-    if (description) newProperties[description] = description;
-    if (deadline) newProperties[deadline] = deadline;
-    if (categoryId) newProperties[categoryId] = categoryId;
+    if (name !== "") updateProject.name = name;
+    if (description !== "") updateProject.description = description;
+    if (deadline !== "") updateProject.deadline = deadline;
+    if (categoryId !== updateProject.categoryId)
+      updateProject.categoryId = categoryId;
 
-    await db.Project.update(newProperties, { where: { id: projectId } });
+    await updateProject.save();
     res.redirect("/home");
   })
 );
@@ -124,16 +141,11 @@ router.post(
   "/projects/:id(\\d+)/delete",
   csrfProtection,
   asyncHandler(async (req, res) => {
-    const projectId = req.params.id;
+    const projectId = await parseInt(req.params.id, 10);
     await db.Project.destroy({ where: { id: projectId } });
 
     res.redirect("/home");
   })
 );
-
-// Tasks (API's)
-// -- Create
-// -- Update
-// -- Delete
 
 module.exports = router;
