@@ -5,7 +5,7 @@ const router = express.Router();
 /* GET home page. */
 router.get("/", (req, res) => {
   if (res.locals.authenticated) {
-    res.render("index", { title: "a/A Express Skeleton Home" });
+    res.redirect("/home");
   } else {
     res.redirect("/users/login");
   }
