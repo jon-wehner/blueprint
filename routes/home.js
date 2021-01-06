@@ -7,7 +7,7 @@ const router = express.Router();
 router.get(
   "/",
   csrfProtection,
-  asyncHandler(async (req, res, next) => {
+  asyncHandler(async (req, res) => {
     const userId = await parseInt(req.session.auth.userId, 10);
     const categories = await db.Category.findAll();
     const tags = await db.Tag.findAll();

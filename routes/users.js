@@ -29,7 +29,7 @@ const validatePassword = async (currentUser, currentPassword) => {
 router.get(
   "/signup",
   csrfProtection,
-  asyncHandler(async (req, res, next) => {
+  asyncHandler(async (req, res) => {
     const user = await db.User.build();
     res.render("signup", {
       title: "Sign Up",
@@ -84,7 +84,7 @@ router.post(
 router.get(
   "/login",
   csrfProtection,
-  asyncHandler(async (req, res, next) => {
+  asyncHandler(async (req, res) => {
     res.render("login", {
       title: "Login",
       token: req.csrfToken(),

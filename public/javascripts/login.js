@@ -10,11 +10,7 @@ loginSelect.addEventListener("click", function () {
   this.classList.remove("inactive-selection");
   signupSelect.classList.add("inactive-selection");
   signupSelect.classList.remove("active-selection");
-<<<<<<< HEAD
-
-=======
   demoButton.classList.remove("hidden");
->>>>>>> main
   formContainer.innerHTML = `
   <div class="form-item">
   <label for="email"> Email:</label>
@@ -36,11 +32,7 @@ signupSelect.addEventListener("click", function () {
   this.classList.remove("inactive-selection");
   loginSelect.classList.add("inactive-selection");
   loginSelect.classList.remove("active-selection");
-<<<<<<< HEAD
-
-=======
   demoButton.classList.add("hidden");
->>>>>>> main
   formContainer.innerHTML = `
   <div class="form-item">
   <label for="username"> Username:</label>
