@@ -8,24 +8,34 @@ const form = document.querySelector(".form");
 const signupForm = document.getElementById("signup-form");
 const loginForm = document.getElementById("login-form");
 
+const swapClass = (removeElement, addElement, className, optClassName) => {
+  if (optClassName) {
+    removeElement.classList.add(className);
+    removeElement.classList.remove(optClassName);
+    addElement.classList.add(optClassName);
+    addElement.classList.remove(className);
+  } else {
+    removeElement.classList.remove(className);
+    addElement.classList.add(className);
+  }
+};
+
 loginSelect.addEventListener("click", () => {
-  loginSelect.classList.add("active-selection");
-  loginSelect.classList.remove("inactive-selection");
-
-  signupSelect.classList.add("inactive-selection");
-  signupSelect.classList.remove("active-selection");
-
-  loginForm.classList.remove("hidden");
-  signupForm.classList.add("hidden");
+  swapClass(
+    loginSelect,
+    signupSelect,
+    "active-selection",
+    "inactive-selection"
+  );
+  swapClass(loginForm, signupForm, "hidden");
 });
 
 signupSelect.addEventListener("click", () => {
-  signupSelect.classList.add("active-selection");
-  signupSelect.classList.remove("inactive-selection");
-
-  loginSelect.classList.add("inactive-selection");
-  loginSelect.classList.remove("active-selection");
-
-  loginForm.classList.add("hidden");
-  signupForm.classList.remove("hidden");
+  swapClass(
+    signupSelect,
+    loginSelect,
+    "active-selection",
+    "inactive-selection"
+  );
+  swapClass(signupForm, loginForm, "hidden");
 });
