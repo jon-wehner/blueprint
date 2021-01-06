@@ -3,12 +3,14 @@ const loginSelect = document.querySelector(".login-text");
 const formContainer = document.querySelector(".form-container");
 const submitButton = document.querySelector(".submit-btn");
 const form = document.querySelector(".form");
+const demoButton = document.getElementById("demo-btn");
 
 loginSelect.addEventListener("click", function () {
   this.classList.add("active-selection");
   this.classList.remove("inactive-selection");
   signupSelect.classList.add("inactive-selection");
   signupSelect.classList.remove("active-selection");
+  demoButton.classList.remove("hidden");
   formContainer.innerHTML = `
   <div class="form-item">
   <label for="email"> Email:</label>
@@ -21,7 +23,7 @@ loginSelect.addEventListener("click", function () {
   `;
   submitButton.innerText = "Log In";
   form.setAttribute("action", "/users/login");
-  form.setAttribute("method", "POST")
+  form.setAttribute("method", "POST");
 });
 
 signupSelect.addEventListener("click", function () {
@@ -29,6 +31,7 @@ signupSelect.addEventListener("click", function () {
   this.classList.remove("inactive-selection");
   loginSelect.classList.add("inactive-selection");
   loginSelect.classList.remove("active-selection");
+  demoButton.classList.add("hidden");
   formContainer.innerHTML = `
   <div class="form-item">
   <label for="username"> Username:</label>
