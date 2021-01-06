@@ -19,5 +19,5 @@ form.hidden-form.task-area-forms#editProject(action="" method="POST")
     label(for="category")
     select(name="categoryId")
       each category in categories
-        option(value=category.name)= category.name
+        option(value=category.id)= category.name
     input(type="submit" value="Update Group")
