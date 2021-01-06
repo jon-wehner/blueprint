@@ -7,7 +7,7 @@ const router = express.Router();
 router.get(
   "/projects/:id(\\d+)/tasks",
   asyncHandler(async (req, res) => {
-    const projectId = req.params.id;
+    const projectId = await parseInt(req.params.id, 10);
     const project = await db.Project.findByPk(projectId, { include: db.Task });
     res.status(200).json(project);
   })
@@ -26,7 +26,7 @@ router.post(
 router.put(
   "/tasks/:id(\\d+)",
   asyncHandler(async (req, res) => {
-    const taskId = req.params.id;
+    const taskId = await prseInt(req.params.id, 10);
     const { name, deadline, importance, isComplete, projectId } = req.body;
     const taskToUpdate = await db.Task.findByPk(taskId);
 
@@ -42,7 +42,7 @@ router.put(
 );
 // -- Delete
 router.delete("/tasks/:id(\\d+)", asyncHandler(async (req, res) => {
-  const taskId = parseInt(req.params.id)
+  const taskId = parseInt(req.params.id, 10)
   const taskTags = await db.TaskTag.findAll({where: {taskId: taskId}});
   const task = await db.Task.findByPk(taskId);
   if(!task) {
