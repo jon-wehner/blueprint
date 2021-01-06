@@ -1,23 +1,17 @@
 const groupEditButtons = document.querySelectorAll(".group-edit-button");
 const projectEditButtons = document.querySelectorAll(".project-edit-button");
 const taskArea = document.querySelector(".tasks-area");
+const editGroupForm = document.getElementById("editGroup")
+const groupNameField = document.getElementById("groupName")
 
 groupEditButtons.forEach((button) =>
   button.addEventListener("click", (e) => {
     const groupId = e.target.id;
     const groupName = e.target.value;
-    const csrfToken = e.target.dataset.token;
 
-    taskArea.innerHTML = `
-  <form action="/home/groups/${groupId}/name" method="POST">
-    <h3>Edit Group</h3>
-    <div>
-      <input type="hidden" name="_csrf" value=${csrfToken}>
-      <label>Name:</label>
-      <input name="name" type="text" value=${groupName}>
-    </div>
-    <input type="submit" value="Update Group">
-  </form>`;
+    editGroupForm.action=`/home/groups/${groupId}/name`
+    nameField.value = groupName
+    editGroupForm.classList.toggle("hidden-form")
   })
 );
 
