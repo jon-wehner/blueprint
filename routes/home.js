@@ -48,6 +48,7 @@ router.get(
   })
 );
 
+//create new group
 router.post(
   "/groups",
   csrfProtection,
@@ -61,15 +62,16 @@ router.post(
   })
 );
 
+//edit group
 router.post(
   "/groups/:id(\\d+)/name",
   csrfProtection,
   asyncHandler(async (req, res) => {
     const groupId = await parseInt(req.params.id);
     const { name } = req.body;
-    console.log("name   ", name, groupId)
+    console.log("name   ", name, groupId);
     const groupToUpdate = await db.Group.findByPk(groupId);
-    groupToUpdate.name = name
+    groupToUpdate.name = name;
     await groupToUpdate.save();
 
     res.redirect("/home");
@@ -130,10 +132,5 @@ router.post(
     res.redirect("/home");
   })
 );
-
-// Tasks (API's)
-// -- Create
-// -- Update
-// -- Delete
 
 module.exports = router;
