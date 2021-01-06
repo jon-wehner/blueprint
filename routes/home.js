@@ -57,6 +57,7 @@ router.get(
   })
 );
 
+//create new group
 router.post(
   "/groups",
   csrfProtection,
@@ -70,6 +71,7 @@ router.post(
   })
 );
 
+//edit group
 router.post(
   "/groups/:id(\\d+)/name",
   csrfProtection,
@@ -145,10 +147,5 @@ router.post(
     res.redirect("/home");
   })
 );
-
-// Tasks (API's)
-// -- Create
-// -- Update
-// -- Delete
 
 module.exports = router;

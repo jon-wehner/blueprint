@@ -12,6 +12,7 @@ const logger = require("morgan");
 const indexRouter = require("./routes/index");
 const usersRouter = require("./routes/users");
 const homeRouter = require("./routes/home");
+const apiRouter = require("./routes/api");
 const { restoreUser } = require("./auth");
 
 const app = express();
@@ -39,6 +40,7 @@ app.use(restoreUser);
 app.use("/", indexRouter);
 app.use("/users", usersRouter);
 app.use("/home", homeRouter);
+app.use("/api", apiRouter);
 
 app.use(function (req, res, next) {
   next(createError(404));
