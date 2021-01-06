@@ -21,6 +21,7 @@ loginSelect.addEventListener("click", function () {
   <input type="password" name="password" />
 </div>
   `;
+
   submitButton.innerText = "Log In";
   form.setAttribute("action", "/users/login");
   form.setAttribute("method", "POST");
