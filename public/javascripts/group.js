@@ -35,7 +35,6 @@ const postForm = async (url, formData) => {
   buttonNewGroup.addEventListener("click", e => {
     const groupId = e.target.id;
     const groupName = e.target.value;
-    console.log(groupName);
     editGroupForm.action = `/home/groups/${groupId}/name`;
     groupNameField.value = groupName;
 
