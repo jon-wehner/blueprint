@@ -1,13 +1,4 @@
-mixin actionButton(action, buttonValue, buttonClass)
-  form(action=action)
-    input(type="submit", value=buttonValue, class=buttonClass)
-
-
-//- type of form refers to Add or Edit
-mixin taskForm(type)
-  form.hidden-form.task-area-forms.form(id=`${type}Task`)
-  h3= `${type} Task`
-  .form-container
+.form-container
     input(type="hidden" name="_csrf" value=token)
     input(type="hidden" name="projectId" value="" id="projectIdField")
     .form-item
@@ -28,4 +19,3 @@ mixin taskForm(type)
         input(type="radio" name="isComplete" value="true")
         label No
         input(type="radio" name="isComplete" value="false")
-    button.submit-btn(type="none")= `${type} Task`
