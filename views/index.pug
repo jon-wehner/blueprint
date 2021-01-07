@@ -30,7 +30,7 @@ block content
               .panel
                 ul
                   each task in project.Tasks
-                    li.project-task-list-item= task.name
+                    li.project-task-list-item(id=task.id)= task.name
                     button.task-delete-btn(data-id=task.id) Delete
               button(type="button" class="project-edit-button" id=project.id value=project.name) Edit
     .tasks-area
