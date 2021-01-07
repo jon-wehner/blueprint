@@ -25,13 +25,7 @@ router.get(
               include: [
                 {
                   model: db.Task,
-                  attributes: [
-                    "id",
-                    "name",
-                    "deadline",
-                    "importance",
-                    "isComplete",
-                  ],
+                  attributes: ["id", "name", "deadline", "importance", "isComplete"],
                   include: [
                     {
                       model: db.Tag,
@@ -67,7 +61,8 @@ router.post(
 
     const newGroup = await db.Group.create({ name });
     await db.UserGroup.create({ userId, groupId: newGroup.id });
-    res.redirect("/home");
+    // res.redirect("/home");
+    res.send(newGroup);
   })
 );
 
@@ -129,8 +124,7 @@ router.post(
     if (name !== "") updateProject.name = name;
     if (description !== "") updateProject.description = description;
     if (deadline !== "") updateProject.deadline = deadline;
-    if (categoryId !== updateProject.categoryId)
-      updateProject.categoryId = categoryId;
+    if (categoryId !== updateProject.categoryId) updateProject.categoryId = categoryId;
 
     await updateProject.save();
     res.redirect("/home");
