@@ -18,7 +18,7 @@ router.post(
   asyncHandler(async (req, res) => {
     const { name, deadline, importance, isComplete, projectId } = req.body;
     const newTask = await db.Task.create({ name, deadline, importance, isComplete, projectId });
-    res.status(201).end()
+    res.status(201).send(newTask)
     //TODO: Task validation
   })
 );
