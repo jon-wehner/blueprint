@@ -1,41 +1,47 @@
 const signupSelect = document.querySelector(".signup-text");
 const loginSelect = document.querySelector(".login-text");
 
-const formContainer = document.querySelector(".form-container");
-const submitButton = document.querySelector(".submit-btn");
-
-const form = document.querySelector(".form");
 const signupForm = document.getElementById("signup-form");
 const loginForm = document.getElementById("login-form");
 
-const swapClass = (removeElement, addElement, className, optClassName) => {
+const demoButton = document.getElementById("demo-login-btn");
+
+const swapClass = (element1, className, optElement2, optClassName) => {
   if (optClassName) {
-    removeElement.classList.add(className);
-    removeElement.classList.remove(optClassName);
-    addElement.classList.add(optClassName);
-    addElement.classList.remove(className);
+    element1.classList.add(className);
+    element1.classList.remove(optClassName);
+    optElement2.classList.add(optClassName);
+    optElement2.classList.remove(className);
+  } else if (optElement2) {
+    element1.classList.remove(className);
+    optElement2.classList.add(className);
   } else {
-    removeElement.classList.remove(className);
-    addElement.classList.add(className);
+    if (element1.classList.contains(className)) {
+      element1.classList.remove(className);
+    } else {
+      element1.classList.add(className);
+    }
   }
 };
 
 loginSelect.addEventListener("click", () => {
   swapClass(
     loginSelect,
-    signupSelect,
     "active-selection",
+    signupSelect,
     "inactive-selection"
   );
-  swapClass(loginForm, signupForm, "hidden");
+  swapClass(loginForm, "hidden", signupForm);
+  swapClass(demoButton, "hidden");
 });
 
 signupSelect.addEventListener("click", () => {
   swapClass(
     signupSelect,
-    loginSelect,
     "active-selection",
+    loginSelect,
     "inactive-selection"
   );
-  swapClass(signupForm, loginForm, "hidden");
+  swapClass(signupForm, "hidden", loginForm);
+  swapClass(demoButton, "hidden");
 });
