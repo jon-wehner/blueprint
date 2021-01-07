@@ -29,11 +29,12 @@ block content
       .accordion-area
         each group in groups
           each project in group.Projects
-              button.accordion= project.name
+              .accordion= project.name
+                button(class="add-task-button" id=project.id) Add Task
               .panel
                 ul
                   each task in project.Tasks
-                    li.project-task-list-item= task.name
+                    li.project-task-list-item(id=`task-${task.id}`)= task.name
                     button.task-delete-btn(data-id=task.id) Delete
               button(type="button" class="project-edit-button" id=project.id value=project.name) Edit
         button(type="button", id="add-project") Add Project      

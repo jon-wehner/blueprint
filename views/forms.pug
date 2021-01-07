@@ -27,6 +27,30 @@ form.hidden-form.task-area-forms.form#editProject(action="" method="POST")
           option(value=category.id)= category.name
     button.submit-btn(type="submit") Update Project
 
+form.hidden-form.task-area-forms.form#addTask
+  h3 Task Information
+  .form-container
+    input(type="hidden" name="_csrf" value=token)
+    input(type="hidden" name="projectId" value="" id="projectIdField")
+    .form-item
+      label(for="name") Name:
+      input(name="name" value="" id="taskNameField")
+    .form-item
+      label(for="deadline") Date:
+      input(type="date" id="taskDate" value="" name="deadline")
+    .form-item
+      label(for="importance")
+      select(name="importance")
+        option(value="High") High
+        option(value="Medium") Medium
+        option(value="Low") Low
+    .form-item
+      label(for="isComplete") Completed?
+        label Yes
+        input(type="radio" name="isComplete" value="true")
+        label No
+        input(type="radio" name="isComplete" value="false")
+    button.submit-btn(type="none" id="addTaskSubmit") Submit Task
 form.hidden-form.task-area-forms.form#addGroup(action="/home/groups", method="post")
   h3 Create Group
   .form-container
@@ -34,9 +58,9 @@ form.hidden-form.task-area-forms.form#addGroup(action="/home/groups", method="po
     .form-item
       label(for="name") Name:
       input(name="name" value="" id="groupNameField")
-    button.submit-btn(type="submit") Create Group
+    button.submit-btn(type="submit" id="addGroupSubmit") Create Group
 
-form.hidden-form.task-area-forms.form#addProject(action="/home/projects", method="post")    
+form.hidden-form.task-area-forms.form#addProject(action="/home/projects", method="post")
   h3 Create Project
   .form-container
     input(type="hidden" name="_csrf" value=token)

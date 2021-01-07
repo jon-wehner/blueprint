@@ -1,6 +1,9 @@
 const tasksArea = document.querySelector(".tasks-area");
 const taskListItems = document.querySelectorAll(".project-task-list-item");
 const taskDeleteButtons = document.querySelectorAll(".task-delete-btn");
+const addTaskForm = document.getElementById("addTask")
+const addTaskBtns = document.querySelectorAll(".add-task-button")
+const addTaskSubmit = document.getElementById("addTaskSubmit")
 const taskItemsArray = Array.from(taskListItems);
 const deleteButtonsArray = Array.from(taskDeleteButtons);
 
@@ -10,43 +13,58 @@ deleteButtonsArray.forEach(btn => {
       method: "DELETE",
       body: JSON.stringify({ id: btn.dataset.id }),
     });
+    const task = document.getElementById(`task-${btn.dataset.id}`)
+    task.remove()
+    btn.remove()
   });
 });
 
+//Shows and hides the task form to edit a task when clicked
 taskItemsArray.forEach(task => {
   task.addEventListener("click", e => {
-    tasksArea.innerHTML = `<form>
-    <h3>Edit Task</h3>
-    <div>
-      <label>Task Name:</label>
-      <input type="text" id="edited-task-name" value="${task.innerText}"/>
-    </div>
-    <div>
-      <label>Due Date:</label>
-      <input type="date" id="edited-task-date" />
-    </div>
-    <div>
-      <p>Importance Level:</p>
-      <div>
-        <input type="radio" name="importance-level" checked />
-        <label for="huey">Regular</label>
-      </div>
-
-      <div>
-        <input type="radio" name="importance-level" />
-        <label for="dewey">Priority</label>
-      </div>
-
-      <div>
-        <input type="radio" name="importance-level" />
-        <label for="louie">Urgent</label>
-      </div>
-    </div>
-    <div>
-      <label>Completed?</label>
-      <input type="checkbox" id="edited-task-completion-status" />
-    </div>
-    <button>Update Task</button>
-  </form>`;
+    taskForm.classList.toggle("hidden-form")
   });
 });
+
+//Shows and Hides the form when "Add Task" is clicked
+addTaskBtns.forEach(btn => {
+  btn.addEventListener("click", async (e) => {
+    e.stopPropagation();
+    const projectIdField = document.getElementById("projectIdField")
+    const projectId = e.target.id
+
+    addTaskForm.dataset.url = `/api/projects/${projectId}/tasks/`
+    projectIdField.value= projectId
+    addTaskForm.classList.toggle("hidden-form")
+  })
+});
+
+//Helper function to convert form data to json and post to API
+const postForm = async (url, formData) => {
+  const formPlainObj = Object.fromEntries(formData.entries());
+  const formJson = JSON.stringify(formPlainObj);
+  const response = await fetch(url, {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json"
+    },
+    body: formJson,
+  });
+  if(!response.ok) {
+    //TODO Error Handling
+  }
+}
+
+//Submits the form data to API endpoint when form is submitted
+addTaskForm.addEventListener("submit", async (e) => {
+  const formData = new FormData(addTaskForm)
+  const url = addTaskForm.dataset.url
+  e.preventDefault()
+  try {
+    await postForm(url, formData)
+  } catch (err) {
+    console.error(err)
+  }
+})
+
+module.exports = postForm
