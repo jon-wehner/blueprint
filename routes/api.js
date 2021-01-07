@@ -26,7 +26,7 @@ router.post(
 router.put(
   "/tasks/:id(\\d+)",
   asyncHandler(async (req, res) => {
-    const taskId = await prseInt(req.params.id, 10);
+    const taskId = await parseInt(req.params.id, 10);
     const { name, deadline, importance, isComplete, projectId } = req.body;
     const taskToUpdate = await db.Task.findByPk(taskId);
 
@@ -37,7 +37,7 @@ router.put(
     if (projectId) taskToUpdate.projectId = projectId;
 
     await taskToUpdate.save();
-    res.status(200).end();
+    res.status(200).send(taskToUpdate);
   })
 );
 // -- Delete

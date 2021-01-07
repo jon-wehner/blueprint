@@ -21,7 +21,9 @@ taskDeleteButtons.forEach(btn => {
 //Shows and hides the task form to edit a task when clicked
 taskListItems.forEach(task => {
   task.addEventListener("click", e => {
-    editTaskForm.classList.toggle("hidden-form")
+    editTaskForm.classList.remove("hidden-form")
+    editTaskForm.dataset.taskId = e.target.id
+    //To do: populate text field with existing task name
   });
 });
 
@@ -39,11 +41,12 @@ addTaskBtns.forEach(btn => {
 });
 
 //Helper function to convert form data to json and post to API
-const postForm = async (url, formData, method) => {
+const postForm = async (url, formData, httpMethod) => {
   const formPlainObj = Object.fromEntries(formData.entries());
   const formJson = JSON.stringify(formPlainObj);
+  console.log(formJson)
   const response = await fetch(url, {
-    method: method,
+    method: httpMethod,
     headers: {
       "Content-Type": "application/json"
     },
@@ -75,17 +78,17 @@ addTaskForm.addEventListener("submit", async (e) => {
 
 //Edit task form submit listener
 editTaskForm.addEventListener("submit", async (e) => {
-  const formData = new FormData(addTaskForm)
-  const url = addTaskForm.dataset.url
+  const formData = new FormData(editTaskForm)
+  let taskId= e.target.dataset.taskId
+  taskId = taskId.slice(5)
+  const url = `/api/tasks/${taskId}`
   const method = "PUT"
   e.preventDefault()
   try {
     let response = await postForm(url, formData, method)
     response = await response.json();
-    const taskList = document.getElementById(`projectList-${response.projectId}`);
-    const taskItem = document.createElement("li");
+    const taskItem = document.getElementById(`task-${response.id}`);
     taskItem.innerHTML = response.name;
-    taskList.appendChild(taskItem);
   } catch (err) {
     console.error(err)
   }
