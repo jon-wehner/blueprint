@@ -33,10 +33,5 @@ projects.forEach((project) => {
     projectDescription.innerHTML = projectJson.description;
     projectDeadline.innerHTML = projectJson.deadline;
     taskSummary.innerHTML = `Completed Tasks: ${completedCount}/${totalTasks}`;
-
-    editProjectBtn.setAttribute("id", projectId);
-    editProjectBtn.setAttribute("value", projectJson.name);
-
-    projectDetails.classList.remove("hidden");
   });
 });
