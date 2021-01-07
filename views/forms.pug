@@ -42,13 +42,13 @@ form.hidden-form.task-area-forms.form#addProject(action="/home/projects", method
     input(type="hidden" name="_csrf" value=token)
     .form-item
       label(for="name") Name:
-      input(name="name" value="" id="projectNameField")
+      input(name="name" value="")
     .form-item
       label(for="description") Description:
       input(type="textarea" name="description")
     .form-item
       label(for="deadline")
-      input(type="date" name="deadline" )
+      input(type="date" name="deadline" value="" min="1997-01-01" max="2030-12-31")
     .form-item
       label(for="category")
       select(name="categoryId")
