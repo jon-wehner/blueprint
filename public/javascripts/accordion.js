@@ -1,10 +1,9 @@
 const projects = document.querySelectorAll(".accordion");
-const projectDescription = document.getElementById("project-description");
 const forms = document.querySelectorAll(".task-area-forms");
 
 projects.forEach((project) => {
   project.addEventListener("click", async (e) => {
-    const projectId = await parseInt(e.target.dataset.id);
+    const projectId = await parseInt(e.target.id);
     const panel = project.nextElementSibling;
     project.classList.toggle("active");
 

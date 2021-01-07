@@ -29,7 +29,7 @@ block content
       .accordion-area
         each group in groups
           each project in group.Projects
-              .accordion= project.name
+              .accordion(id=project.id)= project.name
                 button(class="add-task-button" id=project.id) Add Task
               .panel
                 ul(id=`projectList-${project.id}`)
