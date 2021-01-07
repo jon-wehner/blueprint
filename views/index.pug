@@ -1,5 +1,4 @@
 extends layout
-include utils.pug
 append head
   link(rel="stylesheet" href="./stylesheets/index.css")
 <<<<<<< HEAD
@@ -11,6 +10,8 @@ append head
   script(src="./javascripts/task.js" type="module" defer)
   script(src="./javascripts/accordion.js" type="module" defer)
   script(src="./javascripts/buttons.js" type="module" defer)
+  script(src="./javascripts/group.js" type="module" defer)
+  script(src="./javascripts/project.js" type="module" defer)
 
 block content
   .container
@@ -18,11 +19,13 @@ block content
       .user-corner
         h2 BluePrint
         p Welcome, #{user.username}
+        p: a(href="/users/logout") Logout
       .nav-area
         ul
           each group in groups
             li= group.name
             button(type="button", value=group.name, class="group-edit-button", id=group.id data-token=token) Edit
+        button(type="button", id="add-group") Add Group
     .projects-area
       .search
         input(id="searchbar" type="text" placeholder="Search")
@@ -31,11 +34,15 @@ block content
       .accordion-area
         each group in groups
           each project in group.Projects
-              button.accordion= project.name
+              .accordion(id=project.id)= project.name
+                button(class="add-task-button" id=project.id) Add Task
               .panel
-                ul
+                ul(id=`projectList-${project.id}`)
                   each task in project.Tasks
-                    li.project-task-list-item= task.name
-              button(type="button" class="project-edit-button" id=project.id data-token=token data-categories=categories) Edit
+                    li.project-task-list-item(id=`task-${task.id}`)= task.name
+                    button.task-delete-btn(data-id=task.id) Delete
+              button(type="button" class="project-edit-button" id=project.id value=project.name) Edit
+        button(type="button", id="add-project") Add Project
     .tasks-area
-      p Select a task to edit.
+      include forms.pug
+      include project-description.pug

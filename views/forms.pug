@@ -1,0 +1,67 @@
+form.hidden-form.task-area-forms.form#editGroup(action="" method="POST")
+  h3 Edit Group
+  .form-container
+    input(type="hidden" name="_csrf" value=token)
+    .form-item
+      label(for="name") Name:
+      input#groupName(name="name" type="text" value="")
+    button.submit-btn(type="submit") Update Group
+
+form.hidden-form.task-area-forms.form#editProject(action="" method="POST")
+  h3 Edit Project
+  .form-container
+    input(type="hidden" name="_csrf" value=token)
+    .form-item
+      label(for="name") Name:
+      input(name="name" value="" id="projectNameField")
+    .form-item
+      label(for="description") Description:
+      input(type="textarea" name="description")
+    .form-item
+      label(for="deadline")
+      input(type="date" name="deadline")
+    .form-item
+      label(for="category")
+      select(name="categoryId")
+        each category in categories
+          option(value=category.id)= category.name
+    button.submit-btn(type="submit") Update Project
+
+form.hidden-form.task-area-forms.form#addTask
+  h3 Add Task
+  include includes/task-fields.pug
+  button.submit-btn(type="none") Add Task
+
+form.hidden-form.task-area-forms.form#editTask
+  h3 Edit Task
+  include includes/task-fields.pug
+  button.submit-btn(type="none") Edit Task
+
+form.hidden-form.task-area-forms.form#addGroup(action="/home/groups", method="post")
+  h3 Create Group
+  .form-container
+    input(type="hidden" name="_csrf" value=token)
+    .form-item
+      label(for="name") Name:
+      input(name="name" value="" id="groupNameField")
+    button.submit-btn(type="submit" id="addGroupSubmit") Create Group
+
+form.hidden-form.task-area-forms.form#addProject(action="/home/projects", method="post")
+  h3 Create Project
+  .form-container
+    input(type="hidden" name="_csrf" value=token)
+    .form-item
+      label(for="name") Name:
+      input(name="name" value="")
+    .form-item
+      label(for="description") Description:
+      input(type="textarea" name="description")
+    .form-item
+      label(for="deadline")
+      input(type="date" name="deadline" value="" min="1997-01-01" max="2030-12-31")
+    .form-item
+      label(for="category")
+      select(name="categoryId")
+        each category in categories
+          option(value=category.id)= category.name
+    button.submit-btn(type="submit") Create Project
