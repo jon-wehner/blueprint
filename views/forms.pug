@@ -27,7 +27,7 @@ form.hidden-form.task-area-forms.form#editProject(action="" method="POST")
           option(value=category.id)= category.name
     button.submit-btn(type="submit") Update Project
 
-form.hidden-form.task-area-forms.form#addTask(action="" method="POST")
+form.hidden-form.task-area-forms.form#addTask
   h3 Task Information
   .form-container
     input(type="hidden" name="_csrf" value=token)
@@ -37,7 +37,7 @@ form.hidden-form.task-area-forms.form#addTask(action="" method="POST")
       input(name="name" value="" id="taskNameField")
     .form-item
       label(for="deadline") Date:
-      input(type="date" id="taskDate" value="")
+      input(type="date" id="taskDate" value="" name="deadline")
     .form-item
       label(for="importance")
       select(name="importance")
@@ -46,5 +46,8 @@ form.hidden-form.task-area-forms.form#addTask(action="" method="POST")
         option(value="Low") Low
     .form-item
       label(for="isComplete") Completed?
-      input(type="checkbox" id="taskComplete")
-    button.submit-btn(type="submit") Submit Task
+        label Yes
+        input(type="radio" name="isComplete" value="true")
+        label No
+        input(type="radio" name="isComplete" value="false")
+    button.submit-btn(type="none" id="addTaskSubmit") Submit Task
