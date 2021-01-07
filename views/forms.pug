@@ -27,7 +27,6 @@ form.hidden-form.task-area-forms.form#editProject(action="" method="POST")
           option(value=category.id)= category.name
     button.submit-btn(type="submit") Update Project
 
-<<<<<<< HEAD
 form.hidden-form.task-area-forms.form#addTask
   h3 Task Information
   .form-container
@@ -52,7 +51,6 @@ form.hidden-form.task-area-forms.form#addTask
         label No
         input(type="radio" name="isComplete" value="false")
     button.submit-btn(type="none" id="addTaskSubmit") Submit Task
-=======
 form.hidden-form.task-area-forms.form#addGroup(action="/home/groups", method="post")
   h3 Create Group
   .form-container
@@ -62,7 +60,7 @@ form.hidden-form.task-area-forms.form#addGroup(action="/home/groups", method="po
       input(name="name" value="" id="groupNameField")
     button.submit-btn(type="submit") Create Group
 
-form.hidden-form.task-area-forms.form#addProject(action="/home/projects", method="post")    
+form.hidden-form.task-area-forms.form#addProject(action="/home/projects", method="post")
   h3 Create Project
   .form-container
     input(type="hidden" name="_csrf" value=token)
@@ -81,4 +79,3 @@ form.hidden-form.task-area-forms.form#addProject(action="/home/projects", method
         each category in categories
           option(value=category.id)= category.name
     button.submit-btn(type="submit") Create Project
->>>>>>> main
