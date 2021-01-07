@@ -11,7 +11,6 @@ router.get(
     const project = await db.Project.findByPk(projectId, {
       include: [{ model: db.Task }, { model: db.Category }],
     });
-    console.log(project);
     res.status(200).json(project);
   })
 );
