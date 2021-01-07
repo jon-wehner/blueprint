@@ -42,7 +42,7 @@ form.hidden-form.task-area-forms.form#addGroup(action="/home/groups", method="po
     .form-item
       label(for="name") Name:
       input(name="name" value="" id="groupNameField")
-    button.submit-btn(type="submit") Create Group
+    button.submit-btn(type="submit" id="addGroupSubmit") Create Group
 
 form.hidden-form.task-area-forms.form#addProject(action="/home/projects", method="post")
   h3 Create Project
