@@ -5,6 +5,7 @@ append head
   script(src="./javascripts/task.js" type="module" defer)
   script(src="./javascripts/accordion.js" type="module" defer)
   script(src="./javascripts/buttons.js" type="module" defer)
+  script(src="./javascripts/group.js" type="module" defer)
 
 block content
   .container
@@ -18,6 +19,7 @@ block content
           each group in groups
             li= group.name
             button(type="button", value=group.name, class="group-edit-button", id=group.id data-token=token) Edit
+        button(type="button", id="add-group") Add Group    
     .projects-area
       .search
         input(id="searchbar" type="text" placeholder="Search")
@@ -33,5 +35,6 @@ block content
                     li.project-task-list-item= task.name
                     button.task-delete-btn(data-id=task.id) Delete
               button(type="button" class="project-edit-button" id=project.id value=project.name) Edit
+        button(type="button", id="add-project") Add Project      
     .tasks-area
       include forms.pug

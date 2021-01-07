@@ -26,3 +26,12 @@ form.hidden-form.task-area-forms.form#editProject(action="" method="POST")
         each category in categories
           option(value=category.id)= category.name
     button.submit-btn(type="submit") Update Project
+
+form.hidden-form.task-area-forms.form#addGroup(action="/home/groups", method="post")
+  h3 Create Group
+  .form-container
+    input(type="hidden" name="_csrf" value=token)
+    .form-item
+      label(for="name") Name:
+      input(name="name" value="" id="groupNameField")
+    button.submit-btn(type="submit") Add Group
