@@ -27,10 +27,11 @@ form.hidden-form.task-area-forms.form#editProject(action="" method="POST")
           option(value=category.id)= category.name
     button.submit-btn(type="submit") Update Project
 
-form.hidden-form.task-area-forms.form#addEditTask(action="" method="POST")
+form.hidden-form.task-area-forms.form#addTask(action="" method="POST")
   h3 Task Information
   .form-container
     input(type="hidden" name="_csrf" value=token)
+    input(type="hidden" name="projectId" value="" id="projectIdField")
     .form-item
       label(for="name") Name:
       input(name="name" value="" id="taskNameField")

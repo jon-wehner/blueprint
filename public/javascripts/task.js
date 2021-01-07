@@ -1,7 +1,7 @@
 const tasksArea = document.querySelector(".tasks-area");
 const taskListItems = document.querySelectorAll(".project-task-list-item");
 const taskDeleteButtons = document.querySelectorAll(".task-delete-btn");
-const taskForm = document.getElementById("addEditTask")
+const addTaskForm = document.getElementById("addTask")
 const addTaskBtns = document.querySelectorAll(".add-task-button")
 const taskItemsArray = Array.from(taskListItems);
 const deleteButtonsArray = Array.from(taskDeleteButtons);
@@ -27,8 +27,37 @@ taskItemsArray.forEach(task => {
 
 //Shows and Hides the form when "Add Task" is clicked
 addTaskBtns.forEach(btn => {
-  btn.addEventListener("click", (e) => {
+  btn.addEventListener("click", async (e) => {
     e.stopPropagation();
-    taskForm.classList.toggle("hidden-form")
+    const projectIdField = document.getElementById("projectIdField")
+    const projectId = e.target.id
+
+    addTaskForm.action = `/api/projects/${projectId}/tasks/`
+    projectIdField.value= projectId
+    addTaskForm.classList.toggle("hidden-form")
   })
+});
+//Helper function to convert form data to json and post to API
+const postForm = async (url, formData) => {
+  const formPlainObj = Object.fromEntries(formData.entries());
+  const formJson = JSON.stringify(plainFormData);
+  const response = await fetch(url, {
+    method: "POST",
+    body: formJson,
+  });
+  if(!response.ok) {
+    //TODO Error Handling
+  }
+}
+
+//Submits the form data to API endpoint when form is submitted
+addTaskForm.addEventListener("Submit", async (e) => {
+  e.preventDefault();
+  const formData = new FormData(addTaskForm)
+  const url = addTaskForm.action
+  try {
+  const response = await postForm({url, formData})
+  } catch (err) {
+    console.error(error)
+  }
 })
