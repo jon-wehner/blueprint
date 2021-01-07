@@ -42,9 +42,12 @@ addTaskBtns.forEach(btn => {
 //Helper function to convert form data to json and post to API
 const postForm = async (url, formData) => {
   const formPlainObj = Object.fromEntries(formData.entries());
-  const formJson = JSON.stringify(plainFormObj);
+  const formJson = JSON.stringify(formPlainObj);
   const response = await fetch(url, {
     method: "POST",
+    headers: {
+      "Content-Type": "application/json"
+    },
     body: formJson,
   });
   if(!response.ok) {
@@ -53,13 +56,15 @@ const postForm = async (url, formData) => {
 }
 
 //Submits the form data to API endpoint when form is submitted
-addTaskSubmit.addEventListener("click", async (e) => {
+addTaskForm.addEventListener("submit", async (e) => {
   const formData = new FormData(addTaskForm)
   const url = addTaskForm.dataset.url
-  try {
-    await postForm({url, formData})
-  } catch (err) {
-    console.error(error)
-  }
   e.preventDefault()
+  try {
+    await postForm(url, formData)
+  } catch (err) {
+    console.error(err)
+  }
 })
+
+module.exports = postForm
