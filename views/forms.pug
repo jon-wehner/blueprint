@@ -34,4 +34,24 @@ form.hidden-form.task-area-forms.form#addGroup(action="/home/groups", method="po
     .form-item
       label(for="name") Name:
       input(name="name" value="" id="groupNameField")
-    button.submit-btn(type="submit") Add Group
+    button.submit-btn(type="submit") Create Group
+
+form.hidden-form.task-area-forms.form#addProject(action="/home/projects", method="post")    
+  h3 Create Project
+  .form-container
+    input(type="hidden" name="_csrf" value=token)
+    .form-item
+      label(for="name") Name:
+      input(name="name" value="" id="projectNameField")
+    .form-item
+      label(for="description") Description:
+      input(type="textarea" name="description")
+    .form-item
+      label(for="deadline")
+      input(type="date" name="deadline" )
+    .form-item
+      label(for="category")
+      select(name="categoryId")
+        each category in categories
+          option(value=category.id)= category.name
+    button.submit-btn(type="submit") Create Project
