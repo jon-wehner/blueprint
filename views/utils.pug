@@ -1,3 +1,11 @@
 mixin actionButton(action, buttonValue, buttonClass)
   form(action=action)
     input(type="submit", value=buttonValue, class=buttonClass)
+
+
+//- type of form refers to Add or Edit
+mixin taskForm(type)
+  form.hidden-form.task-area-forms.form(id=`${type}Task`)
+  h3= `${type} Task`
+
+    button.submit-btn(type="none")= `${type} Task`
