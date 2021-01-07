@@ -1,9 +1,20 @@
-const taskListItems = document.querySelectorAll(".project-task-list-item");
 const tasksArea = document.querySelector(".tasks-area");
+const taskListItems = document.querySelectorAll(".project-task-list-item");
+const taskDeleteButtons = document.querySelectorAll(".task-delete-btn");
 const taskItemsArray = Array.from(taskListItems);
+const deleteButtonsArray = Array.from(taskDeleteButtons);
 
-taskItemsArray.forEach((task) => {
-  task.addEventListener("click", (e) => {
+deleteButtonsArray.forEach(btn => {
+  btn.addEventListener("click", async () => {
+    await fetch(`/api/tasks/${btn.dataset.id}`, {
+      method: "DELETE",
+      body: JSON.stringify({ id: btn.dataset.id }),
+    });
+  });
+});
+
+taskItemsArray.forEach(task => {
+  task.addEventListener("click", e => {
     tasksArea.innerHTML = `<form>
     <h3>Edit Task</h3>
     <div>
