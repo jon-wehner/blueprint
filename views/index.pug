@@ -12,6 +12,7 @@ block content
       .user-corner
         h2 BluePrint
         p Welcome, #{user.username}
+        p: a(href="/users/logout") Logout
       .nav-area
         ul
           each group in groups
