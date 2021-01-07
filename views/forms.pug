@@ -1,4 +1,5 @@
 include utils.pug
+
 form.hidden-form.task-area-forms.form#editGroup(action="" method="POST")
   h3 Edit Group
   .form-container
@@ -27,14 +28,17 @@ form.hidden-form.task-area-forms.form#editProject(action="" method="POST")
         each category in categories
           option(value=category.id)= category.name
     button.submit-btn(type="submit") Update Project
+
 form.hidden-form.task-area-forms.form#addTask
   h3 Add Task
   include includes/task-fields.pug
   button.submit-btn(type="none") Add Task
+
 form.hidden-form.task-area-forms.form#editTask
   h3 Edit Task
   include includes/task-fields.pug
   button.submit-btn(type="none") Edit Task
+
 form.hidden-form.task-area-forms.form#addGroup(action="/home/groups", method="post")
   h3 Create Group
   .form-container

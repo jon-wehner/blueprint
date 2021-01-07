@@ -5,16 +5,19 @@ const editGroupForm = document.getElementById("editGroup");
 const editProjectForm = document.getElementById("editProject");
 const groupNameField = document.getElementById("groupName");
 const projectNameField = document.getElementById("projectNameField");
-const taskAreaForms = document.querySelectorAll(".task-area-forms");
-const projectDetails = document.getElementById("project-details");
+const forms = document.querySelectorAll(".task-area-forms");
 
 groupEditButtons.forEach((button) =>
   button.addEventListener("click", (e) => {
     const groupId = e.target.id;
     const groupName = e.target.value;
-
     editGroupForm.action = `/home/groups/${groupId}/name`;
     groupNameField.value = groupName;
+
+    forms.forEach((form) => {
+      form.classList.add("hidden-form");
+    });
+    editGroupForm.classList.remove("hidden-form");
   })
 );
 
@@ -24,11 +27,10 @@ projectEditButtons.forEach((button) => {
     const projectName = e.target.value;
     editProjectForm.action = `/home/projects/${projectId}/edit`;
     projectNameField.value = projectName;
-  });
-});
 
-taskAreaForms.forEach((form) => {
-  form.addEventListener("submit", (e) => {
-    form.classList.remove("hidden-form");
+    forms.forEach((form) => {
+      form.classList.add("hidden-form");
+    });
+    editProjectForm.classList.remove("hidden-form");
   });
 });

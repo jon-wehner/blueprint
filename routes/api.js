@@ -20,7 +20,6 @@ router.post(
   "/projects/:id(\\d+)/tasks",
   asyncHandler(async (req, res) => {
     const { name, deadline, importance, isComplete, projectId } = req.body;
-<<<<<<< HEAD
     const newTask = await db.Task.create({
       name,
       deadline,
@@ -28,12 +27,8 @@ router.post(
       isComplete,
       projectId,
     });
-    res.status(201).end();
-=======
-    const newTask = await db.Task.create({ name, deadline, importance, isComplete, projectId });
-    res.status(201).send(newTask)
+    res.status(201).send(newTask);
     //TODO: Task validation
->>>>>>> main
   })
 );
 // -- Update

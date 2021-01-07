@@ -1,5 +1,6 @@
 const projects = document.querySelectorAll(".accordion");
 const projectDescription = document.getElementById("project-description");
+const forms = document.querySelectorAll(".task-area-forms");
 
 projects.forEach((project) => {
   project.addEventListener("click", async (e) => {
@@ -16,7 +17,6 @@ projects.forEach((project) => {
     const projectDescription = document.getElementById("project-description-p");
     const projectDeadline = document.getElementById("project-deadline-p");
     const taskSummary = document.getElementById("project-task-summary-p");
-    const editProjectBtn = document.querySelector(".project-edit-button");
 
     const response = await fetch(`/api/projects/${projectId}/tasks`);
     const projectJson = await response.json();
@@ -33,5 +33,10 @@ projects.forEach((project) => {
     projectDescription.innerHTML = projectJson.description;
     projectDeadline.innerHTML = projectJson.deadline;
     taskSummary.innerHTML = `Completed Tasks: ${completedCount}/${totalTasks}`;
+
+    forms.forEach((form) => {
+      form.classList.add("hidden-form");
+    });
+    projectDetails.classList.remove("hidden-form");
   });
 });
