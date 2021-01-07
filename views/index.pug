@@ -26,7 +26,8 @@ block content
       .accordion-area
         each group in groups
           each project in group.Projects
-              button.accordion= project.name
+              .accordion= project.name
+                button(class="add-task-button" id=project.id) Add Task
               .panel
                 ul
                   each task in project.Tasks

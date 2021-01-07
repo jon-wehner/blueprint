@@ -14,7 +14,7 @@ router.get(
 );
 // -- Create
 router.post(
-  "/tasks/create",
+  "projects/:id(\\d+)/tasks/",
   asyncHandler(async (req, res) => {
     const { name, deadline, importance, isComplete, projectId } = req.body;
     const newTask = await db.Task.create({ name, deadline, importance, isComplete, projectId });
