@@ -20,20 +20,11 @@ taskDeleteButtons.forEach((btn) => {
 });
 
 //Shows and hides the task form to edit a task when clicked
-<<<<<<< HEAD
 taskListItems.forEach(task => {
   task.addEventListener("click", e => {
     editTaskForm.classList.remove("hidden-form")
     editTaskForm.dataset.taskId = e.target.id
     //To do: populate text field with existing task name
-=======
-taskListItems.forEach((task) => {
-  task.addEventListener("click", (e) => {
-    forms.forEach((form) => {
-      form.classList.add("hidden-form");
-    });
-    editTaskForm.classList.remove("hidden-form");
->>>>>>> main
   });
 });
 
@@ -93,30 +84,16 @@ addTaskForm.addEventListener("submit", async (e) => {
 
 //Edit task form submit listener
 editTaskForm.addEventListener("submit", async (e) => {
-<<<<<<< HEAD
   const formData = new FormData(editTaskForm)
   let taskId= e.target.dataset.taskId
   taskId = taskId.slice(5)
   const url = `/api/tasks/${taskId}`
   const method = "PUT"
   e.preventDefault()
-=======
-  const formData = new FormData(addTaskForm);
-  const url = addTaskForm.dataset.url;
-  const method = "PUT";
-  e.preventDefault();
->>>>>>> main
   try {
     let response = await postForm(url, formData, method);
     response = await response.json();
-<<<<<<< HEAD
     const taskItem = document.getElementById(`task-${response.id}`);
-=======
-    const taskList = document.getElementById(
-      `projectList-${response.projectId}`
-    );
-    const taskItem = document.createElement("li");
->>>>>>> main
     taskItem.innerHTML = response.name;
   } catch (err) {
     console.error(err);
