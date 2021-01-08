@@ -128,11 +128,15 @@ addTaskForm.addEventListener("submit", async e => {
     let response = await postForm(url, formData, method);
     response = await response.json();
 
-    const taskTableBody = document.getElementById(`projectList-${response.projectId}`);
+    if (response.id) {
+      const taskTableBody = document.getElementById(`projectList-${response.projectId}`);
 
-    const tableRow = createTableRow(response);
+      const tableRow = createTableRow(response);
 
-    taskTableBody.appendChild(tableRow);
+      taskTableBody.appendChild(tableRow);
+    } else {
+      throw new Error(response);
+    }
   } catch (err) {
     errorContainer.classList.remove("hidden", "hidden-form");
     const errorArray = err.message.split(",");
