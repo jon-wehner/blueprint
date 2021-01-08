@@ -34,13 +34,13 @@ block content
               .accordion(id=project.id)= project.name
                 button(class="add-task-button" id=project.id) Add Task
               .panel
-                table(class="task-table" id=`projectList-${project.id}`)
+                table(class="task-table")
                   thead
                     th Name
                     th Deadline
                     th Importance
                     th Actions
-                  tbody
+                  tbody(id=`projectList-${project.id}`)
                     each task in project.Tasks
                       tr(id=`task-${task.id}`)
                         td
