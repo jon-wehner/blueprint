@@ -10,9 +10,15 @@ const editTaskForm = document.getElementById("editTask");
 const addTaskForm = document.getElementById("addTask");
 const addTaskBtns = document.querySelectorAll(".add-task-button");
 
+<<<<<<< HEAD
 //Helper Function for making fetch delete calls
 const reqDeleteTask = async (id) => {
   const url = `/api/tasks/${id}`;
+=======
+
+const fetchDeleteTask =async (id) => {
+  const url = `/api/tasks/${id}`
+>>>>>>> main
   const fetchOptions = {
     method: "DELETE",
     body: JSON.stringify({ id: id }),
@@ -25,6 +31,7 @@ const reqDeleteTask = async (id) => {
 };
 
 //Refactored Event Listener for Delete Buttons
+<<<<<<< HEAD
 accordionArea.addEventListener("click", (e) => {
   const deleteButton = e.target;
   const taskId = e.target.dataset.id;
@@ -37,6 +44,20 @@ accordionArea.addEventListener("click", (e) => {
     task.remove();
   }
 });
+=======
+accordionArea.addEventListener("click", e => {
+  const btn = e.target
+  const btnId = e.target.dataset.id
+  const taskRow = document.getElementById(`task-${btnId}`)
+  const isDelete = btn.matches(".task-delete-btn")
+
+  if (isDelete) {
+    fetchDeleteTask(btnId)
+    btn.remove();
+    taskRow.remove();
+  };
+})
+>>>>>>> main
 
 //Shows and hides the task form to edit a task when clicked
 taskListItems.forEach((task) => {
@@ -87,13 +108,15 @@ const postForm = async (url, formData, httpMethod) => {
 };
 
 const createDelButton = (id) => {
-  const delButton = document.createElement("button");
-  delButton.classList.add("task-delete-btn");
+  const delButton = document.createElement("i");
+  delButton.classList.add("fas", "fa-trash-alt", "task-delete-btn");
   delButton.dataset.id = id;
-  delButton.innerHTML = "X";
-  return delButton;
+  const td = document.createElement("td");
+  td.append(delButton)
+  return td;
 };
 
+<<<<<<< HEAD
 const createListGroup = (name, id) => {
   const listGroup = document.createElement("div");
   listGroup.classList.add("list-group");
@@ -106,6 +129,26 @@ const createListGroup = (name, id) => {
   taskItem.insertAdjacentElement("beforeend", createDelButton(id));
 
   return listGroup;
+=======
+const fillTableCell = (data) => {
+  const td = document.createElement("td");
+  const p = document.createElement("p");
+  p.innerText = data;
+  td.append(p);
+  return td
+}
+
+const createTableRow = (task) => {
+  const tableRow = document.createElement("tr");
+  const values = Object.values(task)
+  const taskData = values.slice(1,4)
+  taskData.forEach(el => {
+    tableRow.append(fillTableCell(el))
+  });
+  tableRow.append(createDelButton(task.id))
+  console.log(tableRow)
+  return tableRow;
+>>>>>>> main
 };
 
 //Submits the form data to API endpoint when add task form is submitted
@@ -119,12 +162,13 @@ addTaskForm.addEventListener("submit", async (e) => {
     let response = await postForm(url, formData, method);
     response = await response.json();
 
-    const taskList = document.getElementById(
+    const taskTableBody = document.getElementById(
       `projectList-${response.projectId}`
     );
 
-    const listGroup = createListGroup(response.name, response.id);
-    taskList.appendChild(listGroup);
+    const tableRow = createTableRow(response);
+
+    taskTableBody.appendChild(tableRow);
   } catch (err) {
     console.error(err);
   }
