@@ -10,6 +10,8 @@ const editTaskForm = document.getElementById("editTask");
 const addTaskForm = document.getElementById("addTask");
 const addTaskBtns = document.querySelectorAll(".add-task-button");
 
+const errorContainer = document.querySelector(".error-container");
+
 // taskDeleteButtons.forEach((btn) => {
 //   btn.addEventListener("click", async () => {
 //     await fetch(`/api/tasks/${btn.dataset.id}`, {
@@ -60,6 +62,7 @@ taskListItems.forEach(task => {
       form.classList.add("hidden-form");
     });
     editTaskForm.classList.remove("hidden-form");
+    errorContainer.classList.add("hidden-form");
   });
 });
 
@@ -139,7 +142,6 @@ addTaskForm.addEventListener("submit", async e => {
       throw new Error(response);
     }
   } catch (err) {
-    const errorContainer = document.querySelector(".error-container");
     errorContainer.classList.remove("hidden", "hidden-form");
     const errorArray = err.message.split(",");
 
