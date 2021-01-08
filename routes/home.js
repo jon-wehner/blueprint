@@ -87,14 +87,27 @@ router.post(
 );
 // router.post("/groups/:id(\\d+)/user"); -- If we get to implement multiuser groups
 
-router.post(
+router.get(
   "/groups/:id(\\d+)/delete",
   csrfProtection,
   asyncHandler(async (req, res) => {
     const groupId = await parseInt(req.params.id, 10);
-    await db.Group.destroy({ where: { id: groupId } });
-    //When Implementing Multiple-User Groups revisit this deletion method
+
+    const groupProjects = await db.Project.findAll({ where: { groupId } });
+    const projectIdArray = groupProjects.map((project) => project.id);
+
+    const groupProjectTasks = await db.Task.findAll({
+      where: { projectId: projectIdArray },
+    });
+
+    const taskIdArray = groupProjectTasks.map((task) => task.id);
+
+    await db.TaskTag.destroy({ where: { taskId: taskIdArray } });
+    await db.Task.destroy({ where: { projectId: projectIdArray } });
+    await db.Project.destroy({ where: { groupId } });
     await db.UserGroup.destroy({ where: { groupId } });
+    await db.Group.destroy({ where: { id: groupId } });
+
     res.redirect("/home");
   })
 );
