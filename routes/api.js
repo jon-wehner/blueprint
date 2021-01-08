@@ -1,5 +1,6 @@
 const express = require("express");
 const { asyncHandler, db } = require("./utils");
+const { taskValidators, validationResult } = require("./validators");
 const router = express.Router();
 
 // Tasks (API's)
@@ -17,16 +18,25 @@ router.get(
 // -- Create
 router.post(
   "/projects/:id(\\d+)/tasks",
+  taskValidators,
   asyncHandler(async (req, res) => {
     const { name, deadline, importance, isComplete, projectId } = req.body;
-    const newTask = await db.Task.create({
-      name,
-      deadline,
-      importance,
-      isComplete,
-      projectId,
-    });
-    res.status(201).send(newTask);
+    const validatorErrors = validationResult(req);
+
+    if (validatorErrors.isEmpty()) {
+      const newTask = await db.Task.create({
+        name,
+        deadline,
+        importance,
+        isComplete,
+        projectId,
+      });
+      res.status(201).send(newTask);
+    } else {
+      const errors = validatorErrors.array().map(error => error.msg);
+      res.errors = errors;
+      res.status(500).send(errors);
+    }
     //TODO: Task validation
   })
 );
