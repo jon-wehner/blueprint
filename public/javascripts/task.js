@@ -34,7 +34,7 @@ const fetchDeleteTask =async (id) => {
     },
   };
   const response = await fetch(url, fetchOptions);
-  return await response.json()
+  return response.json()
 };
 
 //Refactored Event Listener for Delete Buttons
@@ -116,7 +116,7 @@ const createListGroup = (name, id) => {
   taskItem.id = `task-${id}`
 
   listGroup.appendChild(taskItem);
-  listGroup.appendChild(createDelButton(id));
+  taskItem.insertAdjacentElement("beforeend", createDelButton(id));
 
   return listGroup;
 };

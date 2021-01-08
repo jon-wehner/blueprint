@@ -62,7 +62,7 @@ router.delete(
       await db.TaskTag.destroy({ where: { taskId: taskId } });
     }
     await task.destroy();
-    res.status(204).end();
+    res.status(204);
   })
 );
 
