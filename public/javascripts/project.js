@@ -5,7 +5,7 @@ const forms = document.querySelectorAll(".task-area-forms");
 const postForm = async (url, formData, httpMethod) => {
   const formPlainObj = Object.fromEntries(formData.entries());
   const formJson = JSON.stringify(formPlainObj);
-  console.log(formJson)
+
   const response = await fetch(url, {
     method: httpMethod,
     headers: {
@@ -18,7 +18,6 @@ const postForm = async (url, formData, httpMethod) => {
   }
   return response;
 };
-
 
 addProjectButton.addEventListener("click", () => {
   forms.forEach((form) => {
