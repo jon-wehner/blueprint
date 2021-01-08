@@ -18,7 +18,7 @@ block content
         p Welcome, #{user.username}
         p: a(href="/users/logout") Logout
       .nav-area
-        ul
+        ul#groupList
           each group in groups
             li= group.name
             button(type="button", value=group.name, class="group-edit-button", id=group.id data-token=token) Edit
