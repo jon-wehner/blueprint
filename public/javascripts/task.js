@@ -96,7 +96,6 @@ const createDelButton = (id) => {
 };
 
 const fillTableCell = (data) => {
-  const tableRow = document.createElement("tr");
   const td = document.createElement("td");
   const p = document.createElement("p");
   p.innerText = data;
@@ -108,7 +107,6 @@ const createTableRow = (task) => {
   const tableRow = document.createElement("tr");
   const values = Object.values(task)
   const taskData = values.slice(1,4)
-  console.log(taskData)
   taskData.forEach(el => {
     tableRow.append(fillTableCell(el))
   });
