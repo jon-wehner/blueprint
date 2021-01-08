@@ -92,12 +92,39 @@ router.post(
   csrfProtection,
   asyncHandler(async (req, res) => {
     const groupId = await parseInt(req.params.id, 10);
+
+    const groupProjects = await db.Project.findAll({ where: { groupId } });
+    const projectIdArray = groupProjects.map((project) => project.id);
+
+    const groupProjectTasks = await db.Task.findAll({
+      where: { projectId: projectIdArray },
+    });
+
+    const taskIdArray = groupProjectTasks.map((task) => task.id);
+
+    await db.TaskTag.destroy({ where: { taskId: taskIdArray } });
+    await db.Task.destroy({ where: { projectId: projectIdArray } });
+    await db.Project.destroy({ where: { groupId } });
     await db.Group.destroy({ where: { id: groupId } });
-    //When Implementing Multiple-User Groups revisit this deletion method
-    await db.UserGroup.destroy({ where: { groupId } });
+
     res.redirect("/home");
   })
 );
+
+// const projectId = await parseInt(req.params.id, 10);
+
+// const projectTasks = await db.Task.findAll({
+//   where: { projectId },
+// });
+
+// const taskIdArray = projectTasks.map((task) => {
+//   return task.id;
+// });
+
+// await db.TaskTag.destroy({ where: { taskId: taskIdArray } });
+// await db.Task.destroy({ where: { projectId } });
+// await db.Project.destroy({ where: { id: projectId } });
+// res.json({ message: "items sucessfully deleted" });
 
 // Projects
 // -- Create
