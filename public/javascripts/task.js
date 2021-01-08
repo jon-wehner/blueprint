@@ -2,7 +2,7 @@ const tasksArea = document.querySelector(".tasks-area");
 const forms = document.querySelectorAll(".task-area-forms");
 
 const taskListItems = document.querySelectorAll(".project-task-list-item");
-const taskDeleteButtons = document.querySelectorAll(".task-delete-btn");
+const accordionArea = document.querySelector(".accordion-area")
 
 const taskEditButtons = document.querySelectorAll(".task-edit-btn");
 const editTaskForm = document.getElementById("editTask");
@@ -10,18 +10,46 @@ const editTaskForm = document.getElementById("editTask");
 const addTaskForm = document.getElementById("addTask");
 const addTaskBtns = document.querySelectorAll(".add-task-button");
 
-taskDeleteButtons.forEach((btn) => {
-  btn.addEventListener("click", async () => {
-    await fetch(`/api/tasks/${btn.dataset.id}`, {
-      method: "DELETE",
-      body: JSON.stringify({ id: btn.dataset.id }),
-    });
+// taskDeleteButtons.forEach((btn) => {
+//   btn.addEventListener("click", async () => {
+//     await fetch(`/api/tasks/${btn.dataset.id}`, {
+//       method: "DELETE",
+//       body: JSON.stringify({ id: btn.dataset.id }),
+//     });
 
-    const task = document.getElementById(`task-${btn.dataset.id}`);
-    task.remove();
+//     const task = document.getElementById(`task-${btn.dataset.id}`);
+//     task.remove();
+//     btn.remove();
+//   });
+// });
+
+//Helper Function for making fetch delete calls
+const fetchDeleteTask =async (id) => {
+  const url = `/api/tasks/${id}`
+  const fetchOptions = {
+    method: "DELETE",
+    body: JSON.stringify({ id: id }),
+    headers: {
+      "Content-Type": "application/json"
+    },
+  };
+  const response = await fetch(url, fetchOptions);
+  return await response.json()
+};
+
+//Refactored Event Listener for Delete Buttons
+accordionArea.addEventListener("click", e => {
+  const btn = e.target
+  const btnId = e.target.dataset.id
+  const task = document.getElementById(`task-${btnId}`)
+  const isDelete = btn.getAttribute("class") === "task-delete-btn"
+
+  if (isDelete) {
+    fetchDeleteTask(btnId)
     btn.remove();
-  });
-});
+    task.remove();
+  };
+})
 
 //Shows and hides the task form to edit a task when clicked
 taskListItems.forEach((task) => {
@@ -85,6 +113,7 @@ const createListGroup = (name, id) => {
 
   const taskItem = document.createElement("li");
   taskItem.innerHTML = name;
+  taskItem.id = `task-${id}`
 
   listGroup.appendChild(taskItem);
   listGroup.appendChild(createDelButton(id));
