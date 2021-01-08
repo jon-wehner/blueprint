@@ -4,12 +4,22 @@ const forms = document.querySelectorAll(".task-area-forms");
 projects.forEach((project) => {
   project.addEventListener("click", async (e) => {
     const projectId = await parseInt(e.target.id);
+    const response = await fetch(`/api/projects/${projectId}/tasks`);
+    const projectJson = await response.json();
+
     const panel = project.nextElementSibling;
     project.classList.toggle("active");
 
     panel.style.display === "block"
       ? (panel.style.display = "none")
       : (panel.style.display = "block");
+
+    const currentDate = new Date();
+    const dueDate = new Date(projectJson.deadline);
+
+    if (currentDate.getTime() > dueDate.getTime()) {
+      project.style.backgroundColor = "red";
+    }
 
     if (panel.style.display === "block") {
       const projectName = document.getElementById("project-name-p");
@@ -21,8 +31,6 @@ projects.forEach((project) => {
       const projectDeadline = document.getElementById("project-deadline-p");
       const taskSummary = document.getElementById("project-task-summary-p");
 
-      const response = await fetch(`/api/projects/${projectId}/tasks`);
-      const projectJson = await response.json();
       const category = projectJson.Category.name;
 
       const tasks = projectJson.Tasks;
