@@ -87,7 +87,7 @@ router.post(
 );
 // router.post("/groups/:id(\\d+)/user"); -- If we get to implement multiuser groups
 
-router.post(
+router.get(
   "/groups/:id(\\d+)/delete",
   csrfProtection,
   asyncHandler(async (req, res) => {
