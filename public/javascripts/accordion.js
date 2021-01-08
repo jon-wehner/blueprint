@@ -11,6 +11,7 @@ projects.forEach((project) => {
       ? (panel.style.display = "none")
       : (panel.style.display = "block");
 
+    const projectName = document.getElementById("project-name-p");
     const projectDetails = document.getElementById("project-details");
     const projectCategory = document.getElementById("project-category-p");
     const projectDescription = document.getElementById("project-description-p");
@@ -28,9 +29,10 @@ projects.forEach((project) => {
       if (task.isComplete) completedCount++;
     });
 
-    projectCategory.innerHTML = category;
-    projectDescription.innerHTML = projectJson.description;
-    projectDeadline.innerHTML = projectJson.deadline;
+    projectName.innerHTML = `Project Name: ${projectJson.name}`;
+    projectCategory.innerHTML = `Category: ${category}`;
+    projectDescription.innerHTML = `Description: ${projectJson.description}`;
+    projectDeadline.innerHTML = `Deadline: ${projectJson.deadline}`;
     taskSummary.innerHTML = `Completed Tasks: ${completedCount}/${totalTasks}`;
 
     forms.forEach((form) => {
