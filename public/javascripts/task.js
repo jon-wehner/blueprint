@@ -29,7 +29,7 @@ accordionArea.addEventListener("click", (e) => {
   const deleteButton = e.target;
   const taskId = e.target.dataset.id;
   const task = document.getElementById(`task-${taskId}`);
-  const isDelete = document.getAttribute("class") === "task-delete-btn";
+  const isDelete = deleteButton.getAttribute("class") === "task-delete-btn";
 
   if (isDelete) {
     reqDeleteTask(taskId);

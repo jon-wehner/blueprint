@@ -31,9 +31,9 @@ editProjectButtons.forEach((button) => {
 });
 
 const reqDeleteProject = async (id) => {
-  const route = `/home/projects/${id}/delete"`;
+  const route = `/home/projects/${id}/delete`;
   const reqParams = {
-    method: "DELETE",
+    method: "POST",
     body: JSON.stringify({ id: id }),
     headers: {
       "Content-Type": "application/json",

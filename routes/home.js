@@ -140,14 +140,23 @@ router.post(
 // -- Delete
 router.post(
   "/projects/:id(\\d+)/delete",
-  csrfProtection,
   asyncHandler(async (req, res) => {
     const projectId = await parseInt(req.params.id, 10);
-    await db.Project.destroy({
-      where: { id: projectId },
-      include: [{ model: db.Task, include: [{ model: db.TaskTags }] }],
+    const projectTasks = await db.Task.findAll({
+      where: { projectId },
     });
-
+    if (projectTasks) {
+      await projectTasks.forEach(async (task) => {
+        const taskTags = await db.TaskTag.findAll({
+          where: { taskId: task.id },
+        });
+        if (taskTags) {
+          await db.TaskTag.destroy({ where: { taskId: task.id } });
+        }
+        await db.Task.destroy({ where: { id: task.id } });
+      });
+    }
+    await db.Project.destroy({ where: { id: projectId } });
     res.redirect("/home");
   })
 );

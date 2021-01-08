@@ -53,13 +53,13 @@ router.delete(
   "/tasks/:id(\\d+)",
   asyncHandler(async (req, res) => {
     const taskId = parseInt(req.params.id, 10);
-    const taskTags = await db.TaskTag.findAll({ where: { taskId: taskId } });
+    const taskTags = await db.TaskTag.findAll({ where: { taskId } });
     const task = await db.Task.findByPk(taskId);
     if (!task) {
       res.status(404).send("Task not found");
     }
     if (taskTags) {
-      await db.TaskTag.destroy({ where: { taskId: taskId } });
+      await db.TaskTag.destroy({ where: { taskId } });
     }
     await task.destroy();
     res.status(204);
