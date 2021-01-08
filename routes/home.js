@@ -61,8 +61,8 @@ router.post(
 
     const newGroup = await db.Group.create({ name });
     await db.UserGroup.create({ userId, groupId: newGroup.id });
-    // res.redirect("/home");
-    res.send(newGroup);
+    res.redirect("/home");
+    // res.send(newGroup);
   })
 );
 
