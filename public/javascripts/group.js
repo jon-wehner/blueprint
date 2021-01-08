@@ -57,7 +57,6 @@ const postForm = async (url, formData) => {
 
 addGroupForm.addEventListener("submit", async (e) => {
   const formData = new FormData(addGroupForm);
-  // e.preventDefault();
   try {
     await postForm("/home/groups", formData);
     location.reload()
