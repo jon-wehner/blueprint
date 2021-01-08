@@ -21,8 +21,9 @@ block content
         ul#groupList
           each group in groups
             li= group.name
-            button(type="button", value=group.name, class="group-edit-button", id=group.id data-token=token) Edit
-            i(class="fas fa-trash-alt task-delete-btn" data-id=group.id data-token=token)
+            button(type="button", value=group.name, class="group-edit-btn", data-id=group.id data-token=token) Edit
+            a(href=`/groups/${group.id}/delete`)
+              i(class="fas fa-trash-alt group-delete-btn")
         button(type="button", id="add-group") Add Group
     .projects-area
       .search

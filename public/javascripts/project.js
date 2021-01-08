@@ -48,7 +48,7 @@ accordionArea.addEventListener("click", (e) => {
   const projectId = e.target.id;
   const projectDiv = document.getElementById(projectId);
   const isDelete =
-    deleteButton.getAttribute("class") === "project-delete-button";
+    deleteButton.matches(".project-delete-button");
 
   if (isDelete) {
     reqDeleteProject(projectId);
