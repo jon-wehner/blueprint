@@ -105,6 +105,7 @@ router.get(
     await db.TaskTag.destroy({ where: { taskId: taskIdArray } });
     await db.Task.destroy({ where: { projectId: projectIdArray } });
     await db.Project.destroy({ where: { groupId } });
+    await db.UserGroup.destroy({ where: { groupId } });
     await db.Group.destroy({ where: { id: groupId } });
 
     res.redirect("/home");
