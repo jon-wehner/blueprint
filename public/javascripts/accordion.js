@@ -11,33 +11,41 @@ projects.forEach((project) => {
       ? (panel.style.display = "none")
       : (panel.style.display = "block");
 
-    const projectName = document.getElementById("project-name-p");
-    const projectDetails = document.getElementById("project-details");
-    const projectCategory = document.getElementById("project-category-p");
-    const projectDescription = document.getElementById("project-description-p");
-    const projectDeadline = document.getElementById("project-deadline-p");
-    const taskSummary = document.getElementById("project-task-summary-p");
+    if (panel.style.display === "block") {
+      const projectName = document.getElementById("project-name-p");
+      const projectDetails = document.getElementById("project-details");
+      const projectCategory = document.getElementById("project-category-p");
+      const projectDescription = document.getElementById(
+        "project-description-p"
+      );
+      const projectDeadline = document.getElementById("project-deadline-p");
+      const taskSummary = document.getElementById("project-task-summary-p");
 
-    const response = await fetch(`/api/projects/${projectId}/tasks`);
-    const projectJson = await response.json();
-    const category = projectJson.Category.name;
+      const response = await fetch(`/api/projects/${projectId}/tasks`);
+      const projectJson = await response.json();
+      const category = projectJson.Category.name;
 
-    const tasks = projectJson.Tasks;
-    const totalTasks = tasks.length;
-    let completedCount = 0;
-    tasks.forEach((task) => {
-      if (task.isComplete) completedCount++;
-    });
+      const tasks = projectJson.Tasks;
+      const totalTasks = tasks.length;
+      let completedCount = 0;
+      tasks.forEach((task) => {
+        if (task.isComplete) completedCount++;
+      });
 
-    projectName.innerHTML = `Project Name: ${projectJson.name}`;
-    projectCategory.innerHTML = `Category: ${category}`;
-    projectDescription.innerHTML = `Description: ${projectJson.description}`;
-    projectDeadline.innerHTML = `Deadline: ${projectJson.deadline}`;
-    taskSummary.innerHTML = `Completed Tasks: ${completedCount}/${totalTasks}`;
+      projectName.innerHTML = `Project Name: ${projectJson.name}`;
+      projectCategory.innerHTML = `Category: ${category}`;
+      projectDescription.innerHTML = `Description: ${projectJson.description}`;
+      projectDeadline.innerHTML = `Deadline: ${projectJson.deadline}`;
+      taskSummary.innerHTML = `Completed Tasks: ${completedCount}/${totalTasks}`;
 
-    forms.forEach((form) => {
-      form.classList.add("hidden-form");
-    });
-    projectDetails.classList.remove("hidden-form");
+      forms.forEach((form) => {
+        form.classList.add("hidden-form");
+      });
+      projectDetails.classList.remove("hidden-form");
+    } else {
+      forms.forEach((form) => {
+        form.classList.add("hidden-form");
+      });
+    }
   });
 });
