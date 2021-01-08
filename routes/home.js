@@ -25,7 +25,13 @@ router.get(
               include: [
                 {
                   model: db.Task,
-                  attributes: ["id", "name", "deadline", "importance", "isComplete"],
+                  attributes: [
+                    "id",
+                    "name",
+                    "deadline",
+                    "importance",
+                    "isComplete",
+                  ],
                   include: [
                     {
                       model: db.Tag,
@@ -124,7 +130,8 @@ router.post(
     if (name !== "") updateProject.name = name;
     if (description !== "") updateProject.description = description;
     if (deadline !== "") updateProject.deadline = deadline;
-    if (categoryId !== updateProject.categoryId) updateProject.categoryId = categoryId;
+    if (categoryId !== updateProject.categoryId)
+      updateProject.categoryId = categoryId;
 
     await updateProject.save();
     res.redirect("/home");
@@ -136,7 +143,10 @@ router.post(
   csrfProtection,
   asyncHandler(async (req, res) => {
     const projectId = await parseInt(req.params.id, 10);
-    await db.Project.destroy({ where: { id: projectId } });
+    await db.Project.destroy({
+      where: { id: projectId },
+      include: [{ model: db.Task, include: [{ model: db.TaskTags }] }],
+    });
 
     res.redirect("/home");
   })

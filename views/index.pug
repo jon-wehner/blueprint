@@ -40,6 +40,7 @@ block content
                       li.project-task-list-item(id=`task-${task.id}`)= task.name
                         button.task-delete-btn(data-id=task.id) X
               button(type="button" class="project-edit-button" id=project.id value=project.name) Edit
+              button(type="button" class="project-delete-button" id=project.id value=project.name) Delete
         button(type="button", id="add-project") Add Project
     .tasks-area
       include forms.pug
