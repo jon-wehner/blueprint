@@ -2,51 +2,94 @@
   box-sizing: border-box;
   margin: 0;
   padding: 0;
+  font-family: 'Ubuntu', sans-serif;
 }
 
 .container {
   display: flex;
   height: 100vh;
+
 }
 
 .user-sidebar {
   width: 20%;
   display: flex;
   flex-direction: column;
+  background:#4a6de5;
+  color: white;
 }
 
 .user-corner {
   flex-grow: 1;
-  border-bottom: 1px solid black;
+  border-bottom: 2px solid darkgray;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
+  color: white;
+  padding: 5px
 }
 
 .nav-area {
   flex-grow: 4;
+  padding: 10px;
 }
+
+.nav-area ul {
+  margin: 10px 10px 10px 20px;
+  list-style-type: none;
+}
+
 
 .projects-area {
   width: 40%;
-  border-left: 1px solid black;
-  border-right: 1px solid black;
+  border-left: 1px solid darkgray;
+  border-right: 1px solid darkgray;
 }
 
 .search {
   display: flex;
+  border-bottom: 2px solid darkgray;
+}
+.form {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.form-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  font-family: "Ubuntu", sans-serif;
+  margin-bottom: 10px;
 }
 
 .hidden-form {
   display: none;
+}
+.list-group {
+  display: block;
+}
+
+.task-delete-btn {
+  display: inline;
+  border-radius: 5px;
+  padding: 3px;
+  background: #f52116;
+  color: white;
+}
+
+.project-task-list-item {
+  display: inline;
 }
 
 #searchbar {
   width: calc(100% - 20px);
   height: 30px;
   border: 0;
-  border-bottom: 1px solid black;
+
   font-size: 18px;
   line-height: 18px;
   padding-left: 10px;
@@ -60,7 +103,7 @@
   width: 20px;
   height: 30px;
   border: 0;
-  border-bottom: 1px solid black;
+  /* border-bottom: 1px solid darkgray; */
   background-color: white;
   float: right;
 }

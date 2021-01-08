@@ -1,6 +1,9 @@
 extends layout
 append head
   link(rel="stylesheet" href="./stylesheets/index.css")
+  <link rel="preconnect" href="https://fonts.gstatic.com">
+  <link href="https://fonts.googleapis.com/css2?family=Roboto&display=swap" rel="stylesheet">
+  //- add page specific js
   script(src="./javascripts/task.js" type="module" defer)
   script(src="./javascripts/accordion.js" type="module" defer)
   script(src="./javascripts/buttons.js" type="module" defer)
@@ -33,8 +36,9 @@ block content
               .panel
                 ul(id=`projectList-${project.id}`)
                   each task in project.Tasks
-                    li.project-task-list-item(id=`task-${task.id}`)= task.name
-                    button.task-delete-btn(data-id=task.id) Delete
+                    .list-group
+                      li.project-task-list-item(id=`task-${task.id}`)= task.name
+                      button.task-delete-btn(data-id=task.id) X
               button(type="button" class="project-edit-button" id=project.id value=project.name) Edit
         button(type="button", id="add-project") Add Project
     .tasks-area
