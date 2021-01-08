@@ -10,20 +10,7 @@ const editTaskForm = document.getElementById("editTask");
 const addTaskForm = document.getElementById("addTask");
 const addTaskBtns = document.querySelectorAll(".add-task-button");
 
-// taskDeleteButtons.forEach((btn) => {
-//   btn.addEventListener("click", async () => {
-//     await fetch(`/api/tasks/${btn.dataset.id}`, {
-//       method: "DELETE",
-//       body: JSON.stringify({ id: btn.dataset.id }),
-//     });
 
-//     const task = document.getElementById(`task-${btn.dataset.id}`);
-//     task.remove();
-//     btn.remove();
-//   });
-// });
-
-//Helper Function for making fetch delete calls
 const fetchDeleteTask =async (id) => {
   const url = `/api/tasks/${id}`
   const fetchOptions = {
@@ -41,13 +28,13 @@ const fetchDeleteTask =async (id) => {
 accordionArea.addEventListener("click", e => {
   const btn = e.target
   const btnId = e.target.dataset.id
-  const task = document.getElementById(`task-${btnId}`)
-  const isDelete = btn.getAttribute("class") === "task-delete-btn"
+  const taskRow = document.getElementById(`task-${btnId}`)
+  const isDelete = btn.matches(".task-delete-btn")
 
   if (isDelete) {
     fetchDeleteTask(btnId)
     btn.remove();
-    task.remove();
+    taskRow.remove();
   };
 })
 
