@@ -10,6 +10,8 @@ const editTaskForm = document.getElementById("editTask");
 const addTaskForm = document.getElementById("addTask");
 const addTaskBtns = document.querySelectorAll(".add-task-button");
 
+const errorContainer = document.querySelector(".error-container");
+
 const fetchDeleteTask = async id => {
   const url = `/api/tasks/${id}`;
   const fetchOptions = {
