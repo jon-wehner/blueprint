@@ -1,21 +1,25 @@
 const taskArea = document.querySelector(".tasks-area");
 const forms = document.querySelectorAll(".task-area-forms");
-
+const groupList = document.getElementById("groupList")
 const groupEditButtons = document.querySelectorAll(".group-edit-button");
 const editGroupForm = document.getElementById("editGroup");
 const groupNameField = document.getElementById("groupName");
+const editGroupCsrf = document.getElementById("editGroupToken")
 
-groupEditButtons.forEach((button) =>
-  button.addEventListener("click", (e) => {
-    const groupId = e.target.id;
-    const groupName = e.target.value;
+groupList.addEventListener("click", e => {
+  const groupId = e.target.dataset.id;
+  const groupName = e.target.value;
+  const token = e.target.dataset.token;
 
-    editGroupForm.action = `/home/groups/${groupId}/name`;
-    groupNameField.value = groupName;
 
-    forms.forEach((form) => {
-      form.classList.add("hidden-form");
-    });
-    editGroupForm.classList.remove("hidden-form");
+
+  editGroupForm.action = `/home/groups/${groupId}/name`;
+  groupNameField.value = groupName;
+  editGroupCsrf.value = token
+
+  forms.forEach((form) => {
+    form.classList.add("hidden-form");
+  });
+  editGroupForm.classList.remove("hidden-form");
   })
-);
+

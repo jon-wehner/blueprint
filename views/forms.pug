@@ -10,7 +10,7 @@ form.hidden-form.task-area-forms.form#addGroup(action="/home/groups", method="po
 form.hidden-form.task-area-forms.form#editGroup(action="" method="POST")
   h3 Edit Group
   .form-container
-    input(type="hidden" name="_csrf" value=token)
+    input(type="hidden" name="_csrf" id="editGroupToken" value=token)
     .form-item
       label(for="name") Name:
       input#groupName(name="name" type="text" value="")
