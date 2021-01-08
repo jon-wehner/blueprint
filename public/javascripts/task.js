@@ -12,7 +12,8 @@ const addTaskBtns = document.querySelectorAll(".add-task-button");
 
 const errorContainer = document.querySelector(".error-container");
 
-const fetchDeleteTask = async id => {
+//Helper Function for making fetch delete calls
+const reqDeleteTask = async id => {
   const url = `/api/tasks/${id}`;
   const fetchOptions = {
     method: "DELETE",
@@ -27,15 +28,15 @@ const fetchDeleteTask = async id => {
 
 //Refactored Event Listener for Delete Buttons
 accordionArea.addEventListener("click", e => {
-  const btn = e.target;
-  const btnId = e.target.dataset.id;
-  const taskRow = document.getElementById(`task-${btnId}`);
-  const isDelete = btn.matches(".task-delete-btn");
+  const deleteButton = e.target;
+  const taskId = e.target.dataset.id;
+  const task = document.getElementById(`task-${taskId}`);
+  const isDelete = deleteButton.getAttribute("class") === "task-delete-btn";
 
   if (isDelete) {
-    fetchDeleteTask(btnId);
-    btn.remove();
-    taskRow.remove();
+    reqDeleteTask(taskId);
+    deleteButton.remove();
+    task.remove();
   }
 });
 

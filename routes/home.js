@@ -25,7 +25,13 @@ router.get(
               include: [
                 {
                   model: db.Task,
-                  attributes: ["id", "name", "deadline", "importance", "isComplete"],
+                  attributes: [
+                    "id",
+                    "name",
+                    "deadline",
+                    "importance",
+                    "isComplete",
+                  ],
                   include: [
                     {
                       model: db.Tag,
@@ -123,7 +129,8 @@ router.post(
     if (name !== "") updateProject.name = name;
     if (description !== "") updateProject.description = description;
     if (deadline !== "") updateProject.deadline = deadline;
-    if (categoryId !== updateProject.categoryId) updateProject.categoryId = categoryId;
+    if (categoryId !== updateProject.categoryId)
+      updateProject.categoryId = categoryId;
 
     await updateProject.save();
     res.redirect("/home");
@@ -131,13 +138,22 @@ router.post(
 );
 // -- Delete
 router.post(
-  "/projects/:id(\\d+)/delete",
-  csrfProtection,
+  "/api/projects/:id(\\d+)/delete",
   asyncHandler(async (req, res) => {
     const projectId = await parseInt(req.params.id, 10);
-    await db.Project.destroy({ where: { id: projectId } });
 
-    res.redirect("/home");
+    const projectTasks = await db.Task.findAll({
+      where: { projectId },
+    });
+
+    const taskIdArray = projectTasks.map((task) => {
+      return task.id;
+    });
+
+    await db.TaskTag.destroy({ where: { taskId: taskIdArray } });
+    await db.Task.destroy({ where: { projectId } });
+    await db.Project.destroy({ where: { id: projectId } });
+    res.json({ message: "items sucessfully deleted" });
   })
 );
 
