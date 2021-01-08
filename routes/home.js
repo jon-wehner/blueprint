@@ -139,25 +139,22 @@ router.post(
 );
 // -- Delete
 router.post(
-  "/projects/:id(\\d+)/delete",
+  "/api/projects/:id(\\d+)/delete",
   asyncHandler(async (req, res) => {
     const projectId = await parseInt(req.params.id, 10);
+
     const projectTasks = await db.Task.findAll({
       where: { projectId },
     });
-    if (projectTasks) {
-      await projectTasks.forEach(async (task) => {
-        const taskTags = await db.TaskTag.findAll({
-          where: { taskId: task.id },
-        });
-        if (taskTags) {
-          await db.TaskTag.destroy({ where: { taskId: task.id } });
-        }
-        await db.Task.destroy({ where: { id: task.id } });
-      });
-    }
+
+    const taskIdArray = projectTasks.map((task) => {
+      return task.id;
+    });
+
+    await db.TaskTag.destroy({ where: { taskId: taskIdArray } });
+    await db.Task.destroy({ where: { projectId } });
     await db.Project.destroy({ where: { id: projectId } });
-    res.redirect("/home");
+    res.json({ message: "items sucessfully deleted" });
   })
 );
 
