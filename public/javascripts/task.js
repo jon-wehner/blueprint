@@ -54,7 +54,7 @@ taskListItems.forEach(task => {
 
 //Shows and Hides the form when "Add Task" is clicked
 addTaskBtns.forEach(btn => {
-  btn.addEventListener("click", async e => {
+  btn.addEventListener("click", e => {
     e.stopPropagation();
 
     const projectIdField = document.getElementById("projectIdField");
