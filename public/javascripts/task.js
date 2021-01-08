@@ -65,6 +65,24 @@ const postForm = async (url, formData, httpMethod) => {
   return response;
 };
 
+const createDelButton = (id) => {
+  const delButton = document.createElement("button");
+  delButton.classList.add("task-delete-btn")
+  delButton.dataset.id = id
+  delButton.innerHTML = "X"
+  return delButton
+}
+const createListGroup = (name,  id) => {
+  const listGroup = document.createElement("div")
+  listGroup.classList.add("list-group")
+  const taskItem = document.createElement("li");
+  taskItem.innerHTML = name;
+  listGroup.appendChild(taskItem);
+  listGroup.appendChild(createDelButton(id))
+
+  return listGroup;
+}
+
 //Submits the form data to API endpoint when add task form is submitted
 addTaskForm.addEventListener("submit", async (e) => {
   const formData = new FormData(addTaskForm);
@@ -77,9 +95,8 @@ addTaskForm.addEventListener("submit", async (e) => {
     const taskList = document.getElementById(
       `projectList-${response.projectId}`
     );
-    const taskItem = document.createElement("li");
-    taskItem.innerHTML = response.name;
-    taskList.appendChild(taskItem);
+    const listGroup = createListGroup(response.name, response.id)
+    taskList.appendChild(listGroup)
   } catch (err) {
     console.error(err);
   }
