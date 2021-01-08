@@ -118,6 +118,20 @@ const createTableRow = task => {
   return tableRow;
 };
 
+//Helper function that displays errors when creating or editing tasks
+const displayErrors = err => {
+  errorContainer.classList.remove("hidden", "hidden-form");
+  const errorArray = err.message.split(",");
+
+  const errorList = document.createElement("ul");
+  errorArray.forEach((error, i) => {
+    const errorLi = document.createElement("li");
+    errorLi.innerText = errorArray[i];
+    errorList.appendChild(errorLi);
+  });
+  errorContainer.appendChild(errorList);
+};
+
 //Submits the form data to API endpoint when add task form is submitted
 addTaskForm.addEventListener("submit", async e => {
   const formData = new FormData(addTaskForm);
@@ -139,16 +153,7 @@ addTaskForm.addEventListener("submit", async e => {
       throw new Error(response);
     }
   } catch (err) {
-    errorContainer.classList.remove("hidden", "hidden-form");
-    const errorArray = err.message.split(",");
-
-    const errorList = document.createElement("ul");
-    errorArray.forEach((error, i) => {
-      const errorLi = document.createElement("li");
-      errorLi.innerText = errorArray[i];
-      errorList.appendChild(errorLi);
-    });
-    errorContainer.appendChild(errorList);
+    displayErrors(err);
   }
 });
 
@@ -167,9 +172,13 @@ editTaskForm.addEventListener("submit", async e => {
     let response = await postForm(url, formData, method);
     response = await response.json();
 
-    const taskItem = document.getElementById(`task-${response.id}`);
-    taskItem.innerHTML = response.name;
+    if (response.id) {
+      const taskItem = document.getElementById(`task-${response.id}`);
+      taskItem.innerHTML = response.name;
+    } else {
+      throw new Error(response);
+    }
   } catch (err) {
-    console.error(err);
+    displayErrors(err);
   }
 });

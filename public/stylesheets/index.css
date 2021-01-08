@@ -133,10 +133,15 @@
   background-color: rgb(243, 193, 193);
   color: red;
   border-radius: 5px;
-  width: 80%;
+  width: fit-content;
   padding: 15px;
   margin-top: -20px;
   margin-bottom: 20px;
+}
+
+.error-container ul {
+  padding-left: 15px;
+  margin-top: 5px;
 }
 
 input[type="radio"] {
