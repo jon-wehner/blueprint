@@ -21,7 +21,9 @@ block content
         ul#groupList
           each group in groups
             li= group.name
-            button(type="button", value=group.name, class="group-edit-button", id=group.id data-token=token) Edit
+            button(type="button", value=group.name, class="group-edit-btn", data-id=group.id data-token=token) Edit
+            a(href=`/home/groups/${group.id}/delete`)
+              i(class="fas fa-trash-alt group-delete-btn")
         button(type="button", id="add-group") Add Group
     .projects-area
       .search
@@ -42,9 +44,9 @@ block content
                     th Actions
                   tbody(id=`projectList-${project.id}`)
                     each task in project.Tasks
-                      tr(id=`task-${task.id}`)
+                      tr
                         td
-                          p.project-task-list-item= task.name
+                          p.project-task-list-item(id=`task-${task.id}` data-name=task.name data-deadline=task.deadline data-importance=task.importance)= task.name
                         td
                           p= task.deadline
                         td
