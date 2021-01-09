@@ -14,12 +14,10 @@ const signupValidators = [
     .withMessage("Email Address must not be more than 150 characters long")
     .isEmail()
     .withMessage("Email Address is not a valid email")
-    .custom((value) => {
-      return db.User.findOne({ where: { email: value } }).then((user) => {
+    .custom(value => {
+      return db.User.findOne({ where: { email: value } }).then(user => {
         if (user) {
-          return Promise.reject(
-            "The provided Email Address is already in use by another account"
-          );
+          return Promise.reject("The provided Email Address is already in use by another account");
         }
       });
     }),
@@ -48,16 +46,24 @@ const signupValidators = [
 ];
 
 const loginValidators = [
-  check("email")
+  check("email").exists({ checkFalsy: true }).withMessage("Please provide a value for Email Address"),
+  check("password").exists({ checkFalsy: true }).withMessage("Please provide a value for Password"),
+];
+
+const taskValidators = [
+  check("name")
     .exists({ checkFalsy: true })
-    .withMessage("Please provide a value for Email Address"),
-  check("password")
-    .exists({ checkFalsy: true })
-    .withMessage("Please provide a value for Password"),
+    .withMessage("Please provide a value for the task name.")
+    .isLength({ max: 150 })
+    .withMessage("Task cannot be more than 150 characters long"),
+  check("deadline").exists({ checkFalsy: true }).withMessage("Please enter a valid deadline for this task."),
+  check("importance").exists({ checkFalsy: true }).withMessage("Please select a level of importance for this task."),
+  check("isComplete").exists({ checkFalsy: true }).withMessage("Please verify if the task is completed or not."),
 ];
 
 module.exports = {
   validationResult,
   loginValidators,
   signupValidators,
+  taskValidators,
 };

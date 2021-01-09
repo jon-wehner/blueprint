@@ -2,20 +2,19 @@
   box-sizing: border-box;
   margin: 0;
   padding: 0;
-  font-family: 'Ubuntu', sans-serif;
+  font-family: "Ubuntu", sans-serif;
 }
 
 .container {
   display: flex;
   height: 100vh;
-
 }
 
 .user-sidebar {
   width: 20%;
   display: flex;
   flex-direction: column;
-  background:#4a6de5;
+  background: #4a6de5;
   color: white;
 }
 
@@ -27,7 +26,7 @@
   align-items: center;
   justify-content: center;
   color: white;
-  padding: 5px
+  padding: 5px;
 }
 
 .nav-area {
@@ -39,7 +38,6 @@
   margin: 10px 10px 10px 20px;
   list-style-type: none;
 }
-
 
 .projects-area {
   width: 40%;
@@ -69,6 +67,11 @@
 .hidden-form {
   display: none;
 }
+
+.hidden {
+  display: none;
+}
+
 .list-group {
   display: block;
 }
@@ -122,6 +125,18 @@
   display: flex;
   justify-content: center;
   align-items: center;
+  flex-direction: column;
+}
+
+.error-container {
+  border: 1px solid red;
+  background-color: rgb(243, 193, 193);
+  color: red;
+  border-radius: 5px;
+  width: 80%;
+  padding: 15px;
+  margin-top: -20px;
+  margin-bottom: 20px;
 }
 
 input[type="radio"] {

@@ -1,5 +1,6 @@
 const express = require("express");
 const { asyncHandler, db } = require("./utils");
+const { taskValidators, validationResult } = require("./validators");
 const router = express.Router();
 
 // Tasks (API's)
@@ -17,16 +18,25 @@ router.get(
 // -- Create
 router.post(
   "/projects/:id(\\d+)/tasks",
+  taskValidators,
   asyncHandler(async (req, res) => {
     const { name, deadline, importance, isComplete, projectId } = req.body;
-    const newTask = await db.Task.create({
-      name,
-      deadline,
-      importance,
-      isComplete,
-      projectId,
-    });
-    res.status(201).send(newTask);
+    const validatorErrors = validationResult(req);
+
+    if (validatorErrors.isEmpty()) {
+      const newTask = await db.Task.create({
+        name,
+        deadline,
+        importance,
+        isComplete,
+        projectId,
+      });
+      res.status(201).send(newTask);
+    } else {
+      const errors = validatorErrors.array().map(error => error.msg);
+      res.errors = errors;
+      res.status(500).send(errors);
+    }
     //TODO: Task validation
   })
 );
@@ -35,8 +45,10 @@ router.put(
   "/tasks/:id(\\d+)",
   asyncHandler(async (req, res) => {
     const taskId = await parseInt(req.params.id, 10);
+    console.log("TASK ID!!!!!!!", taskId)
     const { name, deadline, importance, isComplete, projectId } = req.body;
     const taskToUpdate = await db.Task.findByPk(taskId);
+    console.log(taskToUpdate)
 
     if (name) taskToUpdate.name = name;
     if (deadline) taskToUpdate.deadline = deadline;
@@ -53,16 +65,16 @@ router.delete(
   "/tasks/:id(\\d+)",
   asyncHandler(async (req, res) => {
     const taskId = parseInt(req.params.id, 10);
-    const taskTags = await db.TaskTag.findAll({ where: { taskId: taskId } });
+    const taskTags = await db.TaskTag.findAll({ where: { taskId } });
     const task = await db.Task.findByPk(taskId);
     if (!task) {
       res.status(404).send("Task not found");
     }
     if (taskTags) {
-      await db.TaskTag.destroy({ where: { taskId: taskId } });
+      await db.TaskTag.destroy({ where: { taskId } });
     }
     await task.destroy();
-    res.status(204).end();
+    res.status(204);
   })
 );
 

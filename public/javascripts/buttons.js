@@ -1,36 +1,27 @@
-const groupEditButtons = document.querySelectorAll(".group-edit-button");
-const projectEditButtons = document.querySelectorAll(".project-edit-button");
 const taskArea = document.querySelector(".tasks-area");
-const editGroupForm = document.getElementById("editGroup");
-const editProjectForm = document.getElementById("editProject");
-const groupNameField = document.getElementById("groupName");
-const projectNameField = document.getElementById("projectNameField");
 const forms = document.querySelectorAll(".task-area-forms");
+const groupList = document.getElementById("groupList")
+const groupEditButtons = document.querySelectorAll(".group-edit-button");
+const editGroupForm = document.getElementById("editGroup");
+const groupNameField = document.getElementById("groupName");
+const editGroupCsrf = document.getElementById("editGroupToken")
 
-groupEditButtons.forEach(button =>
-  button.addEventListener("click", e => {
-    const groupId = e.target.id;
-    const groupName = e.target.value;
+//Edit Group
+groupList.addEventListener("click", e => {
+  const target = e.target
+  const groupId = e.target.dataset.id;
+  const groupName = e.target.value;
+  const token = e.target.dataset.token;
+  const isEdit = target.matches(".group-edit-btn")
+
+  if(isEdit){
     editGroupForm.action = `/home/groups/${groupId}/name`;
     groupNameField.value = groupName;
-
-    forms.forEach(form => {
+    editGroupCsrf.value = token
+    forms.forEach((form) => {
       form.classList.add("hidden-form");
     });
     editGroupForm.classList.remove("hidden-form");
-  })
-);
+  }
+})
 
-projectEditButtons.forEach(button => {
-  button.addEventListener("click", e => {
-    const projectId = e.target.id;
-    const projectName = e.target.value;
-    editProjectForm.action = `/home/projects/${projectId}/edit`;
-    projectNameField.value = projectName;
-
-    forms.forEach(form => {
-      form.classList.add("hidden-form");
-    });
-    editProjectForm.classList.remove("hidden-form");
-  });
-});
