@@ -9,6 +9,7 @@ append head
   script(src="./javascripts/buttons.js" type="module" defer)
   script(src="./javascripts/group.js" type="module" defer)
   script(src="./javascripts/project.js" type="module" defer)
+  script(src="./javascripts/search.js" type="module" defer)
 
 block content
   .container
@@ -28,7 +29,7 @@ block content
     .projects-area
       .search
         input(id="searchbar" type="text" placeholder="Search")
-        button(type="submit" id="search-btn")
+        button(type="none" id="search-btn")
           i(class="fa fa-search")
       .accordion-area
         each group in groups

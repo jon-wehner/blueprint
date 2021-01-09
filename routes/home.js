@@ -1,6 +1,7 @@
 const express = require("express");
-const group = require("../db/models/group");
 const { asyncHandler, csrfProtection, db } = require("./utils");
+const Sequelize = require("sequelize")
+const Op = Sequelize.Op
 
 const router = express.Router();
 
@@ -169,5 +170,21 @@ router.post(
     res.json({ message: "items sucessfully deleted" });
   })
 );
+
+//search
+router.post("/search", asyncHandler(async (req, res) => {
+  const { query } = req.body
+
+  const results = await db.Task.findAll()
+  // ({
+  //   where: {
+  //     name: {
+  //       [Op.iLike]: query
+  //     }
+  //   }
+  // });
+  console.log("results------------", results)
+  res.render("search", {title : "Search Results", results})
+}))
 
 module.exports = router;
