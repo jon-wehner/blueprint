@@ -43,17 +43,26 @@ accordionArea.addEventListener("click", e => {
 //Shows and hides the task form to edit a task when clicked
 accordionArea.addEventListener("click", e => {
   const target = e.target
-  const isTask = target.matches(".project-task-list-item")
+  const isTask = target.matches(".project-task-list-item");
+
 
   if(isTask){
-    editTaskForm.dataset.id = e.target.id
-    //Todo: populate text field with existing task name
+    editTaskForm.dataset.id = e.target.id;
+    const editTaskName = document.getElementById("editTaskNameField");
+    const editDate = document.getElementById("editTaskDate");
+    const editImportance = document.getElementById("editImportance");
+
+    editTaskName.value = target.dataset.name;
+    editDate.value = target.dataset.deadline;
+    editImportance.value = target.dataset.importance;
+
+
     forms.forEach(form => {
       form.classList.add("hidden-form");
     });
     editTaskForm.classList.remove("hidden-form");
     errorContainer.classList.add("hidden-form");
-}
+  }
 });
 
 
