@@ -45,7 +45,6 @@ accordionArea.addEventListener("click", e => {
   const target = e.target
   const isTask = target.matches(".project-task-list-item");
 
-
   if(isTask){
     editTaskForm.dataset.id = e.target.id;
     const editTaskName = document.getElementById("editTaskNameField");
@@ -56,7 +55,6 @@ accordionArea.addEventListener("click", e => {
     editDate.value = target.dataset.deadline;
     editImportance.value = target.dataset.importance;
 
-
     forms.forEach(form => {
       form.classList.add("hidden-form");
     });
@@ -65,31 +63,29 @@ accordionArea.addEventListener("click", e => {
   }
 });
 
-
 //Shows and Hides the form when "Add Task" is clicked
-addTaskBtns.forEach(btn => {
-  btn.addEventListener("click", e => {
-    e.stopPropagation();
+accordionArea.addEventListener("click", e => {
+  const target = e.target
+  const projectIdField = document.getElementById("projectIdField");
+  const projectId = e.target.id;
+  const isAddTask = target.matches(".add-tast-button")
 
-    const projectIdField = document.getElementById("projectIdField");
-    const projectId = e.target.id;
-
+  if (isAddTask){
     addTaskForm.dataset.url = `/api/projects/${projectId}/tasks/`;
     projectIdField.value = projectId;
 
     forms.forEach(form => {
       form.classList.add("hidden-form");
     });
-    addTaskForm.classList.remove("hidden-form");
-  });
+    addTaskForm.classList.remove("hidden-form")
+  };
 });
+
 
 //Helper function to convert form data to json and post to API
 const postForm = async (url, formData, httpMethod) => {
   const formPlainObj = Object.fromEntries(formData.entries());
   const formJson = JSON.stringify(formPlainObj);
-  console.log(formJson)
-
   const response = await fetch(url, {
     method: httpMethod,
     headers: {
@@ -102,7 +98,7 @@ const postForm = async (url, formData, httpMethod) => {
   }
   return response;
 };
-
+//Add task HTML Generating Functions
 const createDelButton = id => {
   const delButton = document.createElement("i");
   delButton.classList.add("fas", "fa-trash-alt", "task-delete-btn");
@@ -144,9 +140,7 @@ addTaskForm.addEventListener("submit", async e => {
 
     if (response.id) {
       const taskTableBody = document.getElementById(`projectList-${response.projectId}`);
-
       const tableRow = createTableRow(response);
-
       taskTableBody.appendChild(tableRow);
     } else {
       throw new Error(response);
