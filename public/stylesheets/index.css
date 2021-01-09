@@ -49,6 +49,24 @@
   display: flex;
   border-bottom: 2px solid darkgray;
 }
+.task-table {
+  width: 100%;
+  text-align: left;
+}
+th {
+  text-align: left;
+  padding: 10px 5px;
+}
+.task-table thead {
+  width: 100%;
+}
+.task-table td,tr {
+  padding: 10px 5px;
+  margin: 10px;
+}
+.accordion-button-container {
+  display: inline;
+}
 .form {
   display: flex;
   flex-direction: column;

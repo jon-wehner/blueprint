@@ -13,7 +13,7 @@ const addTaskBtns = document.querySelectorAll(".add-task-button");
 const errorContainer = document.querySelector(".error-container");
 
 //Helper Function for making fetch delete calls
-const reqDeleteTask = async id => {
+const reqDeleteTask = async (id) => {
   const url = `/api/tasks/${id}`;
   const fetchOptions = {
     method: "DELETE",
@@ -27,7 +27,7 @@ const reqDeleteTask = async id => {
 };
 
 //Refactored Event Listener for Delete Buttons
-accordionArea.addEventListener("click", e => {
+accordionArea.addEventListener("click", (e) => {
   const deleteButton = e.target;
   const taskId = e.target.dataset.id;
   const task = document.getElementById(`task-${taskId}`);
@@ -41,11 +41,11 @@ accordionArea.addEventListener("click", e => {
 });
 
 //Shows and hides the task form to edit a task when clicked
-accordionArea.addEventListener("click", e => {
-  const target = e.target
+accordionArea.addEventListener("click", (e) => {
+  const target = e.target;
   const isTask = target.matches(".project-task-list-item");
 
-  if(isTask){
+  if (isTask) {
     editTaskForm.dataset.id = e.target.id;
     const editTaskName = document.getElementById("editTaskNameField");
     const editDate = document.getElementById("editTaskDate");
@@ -55,7 +55,7 @@ accordionArea.addEventListener("click", e => {
     editDate.value = target.dataset.deadline;
     editImportance.value = target.dataset.importance;
 
-    forms.forEach(form => {
+    forms.forEach((form) => {
       form.classList.add("hidden-form");
     });
     editTaskForm.classList.remove("hidden-form");
@@ -66,15 +66,15 @@ accordionArea.addEventListener("click", e => {
 //Shows and Hides the form when "Add Task" is clicked
 accordionArea.addEventListener("click", e => {
   const target = e.target
-  const projectIdField = document.getElementById("projectIdField");
+  const projectIdField = document.getElementById("addProjectIdField");
   const projectId = e.target.id;
-  const isAddTask = target.matches(".add-tast-button")
+  const isAddTask = target.matches(".add-task-button")
 
   if (isAddTask){
     addTaskForm.dataset.url = `/api/projects/${projectId}/tasks/`;
     projectIdField.value = projectId;
 
-    forms.forEach(form => {
+    forms.forEach((form) => {
       form.classList.add("hidden-form");
     });
     addTaskForm.classList.remove("hidden-form")
@@ -98,8 +98,8 @@ const postForm = async (url, formData, httpMethod) => {
   }
   return response;
 };
-//Add task HTML Generating Functions
-const createDelButton = id => {
+
+const createDelButton = (id) => {
   const delButton = document.createElement("i");
   delButton.classList.add("fas", "fa-trash-alt", "task-delete-btn");
   delButton.dataset.id = id;
@@ -108,7 +108,7 @@ const createDelButton = id => {
   return td;
 };
 
-const fillTableCell = data => {
+const fillTableCell = (data) => {
   const td = document.createElement("td");
   const p = document.createElement("p");
   p.innerText = data;
@@ -116,11 +116,11 @@ const fillTableCell = data => {
   return td;
 };
 
-const createTableRow = task => {
+const createTableRow = (task) => {
   const tableRow = document.createElement("tr");
   const values = Object.values(task);
   const taskData = values.slice(1, 4);
-  taskData.forEach(el => {
+  taskData.forEach((el) => {
     tableRow.append(fillTableCell(el));
   });
   tableRow.append(createDelButton(task.id));
@@ -128,7 +128,7 @@ const createTableRow = task => {
 };
 
 //Submits the form data to API endpoint when add task form is submitted
-addTaskForm.addEventListener("submit", async e => {
+addTaskForm.addEventListener("submit", async (e) => {
   const formData = new FormData(addTaskForm);
   const url = addTaskForm.dataset.url;
   const method = "POST";
@@ -139,7 +139,10 @@ addTaskForm.addEventListener("submit", async e => {
     response = await response.json();
 
     if (response.id) {
-      const taskTableBody = document.getElementById(`projectList-${response.projectId}`);
+      const taskTableBody = document.getElementById(
+        `projectList-${response.projectId}`
+      );
+
       const tableRow = createTableRow(response);
       taskTableBody.appendChild(tableRow);
     } else {
@@ -160,7 +163,7 @@ addTaskForm.addEventListener("submit", async e => {
 });
 
 //Edit task form submit listener
-editTaskForm.addEventListener("submit", async e => {
+editTaskForm.addEventListener("submit", async (e) => {
   e.preventDefault();
   const formData = new FormData(editTaskForm);
   let taskId = e.target.dataset.id;

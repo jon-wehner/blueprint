@@ -1,12 +1,15 @@
 const projects = document.querySelectorAll(".accordion");
 const forms = document.querySelectorAll(".task-area-forms");
+const accordionArea = document.querySelector(".accordion-area");
 
-projects.forEach((project) => {
-  project.addEventListener("click", async (e) => {
-    const projectId = await parseInt(e.target.id);
-    const response = await fetch(`/api/projects/${projectId}/tasks`);
-    const projectJson = await response.json();
-
+accordionArea.addEventListener("click", async (e) => {
+  e.stopPropagation()
+  const project = e.target
+  const projectId = await parseInt(e.target.id, 10);
+  const response = await fetch(`/api/projects/${projectId}/tasks`);
+  const projectJson = await response.json();
+  const isAccordion = project.matches(".accordion")
+  if(isAccordion){
     const panel = project.nextElementSibling;
     project.classList.toggle("active");
 
@@ -55,5 +58,5 @@ projects.forEach((project) => {
         form.classList.add("hidden-form");
       });
     }
-  });
+  }
 });
