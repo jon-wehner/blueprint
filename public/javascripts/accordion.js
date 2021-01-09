@@ -1,5 +1,6 @@
 const projects = document.querySelectorAll(".accordion");
 const forms = document.querySelectorAll(".task-area-forms");
+const accordionArea = document.querySelector(".accordion-area");
 
 accordionArea.addEventListener("click", async (e) => {
   e.stopPropagation()
