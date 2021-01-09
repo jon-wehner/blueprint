@@ -191,12 +191,12 @@ tr {
 #group-list {
   display: flex;
 }
+
 .group-list-item-container {
   display: flex;
   justify-content: space-between;
 }
-.group-list-item {
-}
+
 #search-btn:hover {
   cursor: pointer;
 }
