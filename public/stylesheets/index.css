@@ -12,21 +12,33 @@
 
 .user-sidebar {
   width: 20%;
+  max-width: 250px;
   display: flex;
   flex-direction: column;
   background: #4a6de5;
   color: white;
+  box-shadow: 2px 0 3px #000;
+  z-index: 2;
 }
 
 .user-corner {
   flex-grow: 1;
-  border-bottom: 2px solid darkgray;
+  border-bottom: 2px solid white;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
   color: white;
   padding: 5px;
+}
+
+.logo {
+  display: inline-block;
+  color: #4a6de5;
+  background-color: white;
+  font-size: 40px;
+  border-radius: 10px;
+  user-select: none;
 }
 
 .nav-area {
@@ -41,7 +53,6 @@
 
 .projects-area {
   width: 40%;
-  border-left: 1px solid darkgray;
   border-right: 1px solid darkgray;
 }
 
@@ -86,6 +97,7 @@
 
 .project-task-list-item {
   display: inline;
+  width: fit-content;
 }
 
 #searchbar {
