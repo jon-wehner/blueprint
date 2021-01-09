@@ -21,23 +21,13 @@ block content
       .nav-area
         ul#groupList
           each group in groups
-<<<<<<< HEAD
             .group-line
-              li= group.name
-              div.group-action-btns
-                button(type="button", value=group.name, class="group-edit-btn", data-id=group.id data-token=token) Edit
-                a(href=`/home/groups/${group.id}/delete`)
-                  i(class="fas fa-trash-alt group-delete-btn")
-        button(type="button", id="add-group") Add Group
-=======
-            .group-list-item-container
               li= group.name
               .group-list-button-container
                 button(type="button", value=group.name, class="btn group-edit-btn", data-id=group.id data-token=token) Edit
                 a(href=`/home/groups/${group.id}/delete`)
                 i(class="fas fa-trash-alt group-delete-btn")
         button.btn(type="button", id="add-group") Add Group
->>>>>>> c0877d671f9628fcab36e739d0819874b991ecc4
     .projects-area
       .search
         input(id="searchbar" type="text" placeholder="Search")
