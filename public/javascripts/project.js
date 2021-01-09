@@ -31,9 +31,9 @@ editProjectButtons.forEach((button) => {
 });
 
 const reqDeleteProject = async (id) => {
-  const route = `/home/api/projects/${id}/delete`;
+  const route = `/api/projects/${id}`;
   const reqParams = {
-    method: "POST",
+    method: "DELETE",
     body: JSON.stringify({ id: id }),
     headers: {
       "Content-Type": "application/json",
@@ -46,13 +46,14 @@ const reqDeleteProject = async (id) => {
 accordionArea.addEventListener("click", (e) => {
   const deleteButton = e.target;
   const projectId = e.target.id;
-  const projectDiv = document.getElementById(projectId);
-  const isDelete =
-    deleteButton.matches(".project-delete-button");
+  const projectDiv = document.getElementById(projectId)
+  const isDelete = deleteButton.matches(".project-delete-button");
 
   if (isDelete) {
     reqDeleteProject(projectId);
     deleteButton.remove();
+    projectDiv.nextSibling.innerHTML = ""
+    projectDiv.nextSibling.remove()
     projectDiv.remove();
   }
 });

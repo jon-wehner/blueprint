@@ -12,26 +12,41 @@
 
 .user-sidebar {
   width: 20%;
+  max-width: 275px;
   display: flex;
   flex-direction: column;
   background: #4a6de5;
   color: white;
+  box-shadow: 2px 0 3px #000;
+  z-index: 2;
 }
 
 .user-corner {
   flex-grow: 1;
-  border-bottom: 2px solid darkgray;
+  border-bottom: 2px solid white;
   display: flex;
   flex-direction: column;
   align-items: center;
-  justify-content: center;
+  justify-content: space-around;
   color: white;
   padding: 5px;
+}
+
+.logo {
+  display: inline-block;
+  color: #4a6de5;
+  background-color: white;
+  font-size: 40px;
+  border-radius: 10px;
+  user-select: none;
+  padding: 0 2px;
 }
 
 .nav-area {
   flex-grow: 4;
   padding: 10px;
+  display: flex;
+  flex-direction: column;
 }
 
 .nav-area ul {
@@ -41,13 +56,31 @@
 
 .projects-area {
   width: 40%;
-  border-left: 1px solid darkgray;
   border-right: 1px solid darkgray;
 }
 
 .search {
   display: flex;
   border-bottom: 2px solid darkgray;
+}
+.task-table {
+  width: 100%;
+  text-align: left;
+}
+th {
+  text-align: left;
+  padding: 10px 5px;
+}
+.task-table thead {
+  width: 100%;
+}
+.task-table td,
+tr {
+  padding: 10px 5px;
+  margin: 10px;
+}
+.accordion-button-container {
+  display: inline;
 }
 .form {
   display: flex;
@@ -76,6 +109,30 @@
   display: block;
 }
 
+#groupList {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.group-line {
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+  margin-bottom: 5px;
+}
+
+.group-line li {
+  word-wrap: wrap;
+  max-width: 150px;
+}
+
+.group-delete-btn {
+  background-color: #f52116;
+  padding: 3px 4px;
+  border-radius: 2px;
+}
+
 .task-delete-btn {
   display: inline;
   border-radius: 5px;
@@ -86,6 +143,22 @@
 
 .project-task-list-item {
   display: inline;
+  width: fit-content;
+  margin-bottom: 10px;
+}
+
+.task-delete-btn,
+.group-edit-btn,
+.group-delete-btn,
+.btn {
+  display: inline-block;
+  margin-left: 10px;
+}
+.project-task-list-item,
+.task-delete-btn,
+.group-edit-btn,
+.btn:hover {
+  cursor: pointer;
 }
 
 #searchbar {
@@ -115,7 +188,15 @@
 #search-btn:active {
   outline: none;
 }
-
+#group-list {
+  display: flex;
+}
+.group-list-item-container {
+  display: flex;
+  justify-content: space-between;
+}
+.group-list-item {
+}
 #search-btn:hover {
   cursor: pointer;
 }
@@ -133,10 +214,15 @@
   background-color: rgb(243, 193, 193);
   color: red;
   border-radius: 5px;
-  width: 80%;
+  width: fit-content;
   padding: 15px;
   margin-top: -20px;
   margin-bottom: 20px;
+}
+
+.error-container ul {
+  padding-left: 15px;
+  margin-top: 5px;
 }
 
 input[type="radio"] {
