@@ -1,3 +1,4 @@
+include includes/task-fields.pug
 form.hidden-form.task-area-forms.form#addGroup(action="/home/groups", method="post")
   h3 Create Group
   .form-container
@@ -41,7 +42,7 @@ form.hidden-form.task-area-forms.form#addProject(action="/home/projects", method
           option(value=group.id)= group.name
     button.submit-btn(type="submit") Create Project
 
-form.hidden-form.task-area-forms.form#editProject(action="" method="POST")
+form.hidden-form.task-area-forms.form#editProject(action="" method="none")
   h3 Edit Project
   .form-container
     input(type="hidden" name="_csrf" value=token)
@@ -63,12 +64,12 @@ form.hidden-form.task-area-forms.form#editProject(action="" method="POST")
 
 form.hidden-form.task-area-forms.form#addTask
   h3 Add Task
-  include includes/task-fields.pug
+  +taskFields("add")
   button.submit-btn(type="none") Add Task
 
 form.hidden-form.task-area-forms.form#editTask
   h3 Edit Task
-  include includes/task-fields.pug
+  +taskFields("edit")
   button.submit-btn(type="none") Edit Task
 
 
