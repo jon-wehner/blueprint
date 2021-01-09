@@ -21,10 +21,12 @@ block content
       .nav-area
         ul#groupList
           each group in groups
-            li= group.name
-            button(type="button", value=group.name, class="group-edit-btn", data-id=group.id data-token=token) Edit
-            a(href=`/home/groups/${group.id}/delete`)
-              i(class="fas fa-trash-alt group-delete-btn")
+            .group-line
+              li= group.name
+              div.group-action-btns
+                button(type="button", value=group.name, class="group-edit-btn", data-id=group.id data-token=token) Edit
+                a(href=`/home/groups/${group.id}/delete`)
+                  i(class="fas fa-trash-alt group-delete-btn")
         button(type="button", id="add-group") Add Group
     .projects-area
       .search
@@ -40,7 +42,7 @@ block content
                 table(class="task-table")
                   thead
                     th Name
-                    th Deadline
+                    th.deadline Deadline
                     th Importance
                     th Actions
                   tbody(id=`projectList-${project.id}`)
