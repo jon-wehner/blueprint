@@ -41,17 +41,21 @@ accordionArea.addEventListener("click", e => {
 });
 
 //Shows and hides the task form to edit a task when clicked
-taskListItems.forEach(task => {
-  task.addEventListener("click", e => {
-    editTaskForm.dataset.taskId = e.target.id;
-    //To do: populate text field with existing task name
+accordionArea.addEventListener("click", e => {
+  const target = e.target
+  const isTask = target.matches(".project-task-list-item")
+
+  if(isTask){
+    editTaskForm.dataset.id = e.target.id
+    //Todo: populate text field with existing task name
     forms.forEach(form => {
       form.classList.add("hidden-form");
     });
     editTaskForm.classList.remove("hidden-form");
     errorContainer.classList.add("hidden-form");
-  });
+}
 });
+
 
 //Shows and Hides the form when "Add Task" is clicked
 addTaskBtns.forEach(btn => {
@@ -75,6 +79,7 @@ addTaskBtns.forEach(btn => {
 const postForm = async (url, formData, httpMethod) => {
   const formPlainObj = Object.fromEntries(formData.entries());
   const formJson = JSON.stringify(formPlainObj);
+  console.log(formJson)
 
   const response = await fetch(url, {
     method: httpMethod,
@@ -114,7 +119,6 @@ const createTableRow = task => {
     tableRow.append(fillTableCell(el));
   });
   tableRow.append(createDelButton(task.id));
-  console.log(tableRow);
   return tableRow;
 };
 
@@ -154,14 +158,12 @@ addTaskForm.addEventListener("submit", async e => {
 
 //Edit task form submit listener
 editTaskForm.addEventListener("submit", async e => {
+  e.preventDefault();
   const formData = new FormData(editTaskForm);
-
-  let taskId = e.target.dataset.taskId;
+  let taskId = e.target.dataset.id;
   taskId = taskId.slice(5);
-
   const url = `/api/tasks/${taskId}`;
   const method = "PUT";
-  e.preventDefault();
 
   try {
     let response = await postForm(url, formData, method);
