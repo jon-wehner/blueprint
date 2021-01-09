@@ -141,7 +141,6 @@ router.get(
   })
 );
 
-//Set this to get while to test logging out while we await a logout button
 router.get(
   "/logout",
   asyncHandler(async (req, res, next) => {
