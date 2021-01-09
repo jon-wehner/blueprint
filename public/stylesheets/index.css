@@ -30,6 +30,7 @@
   justify-content: space-around;
   color: white;
   padding: 5px;
+  max-height: 150px;
 }
 
 .logo {
@@ -115,6 +116,11 @@ tr {
   align-items: center;
 }
 
+#group-text {
+  text-align: center;
+  font-size: 1.2em;
+}
+
 .group-line {
   display: flex;
   justify-content: space-between;
@@ -131,6 +137,25 @@ tr {
   background-color: #f52116;
   padding: 3px 4px;
   border-radius: 2px;
+  transition: all 0.2s;
+}
+
+.group-delete-btn:hover {
+  background-color: #c71a11;
+}
+
+.fa-pencil {
+  pointer-events: none;
+}
+
+#add-group {
+  border: none;
+  background-color: white;
+  width: fit-content;
+  color: #4a6de5;
+  margin: 0 auto;
+  padding: 3px 4px;
+  border-radius: 5px;
 }
 
 .task-delete-btn {
@@ -195,6 +220,23 @@ tr {
 .group-list-item-container {
   display: flex;
   justify-content: space-between;
+}
+
+.group-list-button-container {
+  display: flex;
+  align-items: center;
+}
+
+.group-list-button-container a {
+  width: fit-content;
+}
+
+.group-list-button-container button {
+  color: #4a6de5;
+  background-color: white;
+  padding: 3px 4px;
+  border-radius: 2px;
+  border: 0;
 }
 
 #search-btn:hover {
@@ -265,4 +307,24 @@ input[type="radio"] {
   display: none;
   width: 95%;
   overflow: hidden;
+}
+
+/*============================================*/
+.hvr-backward {
+  display: inline-block;
+  vertical-align: middle;
+  -webkit-transform: perspective(1px) translateZ(0);
+  transform: perspective(1px) translateZ(0);
+  box-shadow: 0 0 1px rgba(0, 0, 0, 0);
+  -webkit-transition-duration: 0.3s;
+  transition-duration: 0.3s;
+  -webkit-transition-property: transform;
+  transition-property: transform;
+}
+.hvr-backward:hover,
+.hvr-backward:focus,
+.hvr-backward:active {
+  -webkit-transform: translateX(-8px);
+  transform: translateX(-8px);
+  outline: 0;
 }
