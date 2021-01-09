@@ -63,7 +63,9 @@ th {
 .task-table td,tr {
   padding: 10px 5px;
   margin: 10px;
-
+}
+.accordion-button-container {
+  display: inline;
 }
 .form {
   display: flex;

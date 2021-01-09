@@ -42,7 +42,7 @@ form.hidden-form.task-area-forms.form#addProject(action="/home/projects", method
           option(value=group.id)= group.name
     button.submit-btn(type="submit") Create Project
 
-form.hidden-form.task-area-forms.form#editProject(action="" method="none")
+form.hidden-form.task-area-forms.form#editProject(action="" method="post")
   h3 Edit Project
   .form-container
     input(type="hidden" name="_csrf" value=token)

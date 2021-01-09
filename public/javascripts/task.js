@@ -66,9 +66,9 @@ accordionArea.addEventListener("click", e => {
 //Shows and Hides the form when "Add Task" is clicked
 accordionArea.addEventListener("click", e => {
   const target = e.target
-  const projectIdField = document.getElementById("projectIdField");
+  const projectIdField = document.getElementById("addProjectIdField");
   const projectId = e.target.id;
-  const isAddTask = target.matches(".add-tast-button")
+  const isAddTask = target.matches(".add-task-button")
 
   if (isAddTask){
     addTaskForm.dataset.url = `/api/projects/${projectId}/tasks/`;
