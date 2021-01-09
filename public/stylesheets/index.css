@@ -12,7 +12,7 @@
 
 .user-sidebar {
   width: 20%;
-  max-width: 250px;
+  max-width: 275px;
   display: flex;
   flex-direction: column;
   background: #4a6de5;
@@ -122,6 +122,11 @@ tr {
   margin-bottom: 5px;
 }
 
+.group-line li {
+  word-wrap: wrap;
+  max-width: 150px;
+}
+
 .group-delete-btn {
   background-color: #f52116;
   padding: 3px 4px;
@@ -184,14 +189,13 @@ tr {
   outline: none;
 }
 #group-list {
-  display: flex
+  display: flex;
 }
 .group-list-item-container {
   display: flex;
   justify-content: space-between;
 }
 .group-list-item {
-
 }
 #search-btn:hover {
   cursor: pointer;
