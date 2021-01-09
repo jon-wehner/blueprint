@@ -33,7 +33,7 @@ router.post(
       });
       res.status(201).send(newTask);
     } else {
-      const errors = validatorErrors.array().map(error => error.msg);
+      const errors = validatorErrors.array().map((error) => error.msg);
       res.errors = errors;
       res.status(500).send(errors);
     }
@@ -73,6 +73,26 @@ router.delete(
     }
     await task.destroy();
     res.status(204);
+  })
+);
+
+router.delete(
+  "/projects/:id(\\d+)",
+  asyncHandler(async (req, res) => {
+    const projectId = await parseInt(req.params.id, 10);
+
+    const projectTasks = await db.Task.findAll({
+      where: { projectId },
+    });
+
+    const taskIdArray = projectTasks.map((task) => {
+      return task.id;
+    });
+
+    await db.TaskTag.destroy({ where: { taskId: taskIdArray } });
+    await db.Task.destroy({ where: { projectId } });
+    await db.Project.destroy({ where: { id: projectId } });
+    res.json({ message: "items sucessfully deleted" });
   })
 );
 

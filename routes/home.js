@@ -149,25 +149,5 @@ router.post(
     res.redirect("/home");
   })
 );
-// -- Delete
-router.post(
-  "/api/projects/:id(\\d+)/delete",
-  asyncHandler(async (req, res) => {
-    const projectId = await parseInt(req.params.id, 10);
-
-    const projectTasks = await db.Task.findAll({
-      where: { projectId },
-    });
-
-    const taskIdArray = projectTasks.map((task) => {
-      return task.id;
-    });
-
-    await db.TaskTag.destroy({ where: { taskId: taskIdArray } });
-    await db.Task.destroy({ where: { projectId } });
-    await db.Project.destroy({ where: { id: projectId } });
-    res.json({ message: "items sucessfully deleted" });
-  })
-);
 
 module.exports = router;
