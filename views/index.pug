@@ -1,8 +1,9 @@
 extends layout
 append head
   link(rel="stylesheet" href="./stylesheets/index.css")
-  <link rel="preconnect" href="https://fonts.gstatic.com">
-  <link href="https://fonts.googleapis.com/css2?family=Roboto&display=swap" rel="stylesheet">
+  link(rel="preconnect" href="https://fonts.gstatic.com")
+  link(href="https://fonts.googleapis.com/css2?family=Ubuntu&display=swap" rel="stylesheet")
+  link(href="https://fonts.googleapis.com/css2?family=Roboto&display=swap" rel="stylesheet")
   //- add page specific js
   script(src="./javascripts/task.js" type="module" defer)
   script(src="./javascripts/accordion.js" type="module" defer)
@@ -14,16 +15,18 @@ block content
   .container
     .user-sidebar.page-area-blue
       .user-corner
-        h2 BluePrint
+        h2.logo bp
         p Welcome, #{user.username}
         p: a(href="/users/logout") Logout
       .nav-area
         ul#groupList
           each group in groups
-            li= group.name
-            button(type="button", value=group.name, class="group-edit-btn", data-id=group.id data-token=token) Edit
-            a(href=`/home/groups/${group.id}/delete`)
-              i(class="fas fa-trash-alt group-delete-btn")
+            .group-line
+              li= group.name
+              div.group-action-btns
+                button(type="button", value=group.name, class="group-edit-btn", data-id=group.id data-token=token) Edit
+                a(href=`/home/groups/${group.id}/delete`)
+                  i(class="fas fa-trash-alt group-delete-btn")
         button(type="button", id="add-group") Add Group
     .projects-area
       .search
@@ -42,7 +45,7 @@ block content
                 table(class="task-table")
                   thead
                     th Name
-                    th Deadline
+                    th.deadline Deadline
                     th Importance
                     th Actions
                   tbody(id=`projectList-${project.id}`)
@@ -59,5 +62,6 @@ block content
         button(type="button", id="add-project") Add Project
     .tasks-area
       .error-container.hidden.hidden-form.task-area-forms
+        strong Please review the following errors:
       include forms.pug
       include project-description.pug
