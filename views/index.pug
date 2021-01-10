@@ -7,8 +7,8 @@ append head
   link(href="https://fonts.googleapis.com/css2?family=Ubuntu&display=swap" rel="stylesheet")
   link(href="https://fonts.googleapis.com/css2?family=Roboto&display=swap" rel="stylesheet")
   //- add page specific js
-  script(src="./javascripts/task.js" type="module" defer)
   script(src="./javascripts/accordion.js" type="module" defer)
+  script(src="./javascripts/task.js" type="module" defer)
   script(src="./javascripts/buttons.js" type="module" defer)
   script(src="./javascripts/group.js" type="module" defer)
   script(src="./javascripts/project.js" type="module" defer)
@@ -27,7 +27,7 @@ block content
             .group-line
               li= group.name
               .group-list-button-container
-                button(type="button", value=group.name, class="btn group-edit-btn hvr-push", data-id=group.id data-token=token) 
+                button(type="button", value=group.name, class="btn group-edit-btn hvr-push", data-id=group.id data-token=token)
                   i(class="fa fa-pencil" aria-hidden="true")
                 a(href=`/home/groups/${group.id}/delete`)
                   i(class="fas fa-trash-alt group-delete-btn")

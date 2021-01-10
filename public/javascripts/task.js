@@ -37,6 +37,7 @@ const createTableRow = (task) => {
 const postForm = async (url, formData, httpMethod) => {
   const formPlainObj = Object.fromEntries(formData.entries());
   const formJson = JSON.stringify(formPlainObj);
+
   const response = await fetch(url, {
     method: httpMethod,
     headers: {

@@ -109,8 +109,12 @@ accordionArea.addEventListener("click", async (e) => {
   }
 
   if (isAddTask) {
+    const projectIdField = document.getElementById("addProjectIdField");
     const projectId = target.id;
+
     addTaskForm.dataset.url = `/api/projects/${projectId}/tasks/`;
+    projectIdField.value = projectId;
+
     forms.forEach((form) => {
       form.classList.add("hidden-form");
     });
