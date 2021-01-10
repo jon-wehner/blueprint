@@ -1,18 +1,38 @@
-const projects = document.querySelectorAll(".accordion");
 const forms = document.querySelectorAll(".task-area-forms");
 const accordionArea = document.querySelector(".accordion-area");
+const addTaskForm = document.getElementById("addTask");
+const editTaskForm = document.getElementById("editTask");
+const errorContainer = document.querySelector(".error-container");
+
+const reqDeleteTask = async (id) => {
+  const url = `/api/tasks/${id}`;
+  const fetchOptions = {
+    method: "DELETE",
+    body: JSON.stringify({ id: id }),
+    headers: {
+      "Content-Type": "application/json",
+    },
+  };
+  const response = await fetch(url, fetchOptions);
+  return response.json();
+};
 
 accordionArea.addEventListener("click", async (e) => {
   e.stopPropagation();
-  const project = e.target;
-  const projectId = await parseInt(e.target.id, 10);
-  const response = await fetch(`/api/projects/${projectId}/tasks`);
-  const projectJson = await response.json();
+  const target = e.target;
 
-  const isAccordion = project.matches(".accordion");
+  const isAccordion = target.matches(".accordion");
+  const isDelete = target.matches(".task-delete-button");
+  const isTask = target.matches(".project-task-list-item");
+  const isAddTask = target.matches(".add-task-button");
+
   if (isAccordion) {
-    const panel = project.nextElementSibling;
-    project.classList.toggle("active");
+    const projectId = await parseInt(target.id, 10);
+    const response = await fetch(`/api/projects/${projectId}/tasks`);
+    const projectJson = await response.json();
+
+    const panel = target.nextElementSibling;
+    target.classList.toggle("active");
 
     panel.style.display === "block"
       ? (panel.style.display = "none")
@@ -22,7 +42,7 @@ accordionArea.addEventListener("click", async (e) => {
     const dueDate = new Date(projectJson.deadline);
 
     if (currentDate.getTime() > dueDate.getTime()) {
-      project.style.backgroundColor = "red";
+      target.style.backgroundColor = "red";
     }
 
     if (panel.style.display === "block") {
@@ -59,5 +79,41 @@ accordionArea.addEventListener("click", async (e) => {
         form.classList.add("hidden-form");
       });
     }
+  }
+
+  if (isDelete) {
+    const taskId = target.dataset.id;
+    const task = document.getElementById(`task-${taskId}`);
+    reqDeleteTask(taskId);
+    target.remove();
+    task.remove();
+  }
+
+  if (isTask) {
+    editTaskForm.dataset.id = target.id;
+
+    const editTaskName = document.getElementById("editTaskNameField");
+    const editDate = document.getElementById("editTaskDate");
+    const editImportance = document.getElementById("editImportance");
+
+    editTaskName.value = target.dataset.name;
+    editDate.value = target.dataset.deadline;
+    editImportance.value = target.dataset.importance;
+
+    forms.forEach((form) => {
+      form.classList.add("hidden-form");
+    });
+
+    editTaskForm.classList.remove("hidden-form");
+    errorContainer.classList.add("hidden-form");
+  }
+
+  if (isAddTask) {
+    const projectId = target.id;
+    addTaskForm.dataset.url = `/api/projects/${projectId}/tasks/`;
+    forms.forEach((form) => {
+      form.classList.add("hidden-form");
+    });
+    addTaskForm.classList.remove("hidden-form");
   }
 });
