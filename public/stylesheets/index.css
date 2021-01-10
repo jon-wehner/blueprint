@@ -407,3 +407,23 @@ input[type="radio"] {
   right: 0;
   margin: auto auto 20px auto;
 }
+
+@media only screen and (max-device-width: 480px) {
+  .container {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .user-sidebar,
+  .projects-area,
+  .tasks-area {
+    width: 100vw;
+    max-width: 100vw;
+    border-right: none;
+  }
+
+  .group-line,
+  .team-member-container {
+    padding: 0 30%;
+  }
+}

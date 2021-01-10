@@ -158,3 +158,15 @@ body {
 .hidden {
   display: none;
 }
+
+@media only screen and (max-device-width: 480px) {
+  .registration-box {
+    width: 100%;
+    border-radius: 0;
+  }
+
+  .nice-image {
+    border-top-left-radius: 0;
+    border-bottom-left-radius: 0;
+  }
+}
