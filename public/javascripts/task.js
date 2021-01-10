@@ -94,8 +94,9 @@ addTaskForm.addEventListener("submit", async (e) => {
 
 //Edit task form submit listener
 editTaskForm.addEventListener("submit", async (e) => {
+  e.preventDefault();
   const formData = new FormData(editTaskForm);
-  const taskId = e.target.dataset.id;
+  let taskId = e.target.dataset.id;
   console.log(taskId);
   taskId = taskId.slice(5);
   const url = `/api/tasks/${taskId}`;
