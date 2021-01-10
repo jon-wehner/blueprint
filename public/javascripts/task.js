@@ -111,6 +111,7 @@ const createDelButton = (id) => {
 const fillTableCell = (data) => {
   const td = document.createElement("td");
   const p = document.createElement("p");
+  p.classList.add("project-task-list-item")
   p.innerText = data;
   td.append(p);
   return td;
