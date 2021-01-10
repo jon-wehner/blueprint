@@ -3,13 +3,14 @@ const forms = document.querySelectorAll(".task-area-forms");
 const accordionArea = document.querySelector(".accordion-area");
 
 accordionArea.addEventListener("click", async (e) => {
-  e.stopPropagation()
-  const project = e.target
+  e.stopPropagation();
+  const project = e.target;
   const projectId = await parseInt(e.target.id, 10);
   const response = await fetch(`/api/projects/${projectId}/tasks`);
   const projectJson = await response.json();
-  const isAccordion = project.matches(".accordion")
-  if(isAccordion){
+
+  const isAccordion = project.matches(".accordion");
+  if (isAccordion) {
     const panel = project.nextElementSibling;
     project.classList.toggle("active");
 
