@@ -105,6 +105,6 @@
 .accordion-button-container button:hover,
 .accordion-button-container button:focus,
 .accordion-button-container button:active {
-  -webkit-transform: translateY(8px);
-  transform: translateY(8px);
+  -webkit-transform: translateY(5px);
+  transform: translateY(5px);
 }
