@@ -151,7 +151,7 @@ router.post(
   })
 );
 
-//search
+//search request
 router.put("/search", asyncHandler(async (req, res) => {
   const { query } = req.body
 
@@ -164,6 +164,6 @@ router.put("/search", asyncHandler(async (req, res) => {
   //   }
   // });
   res.render("search", { results})
-}))
+}));
 
 module.exports = router;
