@@ -7,17 +7,17 @@ mixin taskFields(param)
         label(for="name") Name:
         input(name="name" id=`${param}TaskNameField`)
       .form-item
-        label(for="deadline") Date:
+        label(for="deadline") Deadline:
         input(type="date" id=`${param}TaskDate` name="deadline")
       .form-item
-        label(for="importance")
+        label(for="importance") Importance:
         select(name="importance" id=`${param}Importance`)
           option(value="High") High
           option(value="Medium") Medium
           option(value="Low") Low
       .form-item
-        label(for="isComplete") Completed?
+        label(for="isComplete") Completed? 
           label Yes
           input(type="radio" name="isComplete" value="true")
-          label No
+          label  No
           input(type="radio" name="isComplete" value="false")

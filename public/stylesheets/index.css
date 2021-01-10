@@ -111,12 +111,37 @@ tr {
   align-items: center;
 }
 
+.form-header {
+  font-size: 18px;
+  color: #4a6de5;
+  border-bottom: 2px solid #4a6de5;
+  padding-bottom: 5px;
+  margin-bottom: 10px;
+  font-weight: bold;
+}
+
 .form-item {
   display: flex;
   flex-direction: column;
   align-items: center;
   font-family: "Ubuntu", sans-serif;
   margin-bottom: 10px;
+}
+
+.main-submit-btn {
+  display: block;
+  margin: 0 auto;
+  background-color: #4a6de5;
+  color: white;
+  padding: 3px 4px;
+  border: 1px solid #4a6de5;
+  transition: 0.2s;
+  border-radius: 5px;
+}
+
+.main-submit-btn:hover {
+  color: #4a6de5;
+  background-color: white;
 }
 
 .hidden-form {
