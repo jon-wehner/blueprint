@@ -155,14 +155,14 @@ router.post(
 router.put("/search", asyncHandler(async (req, res) => {
   const { query } = req.body
 
-  const results = await db.Task.findAll()
-  // ({
-  //   where: {
-  //     name: {
-  //       [Op.iLike]: query
-  //     }
-  //   }
-  // });
+  const results = await db.Task.findAll(({
+    where: {
+      name:  {
+        [Op.iLike] : `%${query}%`
+      }
+    },
+  }))
+  console.log(results)
   res.render("search", { results})
 }));
 
