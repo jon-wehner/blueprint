@@ -1,6 +1,7 @@
 extends layout
 append head
   link(rel="stylesheet" href="./stylesheets/index.css")
+  link(rel="stylesheet" href="./stylesheets/hover.css")
   link(rel="icon" href="/images/bp-logo.jpg")
   link(rel="preconnect" href="https://fonts.gstatic.com")
   link(href="https://fonts.googleapis.com/css2?family=Ubuntu&display=swap" rel="stylesheet")
@@ -63,7 +64,7 @@ block content
                           p= task.importance
                         td
                           i(class="fas fa-trash-alt task-delete-btn" data-id=task.id)
-        button.btn(type="button" id="add-project") Add Project
+        button.btn(type="button" id="add-project" class="hvr-pop") Add Project
     .tasks-area
       .error-container.hidden.hidden-form.task-area-forms
         strong Please review the following errors:
