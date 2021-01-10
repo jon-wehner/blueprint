@@ -38,6 +38,8 @@ body {
 }
 
 #logo {
+  width: -webkit-max-content;
+  width: -moz-max-content;
   width: max-content;
   border-radius: 50%;
   margin-bottom: 50px;
@@ -118,6 +120,8 @@ body {
   transition: 0.2s;
   display: block;
   margin: 0 auto;
+  width: -webkit-fit-content;
+  width: -moz-fit-content;
   width: fit-content;
 }
 
