@@ -48,6 +48,7 @@
   padding: 10px;
   display: flex;
   flex-direction: column;
+  overflow: auto;
 }
 
 .nav-area ul {
@@ -82,6 +83,7 @@ tr {
 }
 .accordion-button-container {
   display: inline;
+  float: right;
 }
 .form {
   display: flex;
@@ -146,6 +148,40 @@ tr {
 
 .fa-pencil {
   pointer-events: none;
+}
+
+.about-us {
+  display: flex;
+  flex-direction: column;
+  padding-bottom: 20px;
+  border-top: 2px solid white;
+  padding-top: 10px;
+}
+
+#about-text {
+  text-align: center;
+  font-size: 20px;
+  margin-bottom: 5px;
+}
+
+.team-member-container {
+  display: flex;
+  justify-content: space-between;
+  padding: 0 20px;
+  margin-top: 10px;
+}
+
+.link-btn {
+  border: 1px solid white;
+  padding: 3px;
+  margin-left: 2px;
+  border-radius: 5px;
+  transition: 0.2s;
+}
+
+.link-btn:hover {
+  color: #4a6de5;
+  background-color: white;
 }
 
 #add-group {
@@ -284,8 +320,8 @@ input[type="radio"] {
 }
 
 .accordion {
-  background-color: #eee;
-  color: #444;
+  background-color: #4a6de5;
+  color: #eee;
   cursor: pointer;
   padding: 18px;
   margin-bottom: 20px;
@@ -293,13 +329,14 @@ input[type="radio"] {
   text-align: left;
   border: none;
   outline: none;
-  transition: 0.4s;
+  transition: 0.2s;
+  border-radius: 5px;
 }
 
 /* Add a background color to the button if it is clicked on (add the .active class with JS), and when you move the mouse over it (hover) */
 .active,
 .accordion:hover {
-  background-color: #ccc;
+  background-color: #2c4fc2;
 }
 
 /* Style the accordion panel. Note: hidden by default */
@@ -307,6 +344,7 @@ input[type="radio"] {
   display: none;
   width: 95%;
   overflow: hidden;
+  box-shadow: 0 200px 0 -190px #000;
 }
 
 /*============================================*/
@@ -327,4 +365,23 @@ input[type="radio"] {
   -webkit-transform: translateX(-8px);
   transform: translateX(-8px);
   outline: 0;
+}
+
+.hvr-grow {
+  display: inline-block;
+  vertical-align: middle;
+  -webkit-transform: perspective(1px) translateZ(0);
+  transform: perspective(1px) translateZ(0);
+  box-shadow: 0 0 1px rgba(0, 0, 0, 0);
+  -webkit-transition-duration: 0.3s;
+  transition-duration: 0.3s;
+  -webkit-transition-property: transform;
+  transition-property: transform;
+}
+.hvr-grow:hover,
+.hvr-grow:focus,
+.hvr-grow:active {
+  -webkit-transform: scale(1.1);
+  transform: scale(1.1);
+  padding: 10px;
 }
