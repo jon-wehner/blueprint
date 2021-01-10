@@ -161,6 +161,10 @@ tr {
   cursor: pointer;
 }
 
+.search-results {
+  display: none;
+}
+
 #searchbar {
   width: calc(100% - 20px);
   height: 30px;

@@ -152,7 +152,7 @@ router.post(
 );
 
 //search
-router.post("/search", asyncHandler(async (req, res) => {
+router.put("/search", asyncHandler(async (req, res) => {
   const { query } = req.body
 
   const results = await db.Task.findAll()
@@ -163,8 +163,7 @@ router.post("/search", asyncHandler(async (req, res) => {
   //     }
   //   }
   // });
-  console.log("results------------", results)
-  res.render("search", {title : "Search Results", results})
+  res.render("search", { results})
 }))
 
 module.exports = router;

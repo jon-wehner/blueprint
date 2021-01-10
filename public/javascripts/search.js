@@ -1,21 +1,32 @@
-const searchButton = document.getElementById("search-btn")
-const searchBar = document.getElementById("searchbar")
+const searchButton = document.getElementById("search-btn");
+const searchBar = document.getElementById("searchbar");
+const searchResultDiv = document.getElementById("searchResults");
+const resultsList = document.getElementById("searchResultList");
+const accordionArea = document.getElementById("accordion-area");
 
 const postSearch = async (payload) => {
   const response = await fetch("/home/search", {
-    method: "POST",
+    method: "PUT",
     headers: {
       "Content-Type": "application/json",
     },
     body: payload
     });
-    return
+    if (response.ok) {
+      return response
+    }
 };
 
-searchButton.addEventListener("click", e => {
-  const query = searchBar.value
-  const payload = JSON.stringify({query : query})
-  console.log(payload)
+const displayResults = html => {
+  resultsList.innerHTML = html;
+  accordionArea.classList.add("hidden-form")
+  searchResultDiv.style.display === block
+  return
+}
 
-  postSearch(payload)
+searchButton.addEventListener("click", async (e) => {
+  const query = searchBar.value
+  const payload = JSON.stringify({query : query});
+  const response = await postSearch(payload);
+  displayResults(response);
   })
