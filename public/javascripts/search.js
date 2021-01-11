@@ -29,4 +29,10 @@ searchButton.addEventListener("click", async (e) => {
   const payload = JSON.stringify({query : query});
   const response = await postSearch(payload);
   displayResults(response);
-  })
+});
+
+searchBar.addEventListener("keyup", async (e) => {
+  if (e.key === "Enter") {
+  searchButton.click()
+  }
+});
