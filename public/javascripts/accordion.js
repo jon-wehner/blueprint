@@ -39,7 +39,7 @@ accordionArea.addEventListener("click", async (e) => {
       : (panel.style.display = "block");
 
     const currentDate = new Date();
-    const dueDate = new Date(projectJson.deadline);
+    const dueDate = new Date(`${projectJson.deadline}T00:00:00`);
 
     if (currentDate.getTime() > dueDate.getTime()) {
       target.style.backgroundColor = "red";
