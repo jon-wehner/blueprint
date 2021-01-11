@@ -19,7 +19,6 @@ const postSearch = async (payload) => {
 
 const displayResults = html => {
   resultsList.innerHTML = html;
-  console.log(resultsList)
   accordionArea.style.display= "none"
   searchResultDiv.style.display === "block"
   return
