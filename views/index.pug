@@ -59,6 +59,8 @@ block content
                     each task in project.Tasks
                       tr(id=`taskRow-${task.id}`)
                         td
+                          if task.isComplete
+                            i.fas.fa-check
                           p.project-task-list-item(id=`task-${task.id}` data-name=task.name data-deadline=task.deadline data-importance=task.importance)= task.name
                         td
                           p= task.deadline
