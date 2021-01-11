@@ -64,6 +64,8 @@
   width: 40%;
   border-right: 1px solid darkgray;
   min-width: 500px;
+  overflow: scroll;
+  overflow-x: hidden;
 }
 
 .search {
@@ -105,6 +107,7 @@ tr {
   padding: 6px 8px;
   border-radius: 5px;
   border: none;
+  margin-bottom: 20px;
 }
 
 .form {
@@ -417,6 +420,25 @@ input[type="radio"] {
   left: 0;
   right: 0;
   margin: auto auto 20px auto;
+}
+
+::-webkit-scrollbar {
+  width: 10px;
+}
+
+/* Track */
+::-webkit-scrollbar-track {
+  background: #f1f1f1;
+}
+
+/* Handle */
+::-webkit-scrollbar-thumb {
+  background: #5379f5;
+}
+
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+  background: #385cd1;
 }
 
 @media only screen and (max-device-width: 480px) {
