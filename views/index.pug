@@ -51,6 +51,7 @@ block content
               .panel
                 table(class="task-table")
                   thead
+                    th
                     th Name
                     th.deadline Deadline
                     th Importance
@@ -58,6 +59,9 @@ block content
                   tbody(id=`projectList-${project.id}`)
                     each task in project.Tasks
                       tr(id=`taskRow-${task.id}`)
+                        td
+                          if task.isComplete
+                            i.fas.fa-check
                         td
                           p.project-task-list-item(id=`task-${task.id}` data-name=task.name data-deadline=task.deadline data-importance=task.importance)= task.name
                         td
