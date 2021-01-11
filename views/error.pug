@@ -1,6 +1,34 @@
 extends layout
 append head
-  link(rel="stylesheet" href="./stylesheets/error.css")
+  style(type="text/css").
+    body {
+      padding: 0;
+      margin: 0;
+      background-color: #4a5de6;
+    }
+
+    .error-page {
+      height: 100vh;
+      color: white;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: space-evenly;
+    }
+
+    h1 {
+      font-size: 100px;
+    }
+
+    h2,
+    h2 a {
+      font-size: 25px;
+    }
+
+    img {
+      max-width: 200px;
+    }
+
 
 block content
   if error.status === 404
