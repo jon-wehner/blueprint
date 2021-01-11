@@ -46,14 +46,14 @@ const reqDeleteProject = async (id) => {
 accordionArea.addEventListener("click", (e) => {
   const deleteButton = e.target;
   const projectId = e.target.id;
-  const projectDiv = document.getElementById(projectId)
   const isDelete = deleteButton.matches(".project-delete-button");
 
   if (isDelete) {
+    const projectDiv = document.getElementById(projectId);
     reqDeleteProject(projectId);
     deleteButton.remove();
-    projectDiv.nextSibling.innerHTML = ""
-    projectDiv.nextSibling.remove()
+    projectDiv.nextSibling.innerHTML = "";
+    projectDiv.nextSibling.remove();
     projectDiv.remove();
   }
 });
