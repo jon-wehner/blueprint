@@ -1,0 +1,22 @@
+table(class="task-table" id="searchResultList")
+  thead
+    th Name
+    th.deadline Deadline
+    th Importance
+    th Actions
+  tbody
+    each result in results
+      tr(id=`taskRow-${result.id}`)
+        td
+          p.project-task-list-item(id=`task-${result.id}` data-name=result.name data-deadline=result.deadline data-importance=result.importance)= result.name
+        td
+          p= result.deadline
+        td
+          p= result.importance
+        td
+          i(class="fas fa-trash-alt task-delete-button" data-id=result.id)
+  tfoot
+    tr
+      td
+        a(href="/home")
+          i.fas.fa-arrow-alt-circle-left
