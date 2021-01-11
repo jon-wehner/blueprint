@@ -75,6 +75,9 @@ const projectValidators = [
 const groupValidators = [
   check("name")
     .exists({ checkFalsy: true })
+    .withMessage("Please enter a group name")
+    .isLength({max: 150})
+    .withMessage("Please enter a group name no longer than 150 characters")
 ];
 
 
