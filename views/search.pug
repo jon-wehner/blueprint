@@ -13,6 +13,8 @@ table(class="task-table" id="searchResultList")
           p= result.deadline
         td
           p= result.importance
+        td
+          i(class="fas fa-trash-alt task-delete-button" data-id=result.id)
   tfoot
     tr
       td

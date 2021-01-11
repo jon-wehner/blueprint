@@ -1,5 +1,5 @@
 const forms = document.querySelectorAll(".task-area-forms");
-const accordionArea = document.querySelector(".accordion-area");
+const projectArea = document.querySelector(".projects-area");
 const addTaskForm = document.getElementById("addTask");
 const editTaskForm = document.getElementById("editTask");
 const errorContainer = document.querySelector(".error-container");
@@ -17,7 +17,7 @@ const reqDeleteTask = async (id) => {
   return response.json();
 };
 
-accordionArea.addEventListener("click", async (e) => {
+projectArea.addEventListener("click", async (e) => {
   e.stopPropagation();
   const target = e.target;
 
