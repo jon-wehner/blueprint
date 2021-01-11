@@ -1,5 +1,6 @@
 const express = require("express");
 const { asyncHandler, csrfProtection, db } = require("./utils");
+const { projectValidators, validationResult } = require("./validators");
 const Sequelize = require("sequelize")
 const Op = Sequelize.Op
 
@@ -118,17 +119,25 @@ router.get(
 router.post(
   "/projects",
   csrfProtection,
+  projectValidators,
   asyncHandler(async (req, res) => {
     const { groupId, name, description, deadline, categoryId } = req.body;
+    const validationErrors = validationResult(req)
 
-    await db.Project.create({
-      groupId,
-      name,
-      description,
-      deadline,
-      categoryId,
-    });
-    res.redirect("/home");
+    if(validationErrors.isEmpty()) {
+      await db.Project.create({
+        groupId,
+        name,
+        description,
+        deadline,
+        categoryId,
+      });
+      res.redirect("/home");
+    } else {
+      const errors = validationErrors.array().map((error) => error.msg);
+      res.errors = errors;
+      res.status(500).send(errors)
+    }
   })
 );
 // -- Update
