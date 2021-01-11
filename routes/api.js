@@ -38,7 +38,6 @@ router.post(
       res.errors = errors;
       res.status(500).send(errors);
     }
-    //TODO: Task validation
   })
 );
 // -- Update

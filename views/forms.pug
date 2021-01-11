@@ -5,7 +5,7 @@ form.hidden-form.task-area-forms.form#addGroup(action="/home/groups", method="po
     input(type="hidden" name="_csrf" value=token)
     .form-item
       label(for="name") Name:
-      input(name="name" value="" id="groupNameField")
+      input(name="name" value="" id="groupNameField" required)
     button.main-submit-btn(type="submit" id="addGroupSubmit") Create Group
 
 form.hidden-form.task-area-forms.form#editGroup(action="" method="POST")
@@ -14,7 +14,7 @@ form.hidden-form.task-area-forms.form#editGroup(action="" method="POST")
     input(type="hidden" name="_csrf" id="editGroupToken" value=token)
     .form-item
       label(for="name") Name:
-      input#groupName(name="name" type="text" value="")
+      input#groupName(name="name" type="text" value="" required)
     button.main-submit-btn(type="submit") Update
 
 form.hidden-form.task-area-forms.form#addProject(action="/home/projects", method="post")
@@ -23,7 +23,7 @@ form.hidden-form.task-area-forms.form#addProject(action="/home/projects", method
     input(type="hidden" name="_csrf" value=token)
     .form-item
       label(for="name") Name:
-      input(name="name" value="")
+      input(name="name" value="" required)
     .form-item
       label(for="description") Description:
       input(type="textarea" name="description")
@@ -32,12 +32,12 @@ form.hidden-form.task-area-forms.form#addProject(action="/home/projects", method
       input(type="date" name="deadline" value="" min="1997-01-01" max="2030-12-31")
     .form-item
       label(for="category") Category:
-      select(name="categoryId")
+      select(name="categoryId" required)
         each category in categories
           option(value=category.id)= category.name
     .form-item
       label(for="group") Group:
-      select(name="groupId")
+      select(name="groupId" required)
         each group in groups
           option(value=group.id)= group.name
     button.main-submit-btn(type="submit") Create Project
@@ -48,7 +48,7 @@ form.hidden-form.task-area-forms.form#editProject(action="" method="post")
     input(type="hidden" name="_csrf" value=token)
     .form-item
       label(for="name") Name:
-      input(name="name" value="" id="projectNameField")
+      input(name="name" value="" id="projectNameField" required)
     .form-item
       label(for="description") Description:
       input(type="textarea" name="description")
@@ -59,7 +59,7 @@ form.hidden-form.task-area-forms.form#editProject(action="" method="post")
       label(for="category")
       select(name="categoryId")
         each category in categories
-          option(value=category.id)= category.name
+          option(value=category.id required)= category.name
     button.main-submit-btn(type="submit") Update Project
 
 form.hidden-form.task-area-forms.form#addTask
