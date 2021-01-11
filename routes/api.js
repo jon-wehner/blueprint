@@ -31,7 +31,8 @@ router.post(
         isComplete,
         projectId,
       });
-      res.status(201).send(newTask);
+      // res.status(201).send(newTask);
+      res.render("table-row", { newTask, status: 200 })
     } else {
       const errors = validatorErrors.array().map((error) => error.msg);
       res.errors = errors;
@@ -45,16 +46,16 @@ router.put(
   "/tasks/:id(\\d+)",
   asyncHandler(async (req, res) => {
     const taskId = await parseInt(req.params.id, 10);
-    console.log("TASK ID!!!!!!!", taskId)
     const { name, deadline, importance, isComplete, projectId } = req.body;
+    console.log(req.body);
     const taskToUpdate = await db.Task.findByPk(taskId);
-    console.log(taskToUpdate)
+    console.log(taskToUpdate);
 
     if (name) taskToUpdate.name = name;
     if (deadline) taskToUpdate.deadline = deadline;
     if (importance) taskToUpdate.importance = importance;
     if (isComplete) taskToUpdate.isComplete = isComplete;
-    if (projectId) taskToUpdate.projectId = projectId;
+    if (projectId) taskToUpdate.projectId = parseInt(projectId, 10);
 
     await taskToUpdate.save();
     res.status(200).send(taskToUpdate);
@@ -65,14 +66,8 @@ router.delete(
   "/tasks/:id(\\d+)",
   asyncHandler(async (req, res) => {
     const taskId = parseInt(req.params.id, 10);
-    const taskTags = await db.TaskTag.findAll({ where: { taskId } });
     const task = await db.Task.findByPk(taskId);
-    if (!task) {
-      res.status(404).send("Task not found");
-    }
-    if (taskTags) {
-      await db.TaskTag.destroy({ where: { taskId } });
-    }
+    await db.TaskTag.destroy({ where: { taskId } });
     await task.destroy();
     res.status(204);
   })
