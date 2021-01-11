@@ -38,6 +38,8 @@ body {
 }
 
 #logo {
+  width: -webkit-max-content;
+  width: -moz-max-content;
   width: max-content;
   border-radius: 50%;
   margin-bottom: 50px;
@@ -116,6 +118,10 @@ body {
   border-radius: 5px;
   color: #4a6de5;
   transition: 0.2s;
+  display: block;
+  margin: 0 auto;
+  width: -webkit-fit-content;
+  width: -moz-fit-content;
   width: fit-content;
 }
 
@@ -139,17 +145,11 @@ body {
   margin-top: 8px;
 }
 
-#demo-btn {
-  border: 2px solid #4a6de5;
-  background-color: transparent;
-  padding: 10px;
-  border-radius: 5px;
-  color: #4a6de5;
-  transition: 0.2s;
+#demo-login-btn {
   margin-top: 10px;
 }
 
-#demo-btn a {
+#demo-login-btn a {
   font-size: 14px;
   text-decoration: none;
 }
@@ -161,4 +161,16 @@ body {
 
 .hidden {
   display: none;
+}
+
+@media only screen and (max-device-width: 480px) {
+  .registration-box {
+    width: 100%;
+    border-radius: 0;
+  }
+
+  .nice-image {
+    border-top-left-radius: 0;
+    border-bottom-left-radius: 0;
+  }
 }

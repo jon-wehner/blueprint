@@ -1,6 +1,8 @@
 extends layout
 append head
   link(rel="stylesheet" href="./stylesheets/index.css")
+  link(rel="stylesheet" href="./stylesheets/hover.css")
+  link(rel="icon" href="/images/bp-logo.jpg")
   link(rel="preconnect" href="https://fonts.gstatic.com")
   link(href="https://fonts.googleapis.com/css2?family=Ubuntu&display=swap" rel="stylesheet")
   link(href="https://fonts.googleapis.com/css2?family=Roboto&display=swap" rel="stylesheet")
@@ -20,15 +22,18 @@ block content
         p Welcome, #{user.username}
         p: a(href="/users/logout") Logout
       .nav-area
+        h2#group-text Your Groups
         ul#groupList
           each group in groups
             .group-line
               li= group.name
               .group-list-button-container
-                button(type="button", value=group.name, class="btn group-edit-btn", data-id=group.id data-token=token) Edit
+                button(type="button", value=group.name, class="btn group-edit-btn hvr-push", data-id=group.id data-token=token) 
+                  i(class="fa fa-pencil" aria-hidden="true")
                 a(href=`/home/groups/${group.id}/delete`)
-                i(class="fas fa-trash-alt group-delete-btn")
-        button.btn(type="button", id="add-group") Add Group
+                  i(class="fas fa-trash-alt group-delete-btn")
+        button.btn(type="button", id="add-group" class="hvr-grow") Add Group
+      include about.pug
     .projects-area
       .search
         input(id="searchbar" type="text" placeholder="Search")
@@ -61,7 +66,7 @@ block content
                           p= task.importance
                         td
                           i(class="fas fa-trash-alt task-delete-btn" data-id=task.id)
-        button.btn(type="button" id="add-project") Add Project
+        button.btn(type="button" id="add-project" class="hvr-pop") Add Project
     .tasks-area
       .error-container.hidden.hidden-form.task-area-forms
         strong Please review the following errors:

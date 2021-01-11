@@ -1,24 +1,24 @@
 include includes/task-fields.pug
 form.hidden-form.task-area-forms.form#addGroup(action="/home/groups", method="post")
-  h3 Create Group
+  h3.form-header Create New Group
   .form-container
     input(type="hidden" name="_csrf" value=token)
     .form-item
       label(for="name") Name:
       input(name="name" value="" id="groupNameField")
-    button.submit-btn(type="submit" id="addGroupSubmit") Create Group
+    button.main-submit-btn(type="submit" id="addGroupSubmit") Create Group
 
 form.hidden-form.task-area-forms.form#editGroup(action="" method="POST")
-  h3 Edit Group
+  h3.form-header Edit Group
   .form-container
     input(type="hidden" name="_csrf" id="editGroupToken" value=token)
     .form-item
       label(for="name") Name:
       input#groupName(name="name" type="text" value="")
-    button.submit-btn(type="submit") Update Group
+    button.main-submit-btn(type="submit") Update
 
 form.hidden-form.task-area-forms.form#addProject(action="/home/projects", method="post")
-  h3 Create Project
+  h3.form-header Create Project
   .form-container
     input(type="hidden" name="_csrf" value=token)
     .form-item
@@ -40,10 +40,10 @@ form.hidden-form.task-area-forms.form#addProject(action="/home/projects", method
       select(name="groupId")
         each group in groups
           option(value=group.id)= group.name
-    button.submit-btn(type="submit") Create Project
+    button.main-submit-btn(type="submit") Create Project
 
 form.hidden-form.task-area-forms.form#editProject(action="" method="post")
-  h3 Edit Project
+  h3.form-header Edit Project
   .form-container
     input(type="hidden" name="_csrf" value=token)
     .form-item
@@ -60,16 +60,16 @@ form.hidden-form.task-area-forms.form#editProject(action="" method="post")
       select(name="categoryId")
         each category in categories
           option(value=category.id)= category.name
-    button.submit-btn(type="submit") Update Project
+    button.main-submit-btn(type="submit") Update Project
 
 form.hidden-form.task-area-forms.form#addTask
-  h3 Add Task
+  h3.form-header Add Task
   +taskFields("add")
-  button.submit-btn(type="none") Add Task
+  button.main-submit-btn(type="none") Add Task
 
 form.hidden-form.task-area-forms.form#editTask
-  h3 Edit Task
+  h3.form-header Edit Task
   +taskFields("edit")
-  button.submit-btn(type="none") Edit Task
+  button.main-submit-btn(type="none") Edit Task
 
 
