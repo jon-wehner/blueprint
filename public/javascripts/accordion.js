@@ -38,10 +38,24 @@ projectArea.addEventListener("click", async (e) => {
       ? (panel.style.display = "none")
       : (panel.style.display = "block");
 
+    const tasks = projectJson.Tasks;
+    const totalTasks = tasks.length;
+    let completedCount = 0;
+    tasks.forEach((task) => {
+      if (task.isComplete) completedCount++;
+    });
+
+    if (totalTasks === completedCount) {
+      target.style.backgroundColor = "green";
+    }
+
     const currentDate = new Date();
     const dueDate = new Date(`${projectJson.deadline}T00:00:00`);
 
-    if (currentDate.getTime() > dueDate.getTime()) {
+    if (
+      currentDate.getTime() > dueDate.getTime() &&
+      totalTasks !== completedCount
+    ) {
       target.style.backgroundColor = "red";
     }
 
@@ -52,6 +66,7 @@ projectArea.addEventListener("click", async (e) => {
       const projectDescription = document.getElementById(
         "project-description-p"
       );
+
       const projectDeadline = document.getElementById("project-deadline-p");
       const taskSummary = document.getElementById("project-task-summary-p");
 
