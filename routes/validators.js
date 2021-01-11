@@ -72,10 +72,17 @@ const projectValidators = [
   check("categoryId").exists({ checkFalsy: true }).withMessage("Please select a category for this project"),
 ];
 
+const groupValidators = [
+  check("name")
+    .exists({ checkFalsy: true })
+];
+
+
 module.exports = {
   validationResult,
   loginValidators,
   signupValidators,
   taskValidators,
-  projectValidators
+  projectValidators,
+  groupValidators
 };

@@ -1,6 +1,6 @@
 const express = require("express");
 const { asyncHandler, csrfProtection, db } = require("./utils");
-const { projectValidators, validationResult } = require("./validators");
+const { projectValidators, groupValidators, validationResult } = require("./validators");
 const Sequelize = require("sequelize")
 const Op = Sequelize.Op
 
@@ -63,13 +63,22 @@ router.get(
 router.post(
   "/groups",
   csrfProtection,
+  groupValidators,
   asyncHandler(async (req, res) => {
+    const validatorErrors = validationResult(req)
     const userId = await parseInt(req.session.auth.userId, 10);
     const { name } = req.body;
 
-    const newGroup = await db.Group.create({ name });
-    await db.UserGroup.create({ userId, groupId: newGroup.id });
-    res.redirect("/home");
+    if (validatorErrors.isEmpty()){
+      const newGroup = await db.Group.create({ name });
+      await db.UserGroup.create({ userId, groupId: newGroup.id });
+      res.redirect("/home");
+    } else {
+      //TODO Finish Error Handling
+      const errors = validatorErrors.array().map((error) => error.msg);
+      res.errors = errors;
+      res.status(500).send(errors);
+    }
   })
 );
 
@@ -77,14 +86,22 @@ router.post(
 router.post(
   "/groups/:id(\\d+)/name",
   csrfProtection,
+  groupValidators,
   asyncHandler(async (req, res) => {
+    const validatorErrors=validationResult(req)
     const groupId = await parseInt(req.params.id, 10);
     const { name } = req.body;
     const groupToUpdate = await db.Group.findByPk(groupId);
-    groupToUpdate.name = name;
-    await groupToUpdate.save();
-
-    res.redirect("/home");
+    if(validatorErrors.isEmpty()) {
+      groupToUpdate.name = name;
+      await groupToUpdate.save();
+      res.redirect("/home");
+    } else {
+      //TODO Better Error Handling
+      const errors = validatorErrors.array().map((error) => error.msg);
+      res.errors = errors;
+      res.status(500).send(errors);
+    }
   })
 );
 // router.post("/groups/:id(\\d+)/user"); -- If we get to implement multiuser groups
@@ -122,9 +139,9 @@ router.post(
   projectValidators,
   asyncHandler(async (req, res) => {
     const { groupId, name, description, deadline, categoryId } = req.body;
-    const validationErrors = validationResult(req)
+    const validatorErrors = validationResult(req)
 
-    if(validationErrors.isEmpty()) {
+    if(validatorErrors.isEmpty()) {
       await db.Project.create({
         groupId,
         name,
@@ -134,7 +151,8 @@ router.post(
       });
       res.redirect("/home");
     } else {
-      const errors = validationErrors.array().map((error) => error.msg);
+      //TODO IMPROVED ERROR HANDLING
+      const errors = validatorErrors.array().map((error) => error.msg);
       res.errors = errors;
       res.status(500).send(errors)
     }
