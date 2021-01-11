@@ -31,7 +31,8 @@ router.post(
         isComplete,
         projectId,
       });
-      res.status(201).send(newTask);
+      // res.status(201).send(newTask);
+      res.render("table-row", { newTask, status: 200 })
     } else {
       const errors = validatorErrors.array().map((error) => error.msg);
       res.errors = errors;

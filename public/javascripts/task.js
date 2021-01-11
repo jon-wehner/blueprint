@@ -4,36 +4,6 @@ const errorContainer = document.querySelector(".error-container");
 
 //Helper function to convert form data to json and post to API
 
-const createDelButton = (id) => {
-  const delButton = document.createElement("i");
-  delButton.classList.add("fas", "fa-trash-alt", "task-delete-btn");
-  delButton.dataset.id = id;
-  const td = document.createElement("td");
-  td.append(delButton);
-  return td;
-};
-
-const fillTableCell = (data) => {
-  const td = document.createElement("td");
-  const p = document.createElement("p");
-  p.classList.add("project-task-list-item");
-  p.innerText = data;
-  td.append(p);
-  return td;
-};
-
-const createTableRow = (task) => {
-  const tableRow = document.createElement("tr");
-  const values = Object.values(task);
-  const taskData = values.slice(1, 4);
-  console.log(taskData);
-  taskData.forEach((el) => {
-    tableRow.append(fillTableCell(el));
-  });
-  tableRow.append(createDelButton(task.id));
-  return tableRow;
-};
-
 const postForm = async (url, formData, httpMethod) => {
   const formPlainObj = Object.fromEntries(formData.entries());
   const formJson = JSON.stringify(formPlainObj);
@@ -45,14 +15,13 @@ const postForm = async (url, formData, httpMethod) => {
     },
     body: formJson,
   });
-  if (!response.ok) {
-    //TODO Error Handling
-  }
   return response;
 };
 
 //Helper function that displays errors when creating or editing tasks
 const displayErrors = (err) => {
+  errorContainer.innerHTML = ""
+  console.log(err)
   errorContainer.classList.remove("hidden", "hidden-form");
   const errorArray = err.message.split(",");
 
@@ -71,20 +40,20 @@ addTaskForm.addEventListener("submit", async (e) => {
 
   const formData = new FormData(addTaskForm);
   const url = addTaskForm.dataset.url;
+  const projectId = document.getElementById("addProjectIdField").value
   const method = "POST";
+  const taskTableBody = document.getElementById(`projectList-${projectId}`)
 
   try {
     let response = await postForm(url, formData, method);
-    response = await response.json();
-
-    if (response.id) {
-      const taskTableBody = document.getElementById(
-        `projectList-${response.projectId}`
-      );
-
-      const tableRow = createTableRow(response);
+    if (response.ok) {
+      console.log(response)
+      response = await response.text();
+      const tableRow = document.createElement("tr")
+      tableRow.innerHTML = response
       taskTableBody.appendChild(tableRow);
     } else {
+      response = await response.json()
       throw new Error(response);
     }
   } catch (err) {
