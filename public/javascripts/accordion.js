@@ -45,7 +45,7 @@ projectArea.addEventListener("click", async (e) => {
       if (task.isComplete) completedCount++;
     });
 
-    if (totalTasks === completedCount) {
+    if (totalTasks === completedCount && totalTasks !== 0) {
       target.style.backgroundColor = "green";
     }
 
