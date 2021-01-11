@@ -47,9 +47,7 @@ addTaskForm.addEventListener("submit", async (e) => {
     let response = await postForm(url, formData, method);
     if (response.ok) {
       response = await response.text();
-      const tableRow = document.createElement("tr");
-      tableRow.innerHTML = response;
-      taskTableBody.appendChild(tableRow);
+      taskTableBody.innerHTML = taskTableBody.innerHTML + response
       addTaskForm.classList.add("hidden-form");
     } else {
       response = await response.json();
