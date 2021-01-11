@@ -70,5 +70,9 @@ block content
     .tasks-area
       .error-container.hidden.hidden-form.task-area-forms
         strong Please review the following errors:
+        if errors
+          ul
+            each error in errors
+              li= error
       include forms.pug
       include project-description.pug

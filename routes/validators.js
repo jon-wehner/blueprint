@@ -55,10 +55,20 @@ const taskValidators = [
     .exists({ checkFalsy: true })
     .withMessage("Please provide a value for the task name.")
     .isLength({ max: 150 })
-    .withMessage("Task cannot be more than 150 characters long"),
+    .withMessage("Task name cannot be more than 150 characters long"),
   check("deadline").exists({ checkFalsy: true }).withMessage("Please enter a valid deadline for this task."),
   check("importance").exists({ checkFalsy: true }).withMessage("Please select a level of importance for this task."),
   check("isComplete").exists({ checkFalsy: true }).withMessage("Please verify if the task is completed or not."),
+];
+
+const projectValidators = [
+  check("name")
+    .exists({ checkFalsy: true })
+    .withMessage("Please provide a value for the task name.")
+    .isLength({ max: 150 })
+    .withMessage("Project name cannot be more than 150 characters long"),
+  check("groupId").exists({ checkFalsy: true }).withMessage("Please provide a valid group"),
+  check("categoryId").exists({ checkFalsy: true }).withMessage("Please select a category for this project"),
 ];
 
 module.exports = {
