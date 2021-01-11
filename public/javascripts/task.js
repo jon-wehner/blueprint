@@ -42,12 +42,14 @@ addTaskForm.addEventListener("submit", async (e) => {
   const projectId = document.getElementById("addProjectIdField").value;
   const method = "POST";
   const taskTableBody = document.getElementById(`projectList-${projectId}`);
+  const taskId = e.target.dataset.id
 
   try {
     let response = await postForm(url, formData, method);
     if (response.ok) {
       response = await response.text();
       const tableRow = document.createElement("tr");
+      tableRow.setAttribute("id", `taskRow-${taskId}`)
       tableRow.innerHTML = response;
       taskTableBody.appendChild(tableRow);
       addTaskForm.classList.add("hidden-form");
