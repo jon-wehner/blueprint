@@ -83,7 +83,7 @@ accordionArea.addEventListener("click", async (e) => {
 
   if (isDelete) {
     const taskId = target.dataset.id;
-    const task = document.getElementById(`task-${taskId}`);
+    const task = document.getElementById(`taskRow-${taskId}`);
     reqDeleteTask(taskId);
     target.remove();
     task.remove();
