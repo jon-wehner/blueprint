@@ -1,4 +1,7 @@
 td
+  if newTask.isComplete
+    i.fas.fa-check
+td
   p.project-task-list-item(id=`task-${newTask.id}` data-name=newTask.name
   data-deadline=newTask.deadline
   data-importance=newTask.importance)= newTask.name
