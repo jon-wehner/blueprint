@@ -1,91 +1,13 @@
-const tasksArea = document.querySelector(".tasks-area");
-const forms = document.querySelectorAll(".task-area-forms");
-
-const taskListItems = document.querySelectorAll(".project-task-list-item");
-const accordionArea = document.querySelector(".accordion-area");
-
-const taskEditButtons = document.querySelectorAll(".task-edit-btn");
 const editTaskForm = document.getElementById("editTask");
-
 const addTaskForm = document.getElementById("addTask");
-const addTaskBtns = document.querySelectorAll(".add-task-button");
-
 const errorContainer = document.querySelector(".error-container");
 
-//Helper Function for making fetch delete calls
-const reqDeleteTask = async (id) => {
-  const url = `/api/tasks/${id}`;
-  const fetchOptions = {
-    method: "DELETE",
-    body: JSON.stringify({ id: id }),
-    headers: {
-      "Content-Type": "application/json",
-    },
-  };
-  const response = await fetch(url, fetchOptions);
-  return response.json();
-};
-
-//Refactored Event Listener for Delete Buttons
-accordionArea.addEventListener("click", (e) => {
-  const deleteButton = e.target;
-  const taskId = e.target.dataset.id;
-  const task = document.getElementById(`task-${taskId}`);
-  const isDelete = deleteButton.matches(".task-delete-button");
-
-  if (isDelete) {
-    reqDeleteTask(taskId);
-    deleteButton.remove();
-    task.remove();
-  }
-});
-
-//Shows and hides the task form to edit a task when clicked
-accordionArea.addEventListener("click", (e) => {
-  const target = e.target;
-  const isTask = target.matches(".project-task-list-item");
-
-  if (isTask) {
-    editTaskForm.dataset.id = e.target.id;
-    const editTaskName = document.getElementById("editTaskNameField");
-    const editDate = document.getElementById("editTaskDate");
-    const editImportance = document.getElementById("editImportance");
-
-    editTaskName.value = target.dataset.name;
-    editDate.value = target.dataset.deadline;
-    editImportance.value = target.dataset.importance;
-
-    forms.forEach((form) => {
-      form.classList.add("hidden-form");
-    });
-    editTaskForm.classList.remove("hidden-form");
-    errorContainer.classList.add("hidden-form");
-  }
-});
-
-//Shows and Hides the form when "Add Task" is clicked
-accordionArea.addEventListener("click", e => {
-  const target = e.target
-  const projectIdField = document.getElementById("addProjectIdField");
-  const projectId = e.target.id;
-  const isAddTask = target.matches(".add-task-button")
-
-  if (isAddTask){
-    addTaskForm.dataset.url = `/api/projects/${projectId}/tasks/`;
-    projectIdField.value = projectId;
-
-    forms.forEach((form) => {
-      form.classList.add("hidden-form");
-    });
-    addTaskForm.classList.remove("hidden-form")
-  };
-});
-
-
 //Helper function to convert form data to json and post to API
+
 const postForm = async (url, formData, httpMethod) => {
   const formPlainObj = Object.fromEntries(formData.entries());
   const formJson = JSON.stringify(formPlainObj);
+
   const response = await fetch(url, {
     method: httpMethod,
     headers: {
@@ -93,43 +15,13 @@ const postForm = async (url, formData, httpMethod) => {
     },
     body: formJson,
   });
-  if (!response.ok) {
-    //TODO Error Handling
-  }
   return response;
 };
 
-const createDelButton = (id) => {
-  const delButton = document.createElement("i");
-  delButton.classList.add("fas", "fa-trash-alt", "task-delete-btn");
-  delButton.dataset.id = id;
-  const td = document.createElement("td");
-  td.append(delButton);
-  return td;
-};
-
-const fillTableCell = (data) => {
-  const td = document.createElement("td");
-  const p = document.createElement("p");
-  p.classList.add("project-task-list-item")
-  p.innerText = data;
-  td.append(p);
-  return td;
-};
-
-const createTableRow = (task) => {
-  const tableRow = document.createElement("tr");
-  const values = Object.values(task);
-  const taskData = values.slice(1, 4);
-  taskData.forEach((el) => {
-    tableRow.append(fillTableCell(el));
-  });
-  tableRow.append(createDelButton(task.id));
-  return tableRow;
-};
-
 //Helper function that displays errors when creating or editing tasks
-const displayErrors = err => {
+const displayErrors = (err) => {
+  errorContainer.innerHTML = ""
+  console.log(err)
   errorContainer.classList.remove("hidden", "hidden-form");
   const errorArray = err.message.split(",");
 
@@ -144,23 +36,24 @@ const displayErrors = err => {
 
 //Submits the form data to API endpoint when add task form is submitted
 addTaskForm.addEventListener("submit", async (e) => {
+  e.preventDefault();
+
   const formData = new FormData(addTaskForm);
   const url = addTaskForm.dataset.url;
+  const projectId = document.getElementById("addProjectIdField").value
   const method = "POST";
-  e.preventDefault();
+  const taskTableBody = document.getElementById(`projectList-${projectId}`)
 
   try {
     let response = await postForm(url, formData, method);
-    response = await response.json();
-
-    if (response.id) {
-      const taskTableBody = document.getElementById(
-        `projectList-${response.projectId}`
-      );
-
-      const tableRow = createTableRow(response);
+    if (response.ok) {
+      console.log(response)
+      response = await response.text();
+      const tableRow = document.createElement("tr")
+      tableRow.innerHTML = response
       taskTableBody.appendChild(tableRow);
     } else {
+      response = await response.json()
       throw new Error(response);
     }
   } catch (err) {
@@ -173,6 +66,7 @@ editTaskForm.addEventListener("submit", async (e) => {
   e.preventDefault();
   const formData = new FormData(editTaskForm);
   let taskId = e.target.dataset.id;
+  console.log(taskId);
   taskId = taskId.slice(5);
   const url = `/api/tasks/${taskId}`;
   const method = "PUT";

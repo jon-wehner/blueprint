@@ -1,0 +1,10 @@
+td
+  p.project-task-list-item(id=`task-${newTask.id}` data-name=newTask.name
+  data-deadline=newTask.deadline
+  data-importance=newTask.importance)= newTask.name
+td
+  p= newTask.deadline
+td
+  p= newTask.importance
+td
+  i(class="fas fa-trash-alt task-delete-btn" data-id=newTask.id)
