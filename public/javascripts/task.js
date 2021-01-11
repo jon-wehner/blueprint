@@ -21,7 +21,6 @@ const postForm = async (url, formData, httpMethod) => {
 //Helper function that displays errors when creating or editing tasks
 const displayErrors = (err) => {
   errorContainer.innerHTML = "";
-  console.log(err);
   errorContainer.classList.remove("hidden", "hidden-form");
   const errorArray = err.message.split(",");
 
@@ -47,7 +46,6 @@ addTaskForm.addEventListener("submit", async (e) => {
   try {
     let response = await postForm(url, formData, method);
     if (response.ok) {
-      console.log(response);
       response = await response.text();
       const tableRow = document.createElement("tr");
       tableRow.innerHTML = response;
@@ -67,7 +65,6 @@ editTaskForm.addEventListener("submit", async (e) => {
   e.preventDefault();
   const formData = new FormData(editTaskForm);
   let taskId = e.target.dataset.id;
-  console.log(taskId);
   taskId = taskId.slice(5);
   const url = `/api/tasks/${taskId}`;
   const method = "PUT";
@@ -79,6 +76,7 @@ editTaskForm.addEventListener("submit", async (e) => {
     if (response.id) {
       const taskItem = document.getElementById(`task-${response.id}`);
       taskItem.innerHTML = response.name;
+      editTaskForm.classList.add("hidden-form");
     } else {
       throw new Error(response);
     }
