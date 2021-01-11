@@ -1,13 +1,14 @@
-td
-  if newTask.isComplete
-    i.fas.fa-check
-td
-  p.project-task-list-item(id=`task-${newTask.id}` data-name=newTask.name
-  data-deadline=newTask.deadline
-  data-importance=newTask.importance)= newTask.name
-td
-  p= newTask.deadline
-td
-  p= newTask.importance
-td
-  i(class="fas fa-trash-alt task-delete-button" data-id=newTask.id)
+tr(id=`taskRow-${newTask.id}`)
+  td
+    if newTask.isComplete
+      i.fas.fa-check
+  td
+    p.project-task-list-item(id=`task-${newTask.id}` data-name=newTask.name
+    data-deadline=newTask.deadline
+    data-importance=newTask.importance)= newTask.name
+  td
+    p= newTask.deadline
+  td
+    p= newTask.importance
+  td
+    i(class="fas fa-trash-alt task-delete-button" data-id=newTask.id)
