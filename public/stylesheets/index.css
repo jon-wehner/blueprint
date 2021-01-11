@@ -266,11 +266,15 @@ tr {
   display: inline-block;
   margin-left: 10px;
 }
-.project-task-list-item,
 .task-delete-btn,
 .group-edit-btn,
 .btn:hover {
   cursor: pointer;
+}
+
+.project-task-list-item:hover {
+  cursor: pointer;
+  font-weight: 700;
 }
 
 #searchbar {
